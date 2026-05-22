@@ -45,4 +45,10 @@ class User extends Authenticatable implements PasskeyUser
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+
+    public function traces()
+    {
+        return $this->hasMany(Trace::class);
+    }
+
 }
