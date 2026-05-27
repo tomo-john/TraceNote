@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Trace extends Model
 {
     protected $fillable = [
+        'user_id',
         'title',
         'summary',
         'content',
