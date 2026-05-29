@@ -14,7 +14,14 @@
         <i class="fa-solid fa-dog"></i>
     </h1>
 
-    <div class="flex items-center justify-center">
+    <div class="flex items-center justify-center gap-6">
+        <a href="{{ route('trace.edit', $trace) }}"
+           wire:navigate
+           class="inline-block w-28 text-center bg-green-500 text-white rounded-lg py-2 px-5 hover:bg-green-600 transition"
+        >
+            <i class="fa-solid fa-pen mx-1"></i>
+            編集
+        </a>
         <button wire:click="delete"
                 wire:confirm="本当に削除しますか？"
                 class="inline-block w-28 text-center bg-red-500 text-white rounded-lg py-2 px-5 hover:bg-red-600 transition"
@@ -23,6 +30,13 @@
             削除
         </button>
     </div>
+
+    @if (session()->has('success'))
+        <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl flex items-center space-x-2 font-bold">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>{{ session('success') }}</span>
+        </div>
+    @endif
 
     <div class="space-y-6">
 

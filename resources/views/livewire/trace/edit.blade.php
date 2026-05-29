@@ -10,7 +10,7 @@
     </div>
 
     <h1 class="text-3xl font-bold">
-        Trace作成
+        Trace編集
         <i class="fa-solid fa-dog"></i>
     </h1>
 
@@ -89,5 +89,4 @@
         </div>
 
     </div>
-
 </div>
