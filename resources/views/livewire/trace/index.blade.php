@@ -22,7 +22,7 @@
             <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition">
                 <div class="flex-1 min-w-0 pr-4">
                     <div class="flex items-center space-x-2">
-                        <a href="#" class="text-lg font-bold text-gray-900 hover:text-blue-600 truncate">
+                        <a href="{{ route('trace.show', $trace) }}" class="text-lg font-bold text-gray-900 hover:text-blue-600 truncate">
                             {{ $trace->title }}
                         </a>
                     </div>
