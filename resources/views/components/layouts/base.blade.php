@@ -6,6 +6,7 @@
 <body class="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
 
     {{-- Header --}}
+    <x-layouts.partials.header />
 
     {{-- Main --}}
     <main class="flex-1">
@@ -13,6 +14,7 @@
     </main>
 
     {{-- Footer --}}
+    <x-layouts.partials.footer />
 
     @fluxScripts
 </body>

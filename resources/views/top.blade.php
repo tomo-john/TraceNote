@@ -44,9 +44,6 @@
                 </a>
             </div>
 
-            <div class="text-xs text-slate-400 font-medium pt-2">
-                © 2026 TraceNote. Powered by Laravel & Livewire 🐾
-            </div>
         </div>
 
     </div>
