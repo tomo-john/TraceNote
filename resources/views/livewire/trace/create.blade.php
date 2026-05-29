@@ -2,6 +2,7 @@
 
     <div class="flex items-center justify-center">
         <a href="{{ route('trace.index') }}"
+           wire:navigate
            class="inline-block w-28 text-center bg-pink-400 text-white rounded-lg py-2 px-5 hover:bg-amber-500 transition"
         >
             Index

@@ -6,11 +6,13 @@
 
     <div class="flex items-center justify-center gap-4">
         <a href="{{ route('trace.create') }}"
+           wire:navigate
            class="inline-block w-28 text-center bg-pink-400 text-white rounded-lg py-2 px-5 hover:bg-amber-500 transition"
         >
             Create
         </a>
         <a href="{{ route('dashboard') }}"
+           wire:navigate
            class="inline-block w-28 text-center bg-pink-400 text-white rounded-lg py-2 px-5 hover:bg-amber-500 transition"
         >
             Dashboard
