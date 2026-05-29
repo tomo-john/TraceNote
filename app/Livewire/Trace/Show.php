@@ -20,7 +20,7 @@ class Show extends Component
     {
         $this->trace->delete();
 
-        session()->flash('message', '削除しました');
+        session()->flash('success', '削除しました');
         return $this->redirectRoute('trace.index', navigate: true);
     }
 

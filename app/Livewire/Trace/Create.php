@@ -47,7 +47,8 @@ class Create extends Component
         try {
             $trace = Trace::create($this->payload());
 
-            return redirect()->route('trace.index')->with('success', '作成しました');
+            session()->flash('success', '作成しました');
+            return $this->redirectRoute('trace.index', navigate: true);
 
         } catch (\Throwable $e) {
             logger($e);

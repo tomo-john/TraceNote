@@ -17,6 +17,18 @@
         </a>
     </div>
 
+    <h1 class="text-3xl font-bold">
+        Trace一覧
+        <i class="fa-solid fa-dog"></i>
+    </h1>
+
+    @if (session()->has('success'))
+        <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl flex items-center space-x-2 font-bold">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>{{ session('success') }}</span>
+        </div>
+    @endif
+
     <div class="space-y-3">
         @foreach($traces as $trace)
             <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition">
