@@ -13,6 +13,16 @@
         <i class="fa-solid fa-dog"></i>
     </h1>
 
+    <div class="flex items-center justify-center">
+        <button wire:click="delete"
+                wire:confirm="本当に削除しますか？"
+                class="inline-block w-28 text-center bg-red-500 text-white rounded-lg py-2 px-5 hover:bg-red-600 transition"
+        >
+            <i class="fa-solid fa-trash-can mx-1"></i>
+            削除
+        </button>
+    </div>
+
     <div class="space-y-6">
 
         {{-- title --}}

@@ -16,6 +16,14 @@ class Show extends Component
         $this->trace = $trace;
     }
 
+    public function delete()
+    {
+        $this->trace->delete();
+
+        session()->flash('message', '削除しました');
+        return $this->redirectRoute('trace.index', navigate: true);
+    }
+
     public function render()
     {
         return view('livewire.trace.show')
