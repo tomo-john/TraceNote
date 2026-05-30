@@ -1,6 +1,6 @@
 <x-layouts.base>
     <div x-data="start()"
-         class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-amber-50/50 to-slate-50 px-4"
+         class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-slate-50 to-zinc-100 px-4"
     >
 
         <div class="max-w-md w-full bg-white/80 backdrop-blur-md border border-slate-100
@@ -9,8 +9,8 @@
         >
 
             <div class="space-y-3">
-                <div class="inline-flex items-center justify-center w-20 height-20 bg-pink-50 text-pink-400 p-5 rounded-2xl text-4xl animate-pulse">
-                    <i class="fa-solid fa-paw"></i>
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-sky-100 text-sky-600 p-5 rounded-2xl text-4xl">
+                    <i class="fa-solid fa-dog"></i>
                 </div>
 
                 <h1 class="text-4xl font-extrabold tracking-tight text-slate-800">
@@ -18,7 +18,8 @@
                 </h1>
 
                 <p class="text-sm font-medium text-slate-500 max-w-xs mx-auto leading-relaxed">
-                    ここにアプリ概要
+                    学んだ痕跡を、<br>
+                    自分だけの知識として積み重ねる。
                 </p>
             </div>
 
@@ -28,8 +29,8 @@
                 <a href="{{ route('login') }}"
                    wire:navigate
                    class="inline-flex items-center justify-center gap-2 w-full sm:w-36
-                          bg-pink-400 text-white font-bold rounded-xl py-3 px-5
-                          hover:bg-pink-500 active:scale-95 transition shadow-sm shadow-pink-200"
+                          bg-slate-400 text-white font-bold rounded-xl py-3 px-5
+                          hover:bg-slate-500 active:scale-95 transition shadow-sm shadow-slate-200"
                 >
                     <i class="fa-solid fa-right-to-bracket text-sm"></i>
                     <span>ログイン</span>
