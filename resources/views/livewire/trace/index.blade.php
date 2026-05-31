@@ -12,12 +12,21 @@
             </p>
         </div>
 
-        <a href="{{ route('trace.create') }}"
-           wire:navigate
-           class="inline-block w-28 text-center bg-slate-400 text-white rounded-lg py-2 px-5 hover:bg-slate-500 transition"
-        >
-            Create
-        </a>
+        <div class="flex items-center gap-2">
+            <a href="{{ route('trace.create') }}"
+               wire:navigate
+               class="inline-block w-28 text-center bg-slate-400 text-white rounded-lg py-2 px-5 hover:bg-slate-500 transition"
+            >
+                Create
+            </a>
+            <a href="{{ route('tag.index') }}"
+               wire:navigate
+               class="inline-flex items-center justify-center gap-1.5 w-28 text-center bg-white border border-slate-200 text-slate-600 rounded-lg py-2 px-5 hover:bg-slate-50 transition"
+            >
+                <i class="fa-solid fa-tag"></i>
+                Tags
+            </a>
+        </div>
     </div>
 
     @if (session()->has('success'))
