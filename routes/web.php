@@ -1,20 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Trace\Index;
-use App\Livewire\Trace\Create;
-use App\Livewire\Trace\Show;
-use App\Livewire\Trace\Edit;
+use App\Livewire\Trace\Index as TraceIndex;
+use App\Livewire\Trace\Create as TraceCreate;
+use App\Livewire\Trace\Show as TraceShow;
+use App\Livewire\Trace\Edit as TraceEdit;
+use App\Livewire\Tag\Index as TagIndex;
 
 Route::view('/', 'top')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
-    Route::get('traces/index', Index::class)->name('trace.index');
-    Route::get('traces/create', Create::class)->name('trace.create');
-    Route::get('traces/{trace}', Show::class)->name('trace.show');
-    Route::get('traces/{trace}/edit', Edit::class)->name('trace.edit');
+    Route::get('traces', TraceIndex::class)->name('trace.index');
+    Route::get('traces/create', TraceCreate::class)->name('trace.create');
+    Route::get('traces/{trace}', TraceShow::class)->name('trace.show');
+    Route::get('traces/{trace}/edit', TraceEdit::class)->name('trace.edit');
+
+    Route::get('tags', TagIndex::class)->name('tag.index');
 });
 
 require __DIR__.'/settings.php';
