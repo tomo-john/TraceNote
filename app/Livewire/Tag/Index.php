@@ -17,9 +17,23 @@ class Index extends Component
         $this->refreshTags();
     }
 
-    public function refreshTags()
+    protected function refreshTags()
     {
         $this->tags = auth()->user()->tags()->get();
+    }
+
+    public function edit()
+    {
+
+    }
+
+    public function delete(int $tagId): void
+    {
+        Tag::destroy($tagId);
+
+        $this->refreshTags();
+
+        session()->flash('success', '削除しました');
     }
 
     protected function rules(): array
@@ -37,7 +51,7 @@ class Index extends Component
         ];
     }
 
-    public function save()
+    public function save(): void
     {
         $this->validate();
 

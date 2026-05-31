@@ -35,9 +35,9 @@
     >
         <div class="space-y-2">
             <label class="font-bold">タグ名</label>
-            <div class="flex-items-center gap-2">
+            <div class="flex items-center gap-2">
                 <input type="text"
-                       wire:model="name"
+                       wire:model.defer="name"
                        class="w-56 rounded-xl border border-slate-300 px-4 py-3">
 
                 <button wire:click="save"
@@ -59,10 +59,18 @@
         @forelse($tags as $tag)
             <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition">
                 {{ $tag->name }}
+                <div class="flex items-center gap-2">
+                    <button wire:click="delete({{ $tag->id }})"
+                            wire:confirm="タグを削除しますか？"
+                            class="cursor-pointer text-red-500"
+                    >
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
             </div>
         @empty
             <p class="text-sm text-slte-500">
-                No Tags.
+                まだ登録されたタグがありません。
             </p>
         @endforelse
     </div>
