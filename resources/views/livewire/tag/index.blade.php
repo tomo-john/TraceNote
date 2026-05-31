@@ -93,7 +93,7 @@
                 </div>
             </div>
         @empty
-            <p class="text-sm text-slte-500">
+            <p class="text-sm text-slate-500">
                 まだ登録されたタグがありません。
             </p>
         @endforelse

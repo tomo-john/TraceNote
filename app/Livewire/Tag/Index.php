@@ -6,9 +6,12 @@ use Livewire\Component;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use App\Models\Tag;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Index extends Component
 {
+    use AuthorizesRequests;
+
     public $tags;
     public string $name = '';
     public ?int $editingId = null;
@@ -25,9 +28,12 @@ class Index extends Component
 
     public function edit(int $tagId): void
     {
-        $tag = auth()->user()->tags()->findOrFail($tagId);
+        $tag = Tag::findOrFail($tagId);
+
+        $this->authorize('update', $tag);
 
         $this->editingId = $tag->id;
+
         $this->name = $tag->name;
     }
 
@@ -39,7 +45,11 @@ class Index extends Component
 
     public function delete(int $tagId): void
     {
-        Tag::destroy($tagId);
+        $tag = Tag::findOrFail($tagId);
+
+        $this->authorize('delete', $tag);
+
+        $tag->delete();
 
         $this->refreshTags();
 
@@ -67,7 +77,10 @@ class Index extends Component
 
         try {
             if($this->editingId) {
-                $tag = auth()->user()->tags()->findOrFail($this->editingId);
+                $tag = Tag::findOrFail($this->editingId);
+
+                 $this->authorize('update', $tag);
+
                 $tag->update($this->payload());
 
                 $this->refreshTags();
