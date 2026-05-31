@@ -58,8 +58,32 @@
     <div class="space-y-3">
         @forelse($tags as $tag)
             <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition">
-                {{ $tag->name }}
-                <div class="flex items-center gap-2">
+                @if($editingId === $tag->id)
+                    <div class="flex items-center justify-left gap-2">
+                        <input type="text"
+                               wire:model.defer="name"
+                               class="w-56 rounded-xl border border-pink-300 px-4 py-3"
+                        >
+                        <button wire:click="save"
+                                class="cursor-pointer font-bold text-sm text-pink-500 hover:text-pink-600 transition"
+                        >
+                            更新
+                        </button>
+                        <button wire:click="cancelEdit"
+                                class="cursor-pointer font-bold text-sm text-slate-500 hover:text-slate-600 transition"
+                        >
+                            取消
+                        </button>
+                    </div>
+                @else
+                    {{ $tag->name }}
+                @endif
+                <div class="flex items-center gap-4">
+                    <button wire:click="edit({{ $tag->id }})"
+                            class="cursor-pointer text-blue-500"
+                    >
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
                     <button wire:click="delete({{ $tag->id }})"
                             wire:confirm="タグを削除しますか？"
                             class="cursor-pointer text-red-500"

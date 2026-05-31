@@ -10,21 +10,31 @@ use App\Models\Tag;
 class Index extends Component
 {
     public $tags;
-    public $name;
+    public string $name = '';
+    public ?int $editingId = null;
 
     public function mount()
     {
         $this->refreshTags();
     }
 
-    protected function refreshTags()
+    protected function refreshTags(): void
     {
         $this->tags = auth()->user()->tags()->get();
     }
 
-    public function edit()
+    public function edit(int $tagId): void
     {
+        $tag = auth()->user()->tags()->findOrFail($tagId);
 
+        $this->editingId = $tag->id;
+        $this->name = $tag->name;
+    }
+
+    public function cancelEdit(): void
+    {
+        $this->editingId = null;
+        $this->reset('name');
     }
 
     public function delete(int $tagId): void
@@ -56,13 +66,24 @@ class Index extends Component
         $this->validate();
 
         try {
-            $tag = Tag::create($this->payload());
+            if($this->editingId) {
+                $tag = auth()->user()->tags()->findOrFail($this->editingId);
+                $tag->update($this->payload());
 
-            $this->refreshTags();
+                $this->refreshTags();
 
-            $this->reset('name');
+                $this->cancelEdit();
 
-            session()->flash('success', '作成しました');
+                session()->flash('success', "{$tag->name} を更新しました");
+            } else {
+                $tag = Tag::create($this->payload());
+
+                $this->refreshTags();
+
+                $this->reset('name');
+
+                session()->flash('success', '作成しました');
+            }
 
         } catch (\Throwable $e) {
             logger($e);
