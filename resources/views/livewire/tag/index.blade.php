@@ -1,4 +1,6 @@
-<div class="max-w-4xl mx-auto p-6 space-y-6">
+<div x-data="tag()"
+     class="max-w-4xl mx-auto p-6 space-y-6"
+>
 
     <div class="flex items-center justify-between">
         <div class="flex flex-col">
@@ -20,9 +22,43 @@
         </div>
     @endif
 
+    <div class="flex items-center justify-center gap-5">
+        <button @click="show = !show"
+                class="bg-slate-200 border rounded-xl p-2 cursor-pointer"
+        >
+            <i class="fa-solid fa-plus"></i>
+            新規作成
+        </button>
+    </div>
+    <div x-show="show"
+         class="bg-white border border-slate-200 rounded-2xl p-4"
+    >
+        <div class="space-y-2">
+            <label class="font-bold">タグ名</label>
+            <div class="flex-items-center gap-2">
+                <input type="text"
+                       wire:model="name"
+                       class="w-56 rounded-xl border border-slate-300 px-4 py-3">
+
+                <button wire:click="save"
+                        class="bg-slate-200 border rounded-xl p-2 cursor-pointer"
+                >
+                    <i class="fa-solid fa-plus"></i>
+                    作成
+                </button>
+            </div>
+            @error('name')
+                <p class="text-sm text-red-500">
+                    {{ $message }}
+                </p>
+            @enderror
+        </div>
+    </div>
+
     <div class="space-y-3">
         @forelse($tags as $tag)
             <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition">
+                {{ $tag->name }}
             </div>
         @empty
             <p class="text-sm text-slte-500">
@@ -32,3 +68,11 @@
     </div>
 
 </div>
+
+<script>
+    function tag() {
+        return {
+            show: false,
+        }
+    }
+</script>
