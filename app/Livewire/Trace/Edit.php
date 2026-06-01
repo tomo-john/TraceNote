@@ -7,9 +7,12 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use App\Models\Trace;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Edit extends Component
 {
+    use AuthorizesRequests;
+
     public Trace $trace;
     public string $title;
     public ?string $summary;
@@ -18,6 +21,8 @@ class Edit extends Component
 
     public function mount(Trace $trace)
     {
+        $this->authorize('update', $trace);
+
         $this->trace = $trace;
         $this->title = $trace->title;
         $this->summary = $trace->summary;
@@ -51,6 +56,8 @@ class Edit extends Component
 
     public function save()
     {
+        $this->authorize('update', $this->trace);
+
         $this->validate();
 
         try {

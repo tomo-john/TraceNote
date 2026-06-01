@@ -6,18 +6,23 @@ use Livewire\Component;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use App\Models\Trace;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Show extends Component
 {
+    use AuthorizesRequests;
+
     public Trace $trace;
 
-    public function mount(Trace $trace)
+    public function mount(Trace $trace): void
     {
+        $this->authorize('view', $trace);
         $this->trace = $trace;
     }
 
     public function delete()
     {
+        $this->authorize('delete', $this->trace);
         $this->trace->delete();
 
         session()->flash('success', '削除しました');
