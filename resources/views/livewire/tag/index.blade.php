@@ -1,6 +1,4 @@
-<div x-data="tag()"
-     class="max-w-4xl mx-auto p-6 space-y-6"
->
+<div class="max-w-4xl mx-auto p-6 space-y-6">
 
     <div class="flex items-center justify-between">
         <div class="flex flex-col">
@@ -22,38 +20,50 @@
         </div>
     @endif
 
-    <div class="flex items-center justify-center gap-5">
-        <button @click="show = !show"
-                class="bg-slate-200 border rounded-xl p-2 cursor-pointer"
-        >
-            <i class="fa-solid fa-plus"></i>
-            新規作成
-        </button>
-    </div>
-    <div x-show="show"
-         class="bg-white border border-slate-200 rounded-2xl p-4"
-    >
-        <div class="space-y-2">
-            <label class="font-bold">タグ名</label>
-            <div class="flex items-center gap-2">
-                <input type="text"
-                       wire:model.defer="name"
-                       class="w-56 rounded-xl border border-slate-300 px-4 py-3">
-
-                <button wire:click="save"
+    <div class="flex items-center gap-5">
+        @if(!$editingId)
+            @if($showCreateForm)
+                <button wire:click="closeCreateForm"
+                        class="bg-slate-200 border rounded-xl p-2 cursor-pointer"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                    閉じる
+                </button>
+            @else
+                <button wire:click="openCreateForm"
                         class="bg-slate-200 border rounded-xl p-2 cursor-pointer"
                 >
                     <i class="fa-solid fa-plus"></i>
-                    作成
+                    新規作成
                 </button>
-            </div>
-            @error('name')
-                <p class="text-sm text-red-500">
-                    {{ $message }}
-                </p>
-            @enderror
-        </div>
+            @endif
+        @endif
     </div>
+
+    @if($showCreateForm)
+        <div class="bg-white border border-slate-200 rounded-2xl p-4">
+            <div class="space-y-2">
+                <label class="font-bold">タグ名</label>
+                <div class="flex items-center gap-2">
+                    <input type="text"
+                           wire:model="name"
+                           class="w-56 rounded-xl border border-slate-300 px-4 py-3">
+
+                    <button wire:click="save"
+                            class="bg-slate-200 border rounded-xl p-2 cursor-pointer"
+                    >
+                        <i class="fa-solid fa-plus"></i>
+                        作成
+                    </button>
+                </div>
+                @error('name')
+                    <p class="text-sm text-red-500">
+                        {{ $message }}
+                    </p>
+                @enderror
+            </div>
+        </div>
+    @endif
 
     <div class="space-y-3">
         @forelse($tags as $tag)
@@ -61,7 +71,7 @@
                 @if($editingId === $tag->id)
                     <div class="flex items-center justify-left gap-2">
                         <input type="text"
-                               wire:model.defer="name"
+                               wire:model="name"
                                class="w-56 rounded-xl border border-pink-300 px-4 py-3"
                         >
                         <button wire:click="save"
@@ -100,11 +110,3 @@
     </div>
 
 </div>
-
-<script>
-    function tag() {
-        return {
-            show: false,
-        }
-    }
-</script>

@@ -14,6 +14,7 @@ class Index extends Component
 
     public $tags;
     public string $name = '';
+    public bool $showCreateForm = false;
     public ?int $editingId = null;
 
     public function mount()
@@ -26,8 +27,24 @@ class Index extends Component
         $this->tags = auth()->user()->tags()->get();
     }
 
+    // Create関連
+    public function openCreateForm(): void
+    {
+        $this->cancelEdit();
+        $this->showCreateForm = true;
+    }
+
+    public function closeCreateForm(): void
+    {
+        $this->reset('name');
+        $this->showCreateForm = false;
+    }
+
+    // Edit関連
     public function edit(int $tagId): void
     {
+        $this->closeCreateForm();
+
         $tag = Tag::findOrFail($tagId);
 
         $this->authorize('update', $tag);
@@ -56,6 +73,7 @@ class Index extends Component
         session()->flash('success', '削除しました');
     }
 
+    // 保存処理関連
     protected function rules(): array
     {
         return [
@@ -90,6 +108,8 @@ class Index extends Component
                 session()->flash('success', "{$tag->name} を更新しました");
             } else {
                 $tag = Tag::create($this->payload());
+
+                $this->closeCreateForm();
 
                 $this->refreshTags();
 
