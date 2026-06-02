@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trace_tag', function (Blueprint $table) {
+        Schema::create('tag_trace', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('trace_id')
@@ -22,9 +22,10 @@ return new class extends Migration
               ->constrained()
               ->cascadeOnDelete();
 
+            $table->unique(['trace_id', 'tag_id']);
+
             $table->timestamps();
 
-            $table->unique(['trace_id', 'tag_id']);
         });
     }
 
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trace_tag');
+        Schema::dropIfExists('tag_trace');
     }
 };
