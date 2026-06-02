@@ -19,11 +19,7 @@ class Create extends Component
 
     public function mount()
     {
-        $this->tags = auth()->user()
-                            ->tags()
-                            ->orderBy('name')
-                            ->get();
-
+        $this->tags = auth()->user()->tags()->orderBy('name')->get();
     }
 
     protected function rules(): array

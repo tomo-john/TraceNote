@@ -65,6 +65,29 @@
             @enderror
         </div>
 
+        {{-- Tags --}}
+        <div class="space-y-2">
+            <label class="font-bold">
+                タグ
+            </label>
+
+            <div class="flex flex-wrap gap-2">
+
+                @foreach($tags as $tag)
+                    <label
+                        class="flex items-center gap-1 px-3 py-2 rounded-xl border border-slate-300 cursor-pointer"
+                    >
+                        <input type="checkbox"
+                               value="{{ $tag->id }}"
+                               wire:model="selectedTags"
+                        >
+                        {{ $tag->name }}
+                    </label>
+                @endforeach
+
+            </div>
+        </div>
+
         {{-- content --}}
         <div class="space-y-2">
             <label class="font-bold">本文</label>

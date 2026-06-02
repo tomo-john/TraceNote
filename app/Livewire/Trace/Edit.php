@@ -18,6 +18,8 @@ class Edit extends Component
     public ?string $summary;
     public string $content;
     public string $status;
+    public array $selectedTags = [];
+    public $tags;
 
     public function mount(Trace $trace)
     {
@@ -28,6 +30,9 @@ class Edit extends Component
         $this->summary = $trace->summary;
         $this->content = $trace->content;
         $this->status = $trace->status;
+
+        $this->tags = auth()->user()->tags()->orderBy('name')->get();
+        $this->selectedTags = $trace->tags->pluck('id')->toArray();
     }
 
     protected function rules(): array
@@ -62,6 +67,7 @@ class Edit extends Component
 
         try {
             $this->trace->update($this->payload());
+            $this->trace->tags()->sync($this->selectedTags);
 
             session()->flash('success', "{$this->trace->title} を更新しました");
             return $this->redirectRoute('trace.show', $this->trace,  navigate: true);
