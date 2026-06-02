@@ -58,6 +58,16 @@
             <p class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white">{{ $trace->statusLabel() }}</p>
         </div>
 
+        {{-- tags --}}
+        <div class="space-y-2">
+            <label class="font-bold">タグ</label>
+            <div class="flex items-center gap-2">
+                @foreach($trace->tags as $tag)
+                    <span class="border bg-sky-200 rounded-lg px-2 py-1">{{ $tag->name }}</span>
+                @endforeach
+            </div>
+        </div>
+
         {{-- content --}}
         <div class="space-y-2">
             <label class="font-bold">本文</label>

@@ -14,6 +14,17 @@ class Create extends Component
     public ?string $summary;
     public string $content;
     public string $status = Trace::STATUS_DRAFT;
+    public array $selectedTags = [];
+    public $tags;
+
+    public function mount()
+    {
+        $this->tags = auth()->user()
+                            ->tags()
+                            ->orderBy('name')
+                            ->get();
+
+    }
 
     protected function rules(): array
     {
@@ -46,6 +57,7 @@ class Create extends Component
 
         try {
             $trace = Trace::create($this->payload());
+            $trace->tags()->sync($this->selectedTags);
 
             session()->flash('success', '作成しました');
             return $this->redirectRoute('trace.index', navigate: true);
