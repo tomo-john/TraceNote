@@ -17,6 +17,7 @@
                wire:navigate
                class="inline-block w-28 text-center bg-slate-400 text-white rounded-lg py-2 px-5 hover:bg-slate-500 transition"
             >
+                <i class="fa-solid fa-plus"></i>
                 Create
             </a>
             <a href="{{ route('tag.index') }}"
@@ -36,34 +37,73 @@
         </div>
     @endif
 
-    <div class="space-y-3">
+    <div class="grid gap-4 md:grid-cols-2">
         @forelse($traces as $trace)
-            <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div class="flex-1 min-w-0 pr-4">
-                    <div class="flex items-center space-x-2">
-                        <a href="{{ route('trace.show', $trace) }}" class="text-lg font-bold text-gray-900 hover:text-blue-600 truncate">
-                            {{ $trace->title }}
-                        </a>
+
+            <a href="{{ route('trace.show', $trace) }}"
+               wire:navigate
+               class="relative group bg-white rounded-2xl border border-slate-200 p-5
+                      shadow-sm hover:shadow-lg hover:-translate-y-1
+                      transition duration-300">
+
+                {{-- ステータス --}}
+                <span class="absolute top-4 right-4 px-3 py-1 text-xs font-medium rounded-full bg-slate-100 text-slate-600 whitespace-nowrap">
+                    {{ $trace->statusLabel() }}
+                </span>
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div class="min-w-0 space-y-3">
+                        {{-- タイトル --}}
+                        <h2 class="text-lg font-bold text-slate-800 group-hover:text-slate-600 line-clamp-1 pr-20">
+                            {{ $trace->title, 30 }}
+                        </h2>
+
+                        {{-- 概要 --}}
+                        <p class="text-sm text-slate-500 line-clamp-1">
+                            {{ $trace->summary }}
+                        </p>
+
+                        {{-- タグ --}}
+                        <div class="flex flex-wrap gap-2">
+                            @forelse($trace->tags as $tag)
+                                <span class="px-2 py-1 text-xs rounded-full bg-slate-100 text-slate-600">
+                                    {{ $tag->name }}
+                                </span>
+                            @empty
+                                <span class="px-2 py-1 text-xs rounded-full bg-slate-500 text-white">
+                                    No tags
+                                </span>
+                            @endforelse
+                        </div>
                     </div>
-                    <p class="mt-1 text-sm text-gray-500 truncate">
-                        {{ $trace->summary }}
-                    </p>
+
                 </div>
 
-                <div class="flex items-center space-x-4 flex-shrink-0">
-                    <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-50 text-blue-700">
-                        {{ $trace->statusLabel() }}
-                    </span>
-                    <span class="text-xs text-gray-400">
+                {{-- フッター --}}
+                <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+
+                    <span class="text-xs text-slate-400">
                         {{ $trace->updated_at->format('Y/m/d') }}
                     </span>
+
+                    <div class="text-sm text-slate-400 group-hover:text-slate-600 transition">
+                        <i class="fa-solid fa-dog"></i>
+                    </div>
+
                 </div>
-            </div>
+
+            </a>
+
         @empty
-            <p class="text-sm text-slte-500">
-                まだTraceがありません。<br>
-                最初の学びを記録してみましょう。
-            </p>
+
+            <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
+                <p class="text-slate-500">
+                    まだTraceがありません。<br>
+                    最初の学びを記録してみましょう。
+                </p>
+            </div>
+
         @endforelse
     </div>
 

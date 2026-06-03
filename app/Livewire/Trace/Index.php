@@ -13,7 +13,7 @@ class Index extends Component
 
     public function mount()
     {
-        $this->traces = auth()->user()->traces()->get();
+        $this->traces = auth()->user()->traces()->with('tags')->get();
     }
 
     public function render()
