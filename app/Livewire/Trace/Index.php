@@ -5,15 +5,18 @@ namespace App\Livewire\Trace;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
+use Livewire\WithPagination;
 use App\Models\Trace;
+
 
 class Index extends Component
 {
-    public $traces;
+    use WithPagination;
 
-    public function mount()
+    #[Computed]
+    public function traces()
     {
-        $this->traces = auth()->user()->traces()->with('tags')->get();
+        return auth()->user()->traces()->latest()->paginate(6);
     }
 
     public function render()

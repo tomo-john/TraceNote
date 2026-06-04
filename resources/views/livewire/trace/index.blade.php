@@ -1,4 +1,4 @@
-<div class="max-w-4xl mx-auto p-6 space-y-6">
+<div class="max-w-5xl mx-auto p-6 space-y-6">
 
     <div class="flex items-center justify-between">
         <div class="flex flex-col">
@@ -6,10 +6,6 @@
                 Trace一覧
                 <i class="fa-solid fa-dog"></i>
             </h1>
-
-            <p class="text-sm text-slate-500">
-                {{ $traces->count() }} traces
-            </p>
         </div>
 
         <div class="flex items-center gap-2">
@@ -37,8 +33,8 @@
         </div>
     @endif
 
-    <div class="grid gap-4 md:grid-cols-2">
-        @forelse($traces as $trace)
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        @forelse($this->traces as $trace)
 
             <a href="{{ route('trace.show', $trace) }}"
                wire:navigate
@@ -107,4 +103,7 @@
         @endforelse
     </div>
 
+    <div class="mt-8">
+        {{ $this->traces->links() }}
+    </div>
 </div>
