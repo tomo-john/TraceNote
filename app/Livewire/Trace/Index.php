@@ -24,8 +24,10 @@ class Index extends Component
                 ->when(
                     $this->search,
                     fn ($query) =>
-                        $query->where('title', 'like', "%{$this->search}%")
-                              ->orwhere('summary', 'like', "%{$this->search}%")
+                        $query->where(function ($query) {
+                            $query->where('title', 'like', "%{$this->search}%")
+                                  ->orwhere('summary', 'like', "%{$this->search}%");
+                        })
                 )
                 ->when(
                     $this->status,
@@ -34,6 +36,16 @@ class Index extends Component
                 )
                 ->latest()
                 ->paginate(6);
+    }
+
+    public function updatedSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedStatus(): void
+    {
+        $this->resetPage();
     }
 
     public function render()

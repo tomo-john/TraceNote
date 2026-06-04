@@ -33,24 +33,34 @@
         </div>
     @endif
 
-    {{-- 検索欄 --}}
-    <input type="text"
-           wire:model.live.debounce.300ms="search"
-           placeholder="タイトルや概要を検索"
-           class="w-full rounded-xl border border-slate-300 px-4 py-3"
-    >
+    {{-- 検索・フィルター用ツールバーエリア --}}
+    <div class="flex flex-col md:flex-row items-stretch md:items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200 shadow-sm">
 
-    {{-- ステータス絞り込み --}}
-    <div class="max-w-md space-y-2 mb-6">
-        <label class="block text-sm font-bold text-slate-700">ステータスで絞り込み</label>
-        <select wire:model.live="status"
-                class="w-full rounded-xl border border-slate-300 px-4 py-3"
-        >
-            <option value="">すべて</option>
-            @foreach(\App\Models\Trace::statuses() as $value => $label)
-                <option value="{{ $value }}">{{ $label }}</option>
-            @endforeach
-        </select>
+        {{-- 検索インプット --}}
+        <div class="flex-1 relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                <i class="fa-solid fa-magnifying-glass text-sm"></i>
+            </div>
+            <input type="text"
+                   wire:model.live.debounce.300ms="search"
+                   placeholder="タイトルや概要を検索..."
+                   class="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2.5 text-sm bg-white shadow-inner focus:border-pink-400 focus:ring-1 focus:ring-pink-400 placeholder-slate-400"
+            >
+        </div>
+
+        {{-- ステータス選択 --}}
+        <div class="w-full md:w-56 flex items-center gap-2">
+            <span class="text-xs font-bold text-slate-500 whitespace-nowrap hidden md:inline">Status:</span>
+            <select wire:model.live="status"
+                    class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 shadow-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400"
+            >
+                <option value="">すべてのステータス</option>
+                @foreach(\App\Models\Trace::statuses() as $value => $label)
+                    <option value="{{ $value }}">{{ $label }}</option>
+                @endforeach
+            </select>
+        </div>
+
     </div>
 
     {{-- 一覧表示 --}}
