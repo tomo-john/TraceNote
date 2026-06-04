@@ -33,6 +33,12 @@
         </div>
     @endif
 
+    <input type="text"
+           wire:model.live.debounce.300ms="search"
+           placeholder="タイトルや概要を検索"
+           class="w-full rounded-xl border border-slate-300 px-4 py-3"
+    >
+
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         @forelse($this->traces as $trace)
 

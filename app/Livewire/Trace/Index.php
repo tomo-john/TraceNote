@@ -13,10 +13,21 @@ class Index extends Component
 {
     use WithPagination;
 
+    public string $search = '';
+
     #[Computed]
     public function traces()
     {
-        return auth()->user()->traces()->latest()->paginate(6);
+        return auth()->user()
+                ->traces()
+                ->when(
+                    $this->search,
+                    fn ($query) =>
+                        $query->where('title', 'like', "%{$this->search}%")
+                              ->orwhere('summary', 'like', "%{$this->search}%")
+                )
+                ->latest()
+                ->paginate(6);
     }
 
     public function render()
