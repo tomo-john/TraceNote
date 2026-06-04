@@ -33,12 +33,27 @@
         </div>
     @endif
 
+    {{-- 検索欄 --}}
     <input type="text"
            wire:model.live.debounce.300ms="search"
            placeholder="タイトルや概要を検索"
            class="w-full rounded-xl border border-slate-300 px-4 py-3"
     >
 
+    {{-- ステータス絞り込み --}}
+    <div class="max-w-md space-y-2 mb-6">
+        <label class="block text-sm font-bold text-slate-700">ステータスで絞り込み</label>
+        <select wire:model.live="status"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3"
+        >
+            <option value="">すべて</option>
+            @foreach(\App\Models\Trace::statuses() as $value => $label)
+                <option value="{{ $value }}">{{ $label }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    {{-- 一覧表示 --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         @forelse($this->traces as $trace)
 
@@ -102,13 +117,15 @@
             <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
                 <p class="text-slate-500">
                     まだTraceがありません。<br>
-                    最初の学びを記録してみましょう。
+                    最初の学びを記録してみましょう
+                    <i class="fa-solid fa-dog"></i>
                 </p>
             </div>
 
         @endforelse
     </div>
 
+    {{-- ページネーション --}}
     <div class="mt-8">
         {{ $this->traces->links() }}
     </div>

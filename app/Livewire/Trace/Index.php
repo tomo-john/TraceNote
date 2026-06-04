@@ -14,6 +14,7 @@ class Index extends Component
     use WithPagination;
 
     public string $search = '';
+    public string $status = '';
 
     #[Computed]
     public function traces()
@@ -25,6 +26,11 @@ class Index extends Component
                     fn ($query) =>
                         $query->where('title', 'like', "%{$this->search}%")
                               ->orwhere('summary', 'like', "%{$this->search}%")
+                )
+                ->when(
+                    $this->status,
+                    fn ($query) =>
+                        $query->where('status', $this->status)
                 )
                 ->latest()
                 ->paginate(6);
