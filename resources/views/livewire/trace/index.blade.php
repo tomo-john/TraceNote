@@ -63,6 +63,22 @@
 
     </div>
 
+    {{-- Tag選択 --}}
+    <div class="flex flex items-center gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-200 shadow-sm">
+        <button wire:click="$set('selectedTagId', '')"
+                class="inline-block text-center bg-slate-500 text-white text-xs rounded-full py-1 px-2 hover:bg-slate-600 transition cursor-pointer"
+        >
+            ALL
+        </button>
+        @foreach($tags as $tag)
+            <button wire:click="$set('selectedTagId', {{ $tag->id }})"
+                    class="inline-block text-center bg-slate-300 text-white text-xs rounded-full py-1 px-2 hover:bg-slate-400 transition cursor-pointer"
+            >
+            {{ $tag->name }}
+            </button>
+        @endforeach
+    </div>
+
     {{-- 一覧表示 --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         @forelse($this->traces as $trace)

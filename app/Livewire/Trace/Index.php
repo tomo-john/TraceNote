@@ -15,6 +15,13 @@ class Index extends Component
 
     public string $search = '';
     public string $status = '';
+    public $tags;
+    public ?int $selectedTagId = null;
+
+    public function mount()
+    {
+        $this->tags = auth()->user()->tags()->get();
+    }
 
     #[Computed]
     public function traces()
@@ -33,6 +40,14 @@ class Index extends Component
                     $this->status,
                     fn ($query) =>
                         $query->where('status', $this->status)
+                )
+                ->when(
+                    $this->selectedTagId,
+                    fn ($query) =>
+                        $query->whereHas(
+                            'tags',
+                            fn ($q) => $q->where('tags.id', $this->selectedTagId)
+                        )
                 )
                 ->latest()
                 ->paginate(6);
