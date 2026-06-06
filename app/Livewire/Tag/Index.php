@@ -14,6 +14,7 @@ class Index extends Component
 
     public $tags;
     public string $name = '';
+    public string $color = '';
     public bool $showCreateForm = false;
     public ?int $editingId = null;
 
