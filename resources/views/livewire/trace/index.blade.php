@@ -36,145 +36,167 @@
     @if($this->totalTraces)
 
         {{-- 検索・フィルター用ツールバーエリア --}}
-        <div class="flex flex-col md:flex-row items-stretch md:items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="space-y-3">
+            <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                <i class="fa-solid fa-filter"></i>
+                Filter
+            </div>
 
-            {{-- 検索インプット --}}
-            <div class="flex-1 relative">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                    <i class="fa-solid fa-magnifying-glass text-sm"></i>
+            <div class="flex flex-col md:flex-row items-stretch md:items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200 shadow-sm">
+
+                {{-- 検索インプット --}}
+                <div class="flex-1 relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                    </div>
+                    <input type="text"
+                           wire:model.live.debounce.300ms="search"
+                           placeholder="タイトルや概要を検索..."
+                           class="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2.5 text-sm bg-white shadow-inner focus:border-pink-400 focus:ring-1 focus:ring-pink-400 placeholder-slate-400"
+                    >
                 </div>
-                <input type="text"
-                       wire:model.live.debounce.300ms="search"
-                       placeholder="タイトルや概要を検索..."
-                       class="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2.5 text-sm bg-white shadow-inner focus:border-pink-400 focus:ring-1 focus:ring-pink-400 placeholder-slate-400"
-                >
-            </div>
 
-            {{-- ステータス選択 --}}
-            <div class="w-full md:w-56 flex items-center gap-2">
-                <span class="text-xs font-bold text-slate-500 whitespace-nowrap hidden md:inline">Status:</span>
-                <select wire:model.live="status"
-                        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 shadow-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400"
-                >
-                    <option value="">すべてのステータス</option>
-                    @foreach(\App\Models\Trace::statuses() as $value => $label)
-                        <option value="{{ $value }}">{{ $label }}</option>
-                    @endforeach
-                </select>
-            </div>
+                {{-- ステータス選択 --}}
+                <div class="w-full md:w-56 flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-500 whitespace-nowrap hidden md:inline">Status:</span>
+                    <select wire:model.live="status"
+                            class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 shadow-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400"
+                    >
+                        <option value="">すべてのステータス</option>
+                        @foreach(\App\Models\Trace::statuses() as $value => $label)
+                            <option value="{{ $value }}">{{ $label }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
+            </div>
         </div>
 
         {{-- Tag選択 --}}
-        <div class="flex flex items-center gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-200 shadow-sm">
-            <button wire:click="$set('selectedTagId', '')"
-                    class="inline-block text-center bg-slate-500 text-white text-xs rounded-full py-1 px-2 hover:bg-slate-600 transition cursor-pointer"
-            >
-                ALL
-            </button>
-            @foreach($tags as $tag)
-                <button wire:click="$set('selectedTagId', {{ $tag->id }})"
-                        class="inline-block text-center text-xs rounded-full py-1 px-2 hover:bg-slate-400 transition cursor-pointer
-                               {{ $selectedTagId == $tag->id
-                                    ? 'bg-pink-300 text-white'
-                                    : 'bg-slate-300 text-slate-600'
-                               }}"
+        <div class="space-y-3">
+
+            <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                <i class="fa-solid fa-tags"></i>
+                Tags
+            </div>
+
+            <div class="flex flex items-center gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-200 shadow-sm">
+                <button wire:click="$set('selectedTagId', '')"
+                        class="inline-block text-center bg-slate-500 text-white text-xs rounded-full py-1 px-2 hover:bg-slate-600 transition cursor-pointer"
                 >
-                {{ $tag->name }}
+                    ALL
                 </button>
-            @endforeach
+                @foreach($tags as $tag)
+                    <button wire:click="$set('selectedTagId', {{ $tag->id }})"
+                            class="inline-block text-center text-xs rounded-full py-1 px-2 hover:bg-slate-400 transition cursor-pointer
+                                   {{ $selectedTagId == $tag->id
+                                        ? 'bg-pink-300 text-white'
+                                        : 'bg-slate-300 text-slate-600'
+                                   }}"
+                    >
+                    {{ $tag->name }}
+                    </button>
+                @endforeach
+            </div>
         </div>
 
     @endif
 
     {{-- 一覧表示 --}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        @forelse($this->traces as $trace)
+    <div class="space-y-3">
+        <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+            <i class="fa-solid fa-dog"></i>
+            Traces
+        </div>
 
-            <a href="{{ route('trace.show', $trace) }}"
-               wire:navigate
-               class="relative group bg-white rounded-2xl border border-slate-200 p-5
-                      shadow-sm hover:shadow-lg hover:-translate-y-1
-                      transition duration-300">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            @forelse($this->traces as $trace)
 
-                {{-- ステータス --}}
-                <span class="absolute top-4 right-4 px-3 py-1 text-xs font-medium rounded-full bg-slate-100 text-slate-600 whitespace-nowrap">
-                    {{ $trace->statusLabel() }}
-                </span>
+                <a href="{{ route('trace.show', $trace) }}"
+                   wire:navigate
+                   class="relative group bg-white rounded-2xl border border-slate-200 p-5
+                          shadow-sm hover:shadow-lg hover:-translate-y-1
+                          transition duration-300">
 
-                <div class="flex items-start justify-between gap-4">
-
-                    <div class="min-w-0 space-y-3">
-                        {{-- タイトル --}}
-                        <h2 class="text-lg font-bold text-slate-800 group-hover:text-slate-600 line-clamp-1 pr-20">
-                            {{ $trace->title, 30 }}
-                        </h2>
-
-                        {{-- 概要 --}}
-                        <p class="text-sm text-slate-500 line-clamp-1">
-                            {{ $trace->summary }}
-                        </p>
-
-                        {{-- タグ --}}
-                        <div class="flex flex-wrap gap-2">
-                            @forelse($trace->tags as $tag)
-                                <span class="px-2 py-1 text-xs rounded-full bg-slate-100 text-slate-600">
-                                    {{ $tag->name }}
-                                </span>
-                            @empty
-                                <span class="px-2 py-1 text-xs rounded-full bg-slate-500 text-white">
-                                    No tags
-                                </span>
-                            @endforelse
-                        </div>
-                    </div>
-
-                </div>
-
-                {{-- フッター --}}
-                <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
-
-                    <span class="text-xs text-slate-400">
-                        {{ $trace->updated_at->format('Y/m/d') }}
+                    {{-- ステータス --}}
+                    <span class="absolute top-4 right-4 px-3 py-1 text-xs font-medium rounded-full bg-slate-100 text-slate-600 whitespace-nowrap">
+                        {{ $trace->statusLabel() }}
                     </span>
 
-                    <div class="text-sm text-slate-400 group-hover:text-slate-600 transition">
-                        <i class="fa-solid fa-dog"></i>
+                    <div class="flex items-start justify-between gap-4">
+
+                        <div class="min-w-0 space-y-3">
+                            {{-- タイトル --}}
+                            <h2 class="text-lg font-bold text-slate-800 group-hover:text-slate-600 line-clamp-1 pr-20">
+                                {{ str($trace->title)->limit(20) }}
+                            </h2>
+
+                            {{-- 概要 --}}
+                            <p class="text-sm text-slate-500 line-clamp-1">
+                                {{ $trace->summary }}
+                            </p>
+
+                            {{-- タグ --}}
+                            <div class="flex flex-wrap gap-2">
+                                @forelse($trace->tags as $tag)
+                                    <span class="px-2 py-1 text-xs rounded-full bg-slate-100 text-slate-600">
+                                        {{ $tag->name }}
+                                    </span>
+                                @empty
+                                    <span class="px-2 py-1 text-xs rounded-full bg-slate-500 text-white">
+                                        No tags
+                                    </span>
+                                @endforelse
+                            </div>
+                        </div>
+
                     </div>
 
-                </div>
+                    {{-- フッター --}}
+                    <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
 
-            </a>
+                        <span class="text-xs text-slate-400">
+                            {{ $trace->updated_at->format('Y/m/d') }}
+                        </span>
 
-        @empty
+                        <div class="text-sm text-slate-400 group-hover:text-slate-600 transition">
+                            <i class="fa-solid fa-dog"></i>
+                        </div>
 
-            @if($this->totalTraces)
+                    </div>
 
-                <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
-                    <p class="text-slate-500">
-                        条件に一致するTraceがありません
-                        <i class="fa-solid fa-dog"></i>
-                    </p>
-                    <button wire:click="clearFilters"
-                            class="inline-block text-center bg-slate-400 text-white rounded-lg py-2 px-5 m-6 hover:bg-slate-500 transition"
-                    >
-                        リセット
-                    </button>
-                </div>
+                </a>
 
-            @else
+            @empty
 
-                <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
-                    <p class="text-slate-500">
-                        まだTraceがありません。<br>
-                        最初の学びを記録してみましょう
-                        <i class="fa-solid fa-dog"></i>
-                    </p>
-                </div>
+                @if($this->totalTraces)
 
-            @endif
+                    <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
+                        <p class="text-slate-500">
+                            条件に一致するTraceがありません
+                            <i class="fa-solid fa-dog"></i>
+                        </p>
+                        <button wire:click="clearFilters"
+                                class="inline-block text-center bg-slate-400 text-white rounded-lg py-2 px-5 m-6 hover:bg-slate-500 transition"
+                        >
+                            リセット
+                        </button>
+                    </div>
 
-        @endforelse
+                @else
+
+                    <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
+                        <p class="text-slate-500">
+                            まだTraceがありません。<br>
+                            最初の学びを記録してみましょう
+                            <i class="fa-solid fa-dog"></i>
+                        </p>
+                    </div>
+
+                @endif
+
+            @endforelse
+        </div>
     </div>
 
     {{-- ページネーション --}}
