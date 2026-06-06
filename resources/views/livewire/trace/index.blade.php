@@ -69,6 +69,20 @@
                     </select>
                 </div>
 
+                {{-- 並び替え --}}
+                <div class="w-full md:w-48 flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-500 hidden md:inline">
+                        Sort:
+                    </span>
+
+                    <select wire:model.live="sort"
+                            class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 shadow-sm">
+                        <option value="latest">新しい順</option>
+                        <option value="oldest">古い順</option>
+                        <option value="title">タイトル順</option>
+                    </select>
+                </div>
+
             </div>
         </div>
 

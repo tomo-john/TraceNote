@@ -17,6 +17,7 @@ class Index extends Component
     public string $status = '';
     public $tags;
     public ?int $selectedTagId = null;
+    public string $sort = 'latest';
 
     public function mount()
     {
@@ -26,7 +27,7 @@ class Index extends Component
     #[Computed]
     public function traces()
     {
-        return auth()->user()
+        $query = auth()->user()
                 ->traces()
                 ->when(
                     $this->search,
@@ -48,9 +49,20 @@ class Index extends Component
                             'tags',
                             fn ($q) => $q->where('tags.id', $this->selectedTagId)
                         )
-                )
-                ->latest()
-                ->paginate(6);
+                );
+
+        switch ($this->sort) {
+            case 'oldest':
+                $query->oldest();
+                break;
+            case 'title':
+                $query->orderBy('title');
+                break;
+            default:
+                $query->latest();
+        }
+
+        return $query->paginate(6);
     }
 
     #[Computed]
@@ -65,6 +77,11 @@ class Index extends Component
     }
 
     public function updatedStatus(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updateSort(): void
     {
         $this->resetPage();
     }
