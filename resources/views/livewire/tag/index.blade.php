@@ -1,4 +1,4 @@
-<div class="max-w-4xl mx-auto p-6 space-y-6">
+<div class="max-w-5xl mx-auto p-6 space-y-6">
 
     <div class="flex items-center justify-between">
         <div class="flex flex-col">
@@ -10,6 +10,16 @@
             <p class="text-sm text-slate-500">
                 {{ $tags->count() }} tags
             </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <a href="{{ route('trace.index') }}"
+               wire:navigate
+               class="inline-block w-28 text-center bg-slate-400 text-white rounded-lg py-2 px-5 hover:bg-slate-500 transition"
+            >
+                <i class="fa-solid fa-dog"></i>
+                Trace
+            </a>
         </div>
     </div>
 
@@ -40,10 +50,11 @@
         @endif
     </div>
 
+    {{-- 新規作成フォーム --}}
     @if($showCreateForm)
-        <div class="bg-white border border-slate-200 rounded-2xl p-4">
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
             <div class="space-y-2">
-                <label class="font-bold">タグ名</label>
+                <label class="text-sm font-bold text-slate-500">New Tag</label>
                 <div class="flex items-center gap-2">
                     <input type="text"
                            wire:model="name"
@@ -65,10 +76,15 @@
         </div>
     @endif
 
-    <div class="space-y-3">
+    {{-- タグ一覧 --}}
+    <div class="grid md:grid-cols-2 gap-4">
         @forelse($tags as $tag)
-            <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition">
+
+            <div class="group flex items-center justify-between p-4 rounded-lg shadow-sm border hover:shadow-md transition
+                        {{ $editingId === $tag->id ? 'bg-pink-50 border-pink-200' : 'bg-white border-gray-200' }}">
+
                 @if($editingId === $tag->id)
+
                     <div class="flex items-center justify-left gap-2">
                         <input type="text"
                                wire:model="name"
@@ -85,27 +101,41 @@
                             取消
                         </button>
                     </div>
+
                 @else
-                    {{ $tag->name }}
+
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-tag text-slate-400"></i>
+                        <span class="font-midium text-slate-700">
+                            {{ $tag->name }}
+                        </span>
+                    </div>
+
                 @endif
-                <div class="flex items-center gap-4">
+
+                <div class="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <button wire:click="edit({{ $tag->id }})"
-                            class="cursor-pointer text-blue-500"
+                            class="cursor-pointer text-blue-400 hover:text-blue-500 cursor-pointer"
                     >
                         <i class="fa-solid fa-pen"></i>
                     </button>
                     <button wire:click="delete({{ $tag->id }})"
                             wire:confirm="タグを削除しますか？"
-                            class="cursor-pointer text-red-500"
+                            class="cursor-pointer text-red-400 hover:text-red-500 cursor-pointer"
                     >
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </div>
+
             </div>
         @empty
-            <p class="text-sm text-slate-500">
-                まだ登録されたタグがありません。
-            </p>
+            <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
+                <p class="text-slate-500">
+                    まだ登録されたタグがありません。<br>
+                    最初のタグを作ってみましょう
+                    <i class="fa-solid fa-dog"></i>
+                </p>
+            </div>
         @endforelse
     </div>
 
