@@ -33,51 +33,59 @@
         </div>
     @endif
 
-    {{-- 検索・フィルター用ツールバーエリア --}}
-    <div class="flex flex-col md:flex-row items-stretch md:items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200 shadow-sm">
+    @if($this->totalTraces)
 
-        {{-- 検索インプット --}}
-        <div class="flex-1 relative">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                <i class="fa-solid fa-magnifying-glass text-sm"></i>
+        {{-- 検索・フィルター用ツールバーエリア --}}
+        <div class="flex flex-col md:flex-row items-stretch md:items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200 shadow-sm">
+
+            {{-- 検索インプット --}}
+            <div class="flex-1 relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                </div>
+                <input type="text"
+                       wire:model.live.debounce.300ms="search"
+                       placeholder="タイトルや概要を検索..."
+                       class="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2.5 text-sm bg-white shadow-inner focus:border-pink-400 focus:ring-1 focus:ring-pink-400 placeholder-slate-400"
+                >
             </div>
-            <input type="text"
-                   wire:model.live.debounce.300ms="search"
-                   placeholder="タイトルや概要を検索..."
-                   class="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2.5 text-sm bg-white shadow-inner focus:border-pink-400 focus:ring-1 focus:ring-pink-400 placeholder-slate-400"
-            >
+
+            {{-- ステータス選択 --}}
+            <div class="w-full md:w-56 flex items-center gap-2">
+                <span class="text-xs font-bold text-slate-500 whitespace-nowrap hidden md:inline">Status:</span>
+                <select wire:model.live="status"
+                        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 shadow-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400"
+                >
+                    <option value="">すべてのステータス</option>
+                    @foreach(\App\Models\Trace::statuses() as $value => $label)
+                        <option value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
+                </select>
+            </div>
+
         </div>
 
-        {{-- ステータス選択 --}}
-        <div class="w-full md:w-56 flex items-center gap-2">
-            <span class="text-xs font-bold text-slate-500 whitespace-nowrap hidden md:inline">Status:</span>
-            <select wire:model.live="status"
-                    class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 shadow-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400"
+        {{-- Tag選択 --}}
+        <div class="flex flex items-center gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-200 shadow-sm">
+            <button wire:click="$set('selectedTagId', '')"
+                    class="inline-block text-center bg-slate-500 text-white text-xs rounded-full py-1 px-2 hover:bg-slate-600 transition cursor-pointer"
             >
-                <option value="">すべてのステータス</option>
-                @foreach(\App\Models\Trace::statuses() as $value => $label)
-                    <option value="{{ $value }}">{{ $label }}</option>
-                @endforeach
-            </select>
-        </div>
-
-    </div>
-
-    {{-- Tag選択 --}}
-    <div class="flex flex items-center gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-200 shadow-sm">
-        <button wire:click="$set('selectedTagId', '')"
-                class="inline-block text-center bg-slate-500 text-white text-xs rounded-full py-1 px-2 hover:bg-slate-600 transition cursor-pointer"
-        >
-            ALL
-        </button>
-        @foreach($tags as $tag)
-            <button wire:click="$set('selectedTagId', {{ $tag->id }})"
-                    class="inline-block text-center bg-slate-300 text-white text-xs rounded-full py-1 px-2 hover:bg-slate-400 transition cursor-pointer"
-            >
-            {{ $tag->name }}
+                ALL
             </button>
-        @endforeach
-    </div>
+            @foreach($tags as $tag)
+                <button wire:click="$set('selectedTagId', {{ $tag->id }})"
+                        class="inline-block text-center text-xs rounded-full py-1 px-2 hover:bg-slate-400 transition cursor-pointer
+                               {{ $selectedTagId == $tag->id
+                                    ? 'bg-pink-300 text-white'
+                                    : 'bg-slate-300 text-slate-600'
+                               }}"
+                >
+                {{ $tag->name }}
+                </button>
+            @endforeach
+        </div>
+
+    @endif
 
     {{-- 一覧表示 --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -140,13 +148,31 @@
 
         @empty
 
-            <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
-                <p class="text-slate-500">
-                    まだTraceがありません。<br>
-                    最初の学びを記録してみましょう
-                    <i class="fa-solid fa-dog"></i>
-                </p>
-            </div>
+            @if($this->totalTraces)
+
+                <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
+                    <p class="text-slate-500">
+                        条件に一致するTraceがありません
+                        <i class="fa-solid fa-dog"></i>
+                    </p>
+                    <button wire:click="clearFilters"
+                            class="inline-block text-center bg-slate-400 text-white rounded-lg py-2 px-5 m-6 hover:bg-slate-500 transition"
+                    >
+                        リセット
+                    </button>
+                </div>
+
+            @else
+
+                <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
+                    <p class="text-slate-500">
+                        まだTraceがありません。<br>
+                        最初の学びを記録してみましょう
+                        <i class="fa-solid fa-dog"></i>
+                    </p>
+                </div>
+
+            @endif
 
         @endforelse
     </div>

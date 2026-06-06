@@ -53,6 +53,12 @@ class Index extends Component
                 ->paginate(6);
     }
 
+    #[Computed]
+    public function totalTraces()
+    {
+        return auth()->user()->traces()->count();
+    }
+
     public function updatedSearch(): void
     {
         $this->resetPage();
@@ -61,6 +67,13 @@ class Index extends Component
     public function updatedStatus(): void
     {
         $this->resetPage();
+    }
+
+    public function clearFilters(): void
+    {
+        $this->search = '';
+        $this->status = '';
+        $this->selectedTagId = null;
     }
 
     public function render()
