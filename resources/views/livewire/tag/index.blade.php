@@ -30,6 +30,7 @@
         </div>
     @endif
 
+    {{-- 新規作成ボタン --}}
     <div class="flex items-center gap-5">
         @if(!$editingId)
             @if($showCreateForm)
@@ -56,9 +57,18 @@
             <div class="space-y-2">
                 <label class="text-sm font-bold text-slate-500">New Tag</label>
                 <div class="flex items-center gap-2">
+                    {{-- タグ名 --}}
                     <input type="text"
-                           wire:model="name"
-                           class="w-56 rounded-xl border border-slate-300 px-4 py-3">
+                           wire:model.live="name"
+                           class="w-56 rounded-full border px-3 py-1">
+
+                    {{-- 色 --}}
+                    @foreach($this->colorClasses as $key => $class)
+                        <button wire:click="$set('color', '{{ $key }}')"
+                                class="w-8 h-8 rounded-full cursor-pointer {{ $class }}
+                                       {{ $color == $key ? 'ring-2 ring-offset-2 ring-slate-400' : ''}}"
+                        ></button>
+                    @endforeach
 
                     <button wire:click="save"
                             class="bg-slate-200 border rounded-xl p-2 cursor-pointer"
@@ -67,6 +77,16 @@
                         作成
                     </button>
                 </div>
+
+                {{-- プレビュー --}}
+                <label class="text-sm font-bold text-slate-500">Preview</label>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-tag text-slate-400"></i>
+                    <span class="px-3 py-1 rounded-full text-sm font-medium {{ $this->previewClass }}">
+                        {{ $name ?: 'sample'}}
+                    </span>
+                </div>
+
                 @error('name')
                     <p class="text-sm text-red-500">
                         {{ $message }}
@@ -106,7 +126,7 @@
 
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-tag text-slate-400"></i>
-                        <span class="font-midium text-slate-700">
+                        <span class="px-3 py-1 rounded-full text-sm font-medium {{ $tag->colorClass() }}">
                             {{ $tag->name }}
                         </span>
                     </div>

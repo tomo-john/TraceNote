@@ -14,7 +14,7 @@ class Index extends Component
 
     public $tags;
     public string $name = '';
-    public string $color = '';
+    public string $color = 'gray';
     public bool $showCreateForm = false;
     public ?int $editingId = null;
 
@@ -41,6 +41,18 @@ class Index extends Component
         $this->showCreateForm = false;
     }
 
+    #[Computed]
+    public function colorClasses(): array
+    {
+        return Tag::colorClasses();
+    }
+
+    #[Computed]
+    public function previewClass(): string
+    {
+        return Tag::colorClasses()[$this->color];
+    }
+
     // Edit関連
     public function edit(int $tagId): void
     {
@@ -59,8 +71,10 @@ class Index extends Component
     {
         $this->editingId = null;
         $this->reset('name');
+        $this->color = 'gray';
     }
 
+    // Delete関連
     public function delete(int $tagId): void
     {
         $tag = Tag::findOrFail($tagId);
@@ -71,6 +85,8 @@ class Index extends Component
 
         $this->refreshTags();
 
+        $this->cancelEdit();
+
         session()->flash('success', '削除しました');
     }
 
@@ -79,6 +95,7 @@ class Index extends Component
     {
         return [
             'name' => 'required|string|max:20',
+            'color' => 'required|string',
             ];
     }
 
@@ -86,7 +103,8 @@ class Index extends Component
     {
         return [
             'user_id' => auth()->id(),
-            'name'   => $this->name,
+            'name'    => $this->name,
+            'color'   => $this->color,
         ];
     }
 
@@ -114,7 +132,7 @@ class Index extends Component
 
                 $this->refreshTags();
 
-                $this->reset('name');
+                $this->cancelEdit();
 
                 session()->flash('success', '作成しました');
             }
