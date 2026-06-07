@@ -32,27 +32,18 @@
 
     {{-- 新規作成ボタン --}}
     <div class="flex items-center gap-5">
-        @if(!$editingId)
-            @if($showCreateForm)
-                <button wire:click="closeCreateForm"
-                        class="bg-slate-200 border rounded-xl p-2 cursor-pointer"
-                >
-                    <i class="fa-solid fa-xmark"></i>
-                    閉じる
-                </button>
-            @else
-                <button wire:click="openCreateForm"
-                        class="bg-slate-200 border rounded-xl p-2 cursor-pointer"
-                >
-                    <i class="fa-solid fa-plus"></i>
-                    新規作成
-                </button>
-            @endif
+        @if(! $editingId && ! $showForm)
+            <button wire:click="openForm"
+                    class="bg-slate-200 border rounded-xl p-2 cursor-pointer"
+            >
+                <i class="fa-solid fa-plus"></i>
+                新規作成
+            </button>
         @endif
     </div>
 
-    {{-- 新規作成フォーム --}}
-    @if($showCreateForm)
+    {{-- 作成・編集フォーム --}}
+    @if($showForm)
         <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
             <div class="space-y-2">
                 <label class="text-sm font-bold text-slate-500">New Tag</label>
@@ -70,11 +61,27 @@
                         ></button>
                     @endforeach
 
-                    <button wire:click="save"
-                            class="bg-slate-200 border rounded-xl p-2 cursor-pointer"
+                    {{-- Save・Cancel ボタン --}}
+                    @if($editingId)
+                        <button wire:click="save"
+                                class="bg-pink-200 border rounded-xl p-2 cursor-pointer"
+                        >
+                            <i class="fa-solid fa-arrow-rotate-right"></i>
+                            更新
+                        </button>
+                    @else
+                        <button wire:click="save"
+                                class="bg-sky-200 border rounded-xl p-2 cursor-pointer"
+                        >
+                            <i class="fa-solid fa-plus"></i>
+                            作成
+                        </button>
+                    @endif
+                    <button wire:click="closeForm"
+                            class="bg-gray-200 border rounded-xl p-2 cursor-pointer"
                     >
-                        <i class="fa-solid fa-plus"></i>
-                        作成
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        キャンセル
                     </button>
                 </div>
 
@@ -103,35 +110,12 @@
             <div class="group flex items-center justify-between p-4 rounded-lg shadow-sm border hover:shadow-md transition
                         {{ $editingId === $tag->id ? 'bg-pink-50 border-pink-200' : 'bg-white border-gray-200' }}">
 
-                @if($editingId === $tag->id)
-
-                    <div class="flex items-center justify-left gap-2">
-                        <input type="text"
-                               wire:model="name"
-                               class="w-56 rounded-xl border border-pink-300 px-4 py-3"
-                        >
-                        <button wire:click="save"
-                                class="cursor-pointer font-bold text-sm text-pink-500 hover:text-pink-600 transition"
-                        >
-                            更新
-                        </button>
-                        <button wire:click="cancelEdit"
-                                class="cursor-pointer font-bold text-sm text-slate-500 hover:text-slate-600 transition"
-                        >
-                            取消
-                        </button>
-                    </div>
-
-                @else
-
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-tag text-slate-400"></i>
-                        <span class="px-3 py-1 rounded-full text-sm font-medium {{ $tag->colorClass() }}">
-                            {{ $tag->name }}
-                        </span>
-                    </div>
-
-                @endif
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-tag text-slate-400"></i>
+                    <span class="px-3 py-1 rounded-full text-sm font-medium {{ $tag->colorClass() }}">
+                        {{ $tag->name }}
+                    </span>
+                </div>
 
                 <div class="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <button wire:click="edit({{ $tag->id }})"

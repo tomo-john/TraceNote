@@ -15,7 +15,7 @@ class Index extends Component
     public $tags;
     public string $name = '';
     public string $color = 'gray';
-    public bool $showCreateForm = false;
+    public bool $showForm = false;
     public ?int $editingId = null;
 
     public function mount()
@@ -28,19 +28,34 @@ class Index extends Component
         $this->tags = auth()->user()->tags()->get();
     }
 
-    // Create関連
-    public function openCreateForm(): void
+    // Form
+    public function openForm(): void
     {
-        $this->cancelEdit();
-        $this->showCreateForm = true;
+        $this->resetForm();
+
+        $this->showForm = true;
     }
 
-    public function closeCreateForm(): void
+    public function closeForm(): void
     {
-        $this->reset('name');
-        $this->showCreateForm = false;
+        $this->resetForm();
     }
 
+    protected function resetForm(): void
+    {
+        $this->reset([
+            'name',
+            'editingId'
+        ]);
+
+        $this->color = 'gray';
+
+        $this->showForm = false;
+
+        $this->resetErrorBag();
+    }
+
+    // Color
     #[Computed]
     public function colorClasses(): array
     {
@@ -53,10 +68,10 @@ class Index extends Component
         return Tag::colorClasses()[$this->color];
     }
 
-    // Edit関連
+    // Edit
     public function edit(int $tagId): void
     {
-        $this->closeCreateForm();
+        $this->openForm();
 
         $tag = Tag::findOrFail($tagId);
 
@@ -65,16 +80,10 @@ class Index extends Component
         $this->editingId = $tag->id;
 
         $this->name = $tag->name;
+        $this->color = $tag->color;
     }
 
-    public function cancelEdit(): void
-    {
-        $this->editingId = null;
-        $this->reset('name');
-        $this->color = 'gray';
-    }
-
-    // Delete関連
+    // Delete
     public function delete(int $tagId): void
     {
         $tag = Tag::findOrFail($tagId);
@@ -85,12 +94,12 @@ class Index extends Component
 
         $this->refreshTags();
 
-        $this->cancelEdit();
+        $this->closeForm();
 
         session()->flash('success', '削除しました');
     }
 
-    // 保存処理関連
+    // Save
     protected function rules(): array
     {
         return [
@@ -102,7 +111,6 @@ class Index extends Component
     protected function payload(): array
     {
         return [
-            'user_id' => auth()->id(),
             'name'    => $this->name,
             'color'   => $this->color,
         ];
@@ -113,29 +121,30 @@ class Index extends Component
         $this->validate();
 
         try {
-            if($this->editingId) {
+            $isEditing = $this->editingId !== null;
+
+            if ($isEditing) {
                 $tag = Tag::findOrFail($this->editingId);
-
-                 $this->authorize('update', $tag);
-
-                $tag->update($this->payload());
-
-                $this->refreshTags();
-
-                $this->cancelEdit();
-
-                session()->flash('success', "{$tag->name} を更新しました");
+                $this->authorize('update', $tag);
             } else {
-                $tag = Tag::create($this->payload());
-
-                $this->closeCreateForm();
-
-                $this->refreshTags();
-
-                $this->cancelEdit();
-
-                session()->flash('success', '作成しました');
+                $tag = new Tag();
+                $tag->user_id = auth()->id();
             }
+
+            $tag->fill($this->payload());
+
+            $tag->save();
+
+            $this->refreshTags();
+
+            $this->closeForm();
+
+            session()->flash(
+                'success',
+                $isEditing
+                    ? "{$tag->name} を更新しました"
+                    : "{$tag->name} を作成しました"
+            );
 
         } catch (\Throwable $e) {
             logger($e);
