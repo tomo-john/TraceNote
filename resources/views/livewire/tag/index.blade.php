@@ -45,9 +45,9 @@
     {{-- 作成・編集フォーム --}}
     @if($showForm)
         <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
-            <div class="space-y-2">
-                <label class="text-sm font-bold text-slate-500">New Tag</label>
-                <div class="flex items-center gap-2">
+            <div class="space-y-3">
+                <label class="text-sm font-bold text-slate-500">{{ $editingId ? 'Edit Tag' : 'New Tag' }}</label>
+                <div class="flex items-center gap-2 w-full">
                     {{-- タグ名 --}}
                     <input type="text"
                            wire:model.live="name"
@@ -56,12 +56,25 @@
                     {{-- 色 --}}
                     @foreach($this->colorClasses as $key => $class)
                         <button wire:click="$set('color', '{{ $key }}')"
-                                class="w-8 h-8 rounded-full cursor-pointer {{ $class }}
+                                class="w-7 h-7 rounded-full cursor-pointer {{ $class }}
                                        {{ $color == $key ? 'ring-2 ring-offset-2 ring-slate-400' : ''}}"
                         ></button>
                     @endforeach
 
-                    {{-- Save・Cancel ボタン --}}
+                    {{-- プレビュー --}}
+                    <div class="flex-1 flex flex-col items-center justify-center gap-3 bg-slate-50 px-4 py-1.5 mx-4 rounded-2xl border border-slate-100">
+                        <label class="text-sm font-bold text-slate-400 uppercase tracking-wider">Preview</label>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-tag text-slate-400"></i>
+                            <span class="px-3 py-0.5 rounded-full text-sm font-medium {{ $this->previewClass }}">
+                                {{ $name ?: 'sample'}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Save・Cancel ボタン --}}
+                <div class="flex items-center gap-3 text-sm">
                     @if($editingId)
                         <button wire:click="save"
                                 class="bg-pink-200 border rounded-xl p-2 cursor-pointer"
@@ -85,15 +98,6 @@
                     </button>
                 </div>
 
-                {{-- プレビュー --}}
-                <label class="text-sm font-bold text-slate-500">Preview</label>
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-tag text-slate-400"></i>
-                    <span class="px-3 py-1 rounded-full text-sm font-medium {{ $this->previewClass }}">
-                        {{ $name ?: 'sample'}}
-                    </span>
-                </div>
-
                 @error('name')
                     <p class="text-sm text-red-500">
                         {{ $message }}
@@ -104,10 +108,10 @@
     @endif
 
     {{-- タグ一覧 --}}
-    <div class="grid md:grid-cols-2 gap-4">
+    <div class="flex flex-wrap gap-3 w-full">
         @forelse($tags as $tag)
 
-            <div class="group flex items-center justify-between p-4 rounded-lg shadow-sm border hover:shadow-md transition
+            <div class="group flex items-center justify-between gap-2 p-4 rounded-lg shadow-sm hover:shadow-md transition
                         {{ $editingId === $tag->id ? 'bg-pink-50 border-pink-200' : 'bg-white border-gray-200' }}">
 
                 <div class="flex items-center gap-2">
@@ -117,7 +121,7 @@
                     </span>
                 </div>
 
-                <div class="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <button wire:click="edit({{ $tag->id }})"
                             class="cursor-pointer text-blue-400 hover:text-blue-500 cursor-pointer"
                     >
