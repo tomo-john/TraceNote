@@ -13,6 +13,8 @@
         {{ $slot }}
     </main>
 
+    <x-ui.toast />
+
     {{-- Footer --}}
     <x-layouts.partials.footer />
 

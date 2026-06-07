@@ -1,5 +1,6 @@
 <div class="max-w-5xl mx-auto p-6 space-y-6">
 
+    {{-- ヘッダー --}}
     <div class="flex items-center justify-between">
         <div class="flex flex-col">
             <h1 class="text-3xl font-bold text-slate-800">
@@ -22,13 +23,6 @@
             </a>
         </div>
     </div>
-
-    @if (session()->has('success'))
-        <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl flex items-center space-x-2 font-bold">
-            <i class="fa-solid fa-circle-check"></i>
-            <span>{{ session('success') }}</span>
-        </div>
-    @endif
 
     {{-- 新規作成ボタン --}}
     <div class="flex items-center gap-5">

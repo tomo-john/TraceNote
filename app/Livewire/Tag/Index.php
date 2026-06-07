@@ -96,7 +96,11 @@ class Index extends Component
 
         $this->closeForm();
 
-        session()->flash('success', '削除しました');
+        $this->dispatch(
+            'notify',
+            message: '削除しました',
+            type: 'danger'
+        );
     }
 
     // Save
@@ -139,17 +143,21 @@ class Index extends Component
 
             $this->closeForm();
 
-            session()->flash(
-                'success',
-                $isEditing
+            $this->dispatch(
+                'notify',
+                message: $isEditing
                     ? "{$tag->name} を更新しました"
-                    : "{$tag->name} を作成しました"
+                    : "{$tag->name} を作成しました",
+                type: 'success'
             );
-
         } catch (\Throwable $e) {
             logger($e);
 
-            session()->flash('error', '保存に失敗しました');
+            $this->dispatch(
+                'notify',
+                message: '保存に失敗しました',
+                type: 'danger'
+            );
         }
     }
 
