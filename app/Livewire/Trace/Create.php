@@ -6,20 +6,24 @@ use Livewire\Component;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use App\Models\Trace;
+use App\Enums\TraceStatus;
 use Illuminate\Validation\Rule;
 
 class Create extends Component
 {
-    public string $title;
+    public string  $title;
     public ?string $summary;
-    public string $content;
-    public string $status = Trace::STATUS_DRAFT;
-    public array $selectedTags = [];
-    public $tags;
+    public string  $content;
+    public string  $status = 'draft';
+    public array   $statuses = [];
+    public array   $selectedTags = [];
+    public         $tags;
 
     public function mount()
     {
         $this->tags = auth()->user()->tags()->orderBy('name')->get();
+
+        $this->statuses = TraceStatus::options();
     }
 
     protected function rules(): array

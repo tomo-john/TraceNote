@@ -56,8 +56,8 @@
                             class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 shadow-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400"
                     >
                         <option value="">すべてのステータス</option>
-                        @foreach(\App\Models\Trace::statuses() as $value => $label)
-                            <option value="{{ $value }}">{{ $label }}</option>
+                        @foreach($statuses as $status)
+                            <option value="{{ $status['value'] }}">{{ $status['label'] }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -127,7 +127,7 @@
 
                     {{-- ステータス --}}
                     <span class="absolute top-4 right-4 px-3 py-1 text-xs font-medium rounded-full bg-slate-100 text-slate-600 whitespace-nowrap">
-                        {{ $trace->statusLabel() }}
+                        {{ $trace->status->label() }}
                     </span>
 
                     <div class="flex items-start justify-between gap-4">

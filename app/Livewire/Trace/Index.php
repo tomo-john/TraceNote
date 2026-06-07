@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use App\Enums\TraceStatus;
 use App\Models\Trace;
 
 
@@ -15,13 +16,16 @@ class Index extends Component
 
     public string $search = '';
     public string $status = '';
-    public $tags;
-    public ?int $selectedTagId = null;
+    public array  $statuses = [];
+    public        $tags;
+    public ?int   $selectedTagId = null;
     public string $sort = 'latest';
 
     public function mount()
     {
         $this->tags = auth()->user()->tags()->get();
+
+        $this->statuses = TraceStatus::options();
     }
 
     #[Computed]

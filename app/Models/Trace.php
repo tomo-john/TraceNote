@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\User;
 use App\Models\Tag;
+use App\Enums\TraceStatus;
 
 class Trace extends Model
 {
@@ -18,25 +19,11 @@ class Trace extends Model
         'status',
     ];
 
-    // status
-    const STATUS_DRAFT = 'draft';
-    const STATUS_RESEARCHING = 'researching';
-    const STATUS_UNDERSTOOD = 'understood';
-    const STATUS_PRACTICED = 'practiced';
-
-    public static function statuses(): array
+    protected function casts(): array
     {
-        return[
-            self::STATUS_DRAFT => '下書き',
-            self::STATUS_RESEARCHING => '調査中',
-            self::STATUS_UNDERSTOOD => '理解済み',
-            self::STATUS_PRACTICED => '実践済み',
+        return [
+            'status' => TraceStatus::class,
         ];
-    }
-
-    public function statusLabel(): string
-    {
-        return self::statuses()[$this->status] ?? '不明';
     }
 
     public function user() :BelongsTo
