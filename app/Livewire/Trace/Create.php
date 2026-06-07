@@ -8,6 +8,7 @@ use Livewire\Attributes\On;
 use App\Models\Trace;
 use App\Enums\TraceStatus;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 
 class Create extends Component
 {
@@ -34,8 +35,7 @@ class Create extends Component
             'content' => 'required|string',
             'status'  => [
                 'required',
-                'string',
-                Rule::in(array_keys(Trace::statuses())),
+                 new Enum(TraceStatus::class),
             ],
         ];
     }

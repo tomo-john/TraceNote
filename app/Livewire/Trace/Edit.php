@@ -6,7 +6,9 @@ use Livewire\Component;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use App\Models\Trace;
+use App\Enums\TraceStatus;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Edit extends Component
@@ -18,6 +20,7 @@ class Edit extends Component
     public ?string $summary;
     public string $content;
     public string $status;
+    public array   $statuses = [];
     public array $selectedTags = [];
     public $tags;
 
@@ -29,7 +32,8 @@ class Edit extends Component
         $this->title = $trace->title;
         $this->summary = $trace->summary;
         $this->content = $trace->content;
-        $this->status = $trace->status;
+        $this->status = $trace->status->value;
+        $this->statuses = TraceStatus::options();
 
         $this->tags = auth()->user()->tags()->orderBy('name')->get();
         $this->selectedTags = $trace->tags->pluck('id')->toArray();
@@ -43,8 +47,7 @@ class Edit extends Component
             'content' => 'required|string',
             'status'  => [
                 'required',
-                'string',
-                Rule::in(array_keys(Trace::statuses())),
+                 new Enum(TraceStatus::class),
             ],
         ];
     }

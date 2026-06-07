@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use App\Models\Trace;
+use App\Enums\TraceStatus;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Show extends Component

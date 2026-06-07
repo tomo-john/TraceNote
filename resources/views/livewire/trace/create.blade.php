@@ -50,9 +50,9 @@
             <select wire:model="status"
                     class="w-full rounded-xl border border-slate-300 px-4 py-3">
 
-                @foreach(\App\Models\Trace::statuses() as $value => $label)
-                    <option value="{{ $value }}">
-                        {{ $label }}
+                @foreach($statuses as $status)
+                    <option value="{{ $status['value'] }}">
+                        {{ $status['label'] }}
                     </option>
                 @endforeach
 
