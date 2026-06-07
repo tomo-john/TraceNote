@@ -53,15 +53,29 @@ class Create extends Component
 
         try {
             $trace = Trace::create($this->payload());
+
             $trace->tags()->sync($this->selectedTags);
 
-            session()->flash('success', '作成しました');
+            session()->flash(
+                'toast',
+                [
+                    'message' => "{$trace->title} を作成しました",
+                    'type' => 'success',
+                ]
+            );
+
             return $this->redirectRoute('trace.index', navigate: true);
 
         } catch (\Throwable $e) {
             logger($e);
 
-            session()->flash('error', '保存に失敗しました');
+            session()->flash(
+                'toast',
+                [
+                    'message' => "保存に失敗しました",
+                    'type' => 'danger',
+                ]
+            );
         }
     }
 

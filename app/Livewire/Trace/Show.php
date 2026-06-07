@@ -25,7 +25,14 @@ class Show extends Component
         $this->authorize('delete', $this->trace);
         $this->trace->delete();
 
-        session()->flash('success', '削除しました');
+        session()->flash(
+            'toast',
+            [
+                'message' => "削除しました",
+                'type' => 'danger',
+            ]
+        );
+
         return $this->redirectRoute('trace.index', navigate: true);
     }
 

@@ -67,15 +67,29 @@ class Edit extends Component
 
         try {
             $this->trace->update($this->payload());
+
             $this->trace->tags()->sync($this->selectedTags);
 
-            session()->flash('success', "{$this->trace->title} を更新しました");
+            session()->flash(
+                'toast',
+                [
+                    'message' => "{$this->trace->title} を更新しました",
+                    'type' => 'success',
+                ]
+            );
+
             return $this->redirectRoute('trace.show', $this->trace,  navigate: true);
 
         } catch (\Throwable $e) {
             logger($e);
 
-            session()->flash('error', '保存に失敗しました');
+            session()->flash(
+                'toast',
+                [
+                    'message' => "保存に失敗しました",
+                    'type' => 'danger',
+                ]
+            );
         }
     }
 

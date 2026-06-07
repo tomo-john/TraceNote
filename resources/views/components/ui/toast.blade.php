@@ -1,4 +1,9 @@
 <div x-data="toast()"
+     x-init="
+        @if(session()->has('toast'))
+            notify(@js(session('toast')))
+        @endif
+     "
      x-cloak
      x-show="show"
      x-on:notify.window="notify($event.detail)"

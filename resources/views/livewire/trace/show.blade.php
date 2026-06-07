@@ -31,13 +31,6 @@
         </button>
     </div>
 
-    @if (session()->has('success'))
-        <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl flex items-center space-x-2 font-bold">
-            <i class="fa-solid fa-circle-check"></i>
-            <span>{{ session('success') }}</span>
-        </div>
-    @endif
-
     <div class="space-y-6">
 
         {{-- title --}}
