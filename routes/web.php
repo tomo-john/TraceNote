@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Livewire\Trace\Index as TraceIndex;
 use App\Livewire\Trace\Create as TraceCreate;
 use App\Livewire\Trace\Show as TraceShow;
@@ -10,7 +11,7 @@ use App\Livewire\Tag\Index as TagIndex;
 Route::view('/', 'top')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
 
     Route::get('traces', TraceIndex::class)->name('trace.index');
     Route::get('traces/create', TraceCreate::class)->name('trace.create');
