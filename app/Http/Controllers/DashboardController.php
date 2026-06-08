@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\DashboardService;
 
 class DashboardController extends Controller
 {
@@ -10,9 +11,10 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        return view('dashboard', [
-            'traceCount' => $user->traces()->count(),
-            'tagCount' => $user->tags()->count(),
-        ]);
+        $service = new DashboardService();
+
+        $stats = $service->getStats($user);
+
+        return view('dashboard', $stats);
     }
 }
