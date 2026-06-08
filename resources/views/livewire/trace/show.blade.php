@@ -48,7 +48,9 @@
         {{-- status --}}
         <div class="space-y-2">
             <label class="font-bold">ステータス</label>
-            <p class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white">{{ $trace->status->label() }}</p>
+            <div>
+                <span class="border rounded-lg px-2 py-1 {{ $trace->status->colorClass() }}">{{ $trace->status->label() }}</span>
+            </div>
         </div>
 
         {{-- tags --}}

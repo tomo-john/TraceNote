@@ -126,7 +126,8 @@
                           transition duration-300">
 
                     {{-- ステータス --}}
-                    <span class="absolute top-4 right-4 px-3 py-1 text-xs font-medium rounded-full bg-slate-100 text-slate-600 whitespace-nowrap">
+                    <span class="absolute top-4 right-4 px-3 py-1 text-xs font-medium rounded-full whitespace-nowrap {{ $trace->status->colorClass() }}">
+                        <i class="{{ $trace->status->iconClass() }}"></i>
                         {{ $trace->status->label() }}
                     </span>
 
