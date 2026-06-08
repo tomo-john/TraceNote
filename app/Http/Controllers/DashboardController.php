@@ -7,11 +7,9 @@ use App\Services\DashboardService;
 
 class DashboardController extends Controller
 {
-    public function __invoke()
+    public function __invoke(DashboardService $service)
     {
         $user = auth()->user();
-
-        $service = new DashboardService();
 
         $stats = $service->getStats($user);
 
