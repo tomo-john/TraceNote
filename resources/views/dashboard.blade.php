@@ -14,9 +14,11 @@
                 </a>
             </div>
             <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 flex items-center justify-center gap-2">
-                @foreach($statusCount as $a => $b)
-                    <span>{{ $a }} {{ $b }}</span>
-                @endforeach
+                <div class="flex flex-col items-start gap-2">
+                    @foreach($statusCounts as $status)
+                        <span class="">{{ $status['label'] }}: {{ $status['count'] }}</span>
+                    @endforeach
+                </div>
             </div>
         </div>
         <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">

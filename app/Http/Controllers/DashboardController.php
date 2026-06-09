@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Enums\TraceStatus;
 use App\Services\DashboardService;
 
 class DashboardController extends Controller
