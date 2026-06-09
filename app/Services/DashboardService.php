@@ -13,7 +13,14 @@ class DashboardService
     {
         return [
             'traceCount' => $user->traces()->count(),
+
             'tagCount' => $user->tags()->count(),
+
+            'statusCount' => $user->traces()
+                                  ->selectRaw('status, count(*) as count')
+                                  ->groupBy('status')
+                                  ->pluck('count', 'status')
+                                  ->toArray(),
         ];
     }
 }

@@ -9,12 +9,14 @@
             </div>
             <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 flex items-center justify-center gap-2">
                 <a href="{{ route('tag.index') }}">
-                    <i class="fa-solid fa-dog text-sky-400"></i>
+                    <i class="fa-solid fa-tag text-sky-400"></i>
                     <span>{{ $tagCount }} Tags</span>
                 </a>
             </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
+            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 flex items-center justify-center gap-2">
+                @foreach($statusCount as $a => $b)
+                    <span>{{ $a }} {{ $b }}</span>
+                @endforeach
             </div>
         </div>
         <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
