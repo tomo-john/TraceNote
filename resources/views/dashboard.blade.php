@@ -1,37 +1,36 @@
 <x-layouts::app :title="__('Dashboard')">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
-        <div class="grid auto-rows-min gap-4 md:grid-cols-3">
 
-            {{-- Trace Count --}}
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 flex items-center justify-center gap-2">
-                <a href="{{ route('trace.index') }}">
-                    <i class="fa-solid fa-dog text-sky-400"></i>
-                    <span>{{ $traceCount }} Traces</span>
-                </a>
-            </div>
+        <div class="relative h-full rounded-xl border border-neutral-200 dark:border-neutral-700">
+            <div class="rounded-xl p-6">
 
-            {{-- Tag Count --}}
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 flex items-center justify-center gap-2">
-                <a href="{{ route('tag.index') }}">
-                    <i class="fa-solid fa-tag text-sky-400"></i>
-                    <span>{{ $tagCount }} Tags</span>
-                </a>
-            </div>
+                <h2 class="font-bold text-lg mb-4">
+                    Dashboard
+                </h2>
 
-            {{-- Status Counts --}}
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 flex items-center justify-center gap-2">
-                <div class="flex items-center justify-center gap-2">
-                    <div class="grid grid-cols-2 gap-6">
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <a href="{{ route('trace.index') }}">
+                            <i class="fa-solid fa-dog text-sky-400 w-6"></i>
+                            <span>{{ $traceCount }} Traces</span>
+                        </a>
                         @foreach($statusCounts as $status)
-                            <div class="flex items-center gap-1 px-1 py-2 rounded-2xl {{ $status['colorClass'] }}">
+                            <div class="w-12 text-center text-sm p-1 rounded-full {{ $status['colorClass'] }}">
                                 <i class="{{ $status['iconClass'] }}"></i>
-                                <span class="">{{ $status['label'] }}: {{ $status['count'] }}</span>
+                                <span class="">{{ $status['count'] }}</span>
                             </div>
                         @endforeach
                     </div>
-                </div>
-            </div>
 
+                    <div>
+                        <a href="{{ route('tag.index') }}">
+                            <i class="fa-solid fa-tag text-sky-400 w-6"></i>
+                            <span>{{ $tagCount }} Tags</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
         <div class="relative h-full rounded-xl border border-neutral-200 dark:border-neutral-700">
@@ -60,17 +59,20 @@
                                     {{ $trace->title }}
                                 </span>
 
-                            </div>
+                                <span class="text-sm text-slate-500">
+                                    {{ $trace->summary }}
+                                </span>
 
-                            <div class="text-sm text-slate-500 mt-2">
-                                {{ $trace->summary }}
                             </div>
 
                         </a>
 
                     @empty
 
-                        Traceがまだありません🐶
+                        <p>
+                            No Trace
+                            <i class="fa-solid fa-dog"></i>
+                        </p>
 
                     @endforelse
 
@@ -81,6 +83,11 @@
 
         <div class="relative h-full rounded-xl border border-neutral-200 dark:border-neutral-700">
             <div class="rounded-xl p-6">
+
+                <h2 class="font-bold text-lg mb-4">
+                    活動履歴
+                </h2>
+
                 @foreach($activityCounts as $date => $count)
                     <div class="flex">
                         <div class="w-24 font-mono">
