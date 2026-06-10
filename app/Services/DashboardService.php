@@ -9,6 +9,7 @@ use App\Enums\TraceStatus;
 
 class DashboardService
 {
+    // ステータスごと集計
     private function getStatusCounts(User $user): array
     {
         $counts = $user->traces()
@@ -26,12 +27,25 @@ class DashboardService
             ->toArray();
     }
 
+    // 最近のTrace
     private function getRecentTraces(User $user)
     {
         return $user->traces()
             ->latest()
             ->take(5)
             ->get();
+    }
+
+    // 活動記録
+    private function getActivityCounts(User $user): array
+    {
+        return $user->traces()
+            ->selectRaw('DATE(created_at) as date, count(*) as count')
+            ->where('created_at', '>=', now()->subDays(30))
+            ->groupByRaw('DATE(created_at)')
+            ->pluck('count', 'date')
+            ->toArray();
+
     }
 
     public function getStats(User $user): array
@@ -41,6 +55,7 @@ class DashboardService
             'tagCount' => $user->tags()->count(),
             'statusCounts' => $this->getStatusCounts($user),
             'recentTraces' => $this->getRecentTraces($user),
+            'activityCounts' => $this->getActivityCounts($user),
         ];
     }
 }

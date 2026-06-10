@@ -33,7 +33,8 @@
             </div>
 
         </div>
-        <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
+
+        <div class="relative h-full rounded-xl border border-neutral-200 dark:border-neutral-700">
             <div class="rounded-xl p-6">
 
                 <h2 class="font-bold text-lg mb-4">
@@ -50,7 +51,7 @@
 
                             <div class="flex items-center gap-2">
 
-                                <span class="text-sm px-0.5 py-1 rounded-full {{ $trace->status->colorClass() }}">
+                                <span class="text-sm p-1 rounded-full {{ $trace->status->colorClass() }}">
                                     <i class="{{ $trace->status->iconClass() }}"></i>
                                     {{ $trace->status->label() }}
                                 </span>
@@ -77,5 +78,21 @@
 
             </div>
         </div>
+
+        <div class="relative h-full rounded-xl border border-neutral-200 dark:border-neutral-700">
+            <div class="rounded-xl p-6">
+                @foreach($activityCounts as $date => $count)
+                    <div class="flex">
+                        <div class="w-24 font-mono">
+                            {{ $date }}
+                        </div>
+                        <div>
+                            {{ str_repeat('🧱', $count) }}
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
     </div>
 </x-layouts::app>
