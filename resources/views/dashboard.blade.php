@@ -34,7 +34,48 @@
 
         </div>
         <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
+            <div class="rounded-xl p-6">
+
+                <h2 class="font-bold text-lg mb-4">
+                    最近のTrace
+                </h2>
+
+                <div class="space-y-3">
+
+                    @forelse ($recentTraces as $trace)
+
+                        <a href="{{ route('trace.show', $trace) }}"
+                           class="block rounded-lg border border-pink-200 p-4 hover:bg-pink-300 transition"
+                        >
+
+                            <div class="flex items-center gap-2">
+
+                                <span class="text-sm px-0.5 py-1 rounded-full {{ $trace->status->colorClass() }}">
+                                    <i class="{{ $trace->status->iconClass() }}"></i>
+                                    {{ $trace->status->label() }}
+                                </span>
+
+                                <span class="font-semibold">
+                                    {{ $trace->title }}
+                                </span>
+
+                            </div>
+
+                            <div class="text-sm text-slate-500 mt-2">
+                                {{ $trace->summary }}
+                            </div>
+
+                        </a>
+
+                    @empty
+
+                        Traceがまだありません🐶
+
+                    @endforelse
+
+                </div>
+
+            </div>
         </div>
     </div>
 </x-layouts::app>

@@ -26,12 +26,21 @@ class DashboardService
             ->toArray();
     }
 
+    private function getRecentTraces(User $user)
+    {
+        return $user->traces()
+            ->latest()
+            ->take(5)
+            ->get();
+    }
+
     public function getStats(User $user): array
     {
         return [
             'traceCount' => $user->traces()->count(),
             'tagCount' => $user->tags()->count(),
             'statusCounts' => $this->getStatusCounts($user),
+            'recentTraces' => $this->getRecentTraces($user),
         ];
     }
 }
