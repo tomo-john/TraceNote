@@ -60,6 +60,13 @@ class DashboardService
 
     }
 
+    // 検証用
+    private function getTest(User $user): array
+    {
+        return collect(range(0, 4))->map(fn ($days) => now()->subDays($days)->format('Y-m-d'))->toArray();
+    }
+
+    // コントローラーから呼び出すのはこれだけ
     public function getStats(User $user): array
     {
         return [
@@ -68,6 +75,7 @@ class DashboardService
             'statusCounts' => $this->getStatusCounts($user),
             'recentTraces' => $this->getRecentTraces($user),
             'activityCounts' => $this->getActivityCounts($user),
+            'test' => $this->getTest($user),
         ];
     }
 }

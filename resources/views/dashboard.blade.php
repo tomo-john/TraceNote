@@ -101,5 +101,23 @@
             </div>
         </div>
 
+        {{-- 検証用 --}}
+        <div class="relative h-full rounded-xl border border-neutral-200 dark:border-neutral-700">
+            <div class="rounded-xl p-6">
+
+                <h2 class="font-bold text-lg mb-4">
+                    検証
+                    <i class="fa-solid fa-dog"></i>
+                </h2>
+
+                <div class="flex flex-col gap-2 text-sm text-slate-500">
+                    @foreach($test as $t)
+                        <div>
+                            {{ $t }}
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </div>
 </x-layouts::app>
