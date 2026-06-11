@@ -9,6 +9,18 @@ use App\Enums\TraceStatus;
 
 class DashboardService
 {
+    // Trace数
+    private function getTraceCount(User $user): int
+    {
+        return $user->traces()->count();
+    }
+
+    // Tag数
+    private function getTagCount(User $user): int
+    {
+        return $user->tags()->count();
+    }
+
     // ステータスごと集計
     private function getStatusCounts(User $user): array
     {
@@ -51,8 +63,8 @@ class DashboardService
     public function getStats(User $user): array
     {
         return [
-            'traceCount' => $user->traces()->count(),
-            'tagCount' => $user->tags()->count(),
+            'traceCount' => $this->getTraceCount($user),
+            'tagCount' => $this->getTagCount($user),
             'statusCounts' => $this->getStatusCounts($user),
             'recentTraces' => $this->getRecentTraces($user),
             'activityCounts' => $this->getActivityCounts($user),
