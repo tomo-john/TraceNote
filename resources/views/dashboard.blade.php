@@ -111,9 +111,9 @@
                 </h2>
 
                 <div class="flex flex-col gap-2 text-sm text-slate-500">
-                    @foreach($test as $t)
+                    @foreach($test as $key => $value)
                         <div>
-                            {{ $t }}
+                            {{ $key }} : {{ $value }}
                         </div>
                     @endforeach
                 </div>

@@ -63,7 +63,22 @@ class DashboardService
     // 検証用
     private function getTest(User $user): array
     {
-        return collect(range(0, 4))->map(fn ($days) => now()->subDays($days)->format('Y-m-d'))->toArray();
+        // 日付の枠(昇順)
+        $calendar =  collect(range(0, 30))->mapWithKeys(function ($days) {
+            $date = now()->subDays($days)->format('Y-m-d');
+            return [$date => 0];
+        })->reverse();
+
+        // DBから日付ごとにTraceの数をカウント
+        $traceCounts = $user->traces()
+            ->selectRaw('DATE(created_at) as date, count(*) as count')
+            ->where('created_at', '>=', now()->subDays(30))
+            ->groupByRaw('DATE(created_at)')
+            ->pluck('count', 'date');
+
+        // マージした配列を返す
+        return $calendar->merge($traceCounts)
+            ->toArray();
     }
 
     // コントローラーから呼び出すのはこれだけ
