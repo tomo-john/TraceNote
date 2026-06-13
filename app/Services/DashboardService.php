@@ -51,18 +51,6 @@ class DashboardService
     // 活動記録
     private function getActivityCounts(User $user): array
     {
-        return $user->traces()
-            ->selectRaw('DATE(created_at) as date, count(*) as count')
-            ->where('created_at', '>=', now()->subDays(30))
-            ->groupByRaw('DATE(created_at)')
-            ->pluck('count', 'date')
-            ->toArray();
-
-    }
-
-    // 検証用
-    private function getTest(User $user): array
-    {
         // 日付の枠(昇順)
         $calendar =  collect(range(0, 30))->mapWithKeys(function ($days) {
             $date = now()->subDays($days)->format('Y-m-d');
@@ -90,7 +78,6 @@ class DashboardService
             'statusCounts' => $this->getStatusCounts($user),
             'recentTraces' => $this->getRecentTraces($user),
             'activityCounts' => $this->getActivityCounts($user),
-            'test' => $this->getTest($user),
         ];
     }
 }

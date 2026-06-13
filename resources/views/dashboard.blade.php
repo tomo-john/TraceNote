@@ -1,6 +1,7 @@
 <x-layouts::app :title="__('Dashboard')">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
 
+        {{-- 現在のステータス --}}
         <div class="relative h-full rounded-xl border border-neutral-200 dark:border-neutral-700">
             <div class="rounded-xl p-6">
 
@@ -33,6 +34,7 @@
             </div>
         </div>
 
+        {{-- 最近のTrace --}}
         <div class="relative h-full rounded-xl border border-neutral-200 dark:border-neutral-700">
             <div class="rounded-xl p-6">
 
@@ -81,27 +83,7 @@
             </div>
         </div>
 
-        <div class="relative h-full rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <div class="rounded-xl p-6">
-
-                <h2 class="font-bold text-lg mb-4">
-                    活動履歴
-                </h2>
-
-                @foreach($activityCounts as $date => $count)
-                    <div class="flex">
-                        <div class="w-24 font-mono">
-                            {{ $date }}
-                        </div>
-                        <div>
-                            {{ str_repeat('🧱', $count) }}
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-
-        {{-- 検証用 --}}
+        {{-- 活動履歴 --}}
         <div class="relative h-full rounded-xl border border-neutral-200 dark:border-neutral-700">
             <div class="rounded-xl p-6">
 
@@ -111,7 +93,7 @@
                 </h2>
 
                 <div class="flex flex-col gap-2 text-sm text-slate-500">
-                    @foreach($test as $key => $value)
+                    @foreach($activityCounts as $key => $value)
                         <div>
                             {{ $key }} : {{ $value }}
                         </div>
