@@ -9,7 +9,7 @@ use App\Enums\TraceStatus;
 
 class DashboardService
 {
-    private const ACTIVITY_DAYS = 30;
+    private const ACTIVITY_DAYS = 41; // 6週間分
 
     // Trace数
     private function getTraceCount(User $user): int
@@ -53,16 +53,20 @@ class DashboardService
     // 活動記録
     private function getActivityCounts(User $user): array
     {
-        // 日付の枠(昇順)
-        $calendar =  collect(range(0, self::ACTIVITY_DAYS))->mapWithKeys(function ($days) {
-            $date = now()->subDays($days)->format('Y-m-d');
+        // 日付の枠
+        $startDate = now()->endOfWeek()->subDays(self::ACTIVITY_DAYS);
+
+        $calendar =  collect(range(0, self::ACTIVITY_DAYS))->mapWithKeys(function ($days) use ($startDate) {
+            $date = $startDate->copy()
+                              ->addDays($days)
+                              ->format('Y-m-d');
             return [$date => 0];
-        })->reverse();
+        });
 
         // DBから日付ごとにTraceの数をカウント
         $traceCounts = $user->traces()
             ->selectRaw('DATE(created_at) as date, count(*) as count')
-            ->where('created_at', '>=', now()->subDays(30))
+            ->where('created_at', '>=', $startDate)
             ->groupByRaw('DATE(created_at)')
             ->pluck('count', 'date');
 

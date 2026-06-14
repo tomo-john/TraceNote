@@ -92,12 +92,26 @@
                     <i class="fa-solid fa-dog"></i>
                 </h2>
 
-                <div class="inline-grid grid-flow-col grid-rows-7 gap-1">
-                    @foreach($activityCounts as $activity)
-                        <div class="size-3 rounded-sm {{ $activity['colorClass'] }}"
-                             title="{{ $activity['date'] }} : {{ $activity['count'] }}"
-                        ></div>
-                    @endforeach
+                <div class="flex gap-2">
+                    {{-- 曜日 --}}
+                    <div class="grid grid-rows-7 gap-0 5 text-xs text-slate-500">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+
+                    {{-- 草 --}}
+                    <div class="inline-grid grid-flow-col grid-rows-7 gap-0.5">
+                        @foreach($activityCounts as $activity)
+                            <div class="size-3 rounded-sm {{ $activity['colorClass'] }}"
+                                 title="{{ $activity['date'] }} : {{ $activity['count'] }}"
+                            ></div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
