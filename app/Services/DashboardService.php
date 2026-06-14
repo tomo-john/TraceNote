@@ -9,7 +9,7 @@ use App\Enums\TraceStatus;
 
 class DashboardService
 {
-    private const ACTIVITY_DAYS = 41; // 6週間分
+    private const ACTIVITY_DAYS = 167; // Activity Historyの日数
 
     // Trace数
     private function getTraceCount(User $user): int
@@ -84,7 +84,7 @@ class DashboardService
     private function getActivityColorClass(int $count): string
     {
         return match (true) {
-            $count === 0 => 'bg-slate-100',
+            $count === 0 => 'bg-gray-300',
             $count <= 2 => 'bg-green-200',
             $count <= 3 => 'bg-green-300',
             $count <= 4 => 'bg-green-400',

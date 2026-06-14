@@ -14,6 +14,7 @@
 
                     {{-- Trace Tag Count --}}
                     <div class="flex flex-col gap-4">
+
                         <div class="flex flex-wrap items-center gap-2">
                             <a href="{{ route('trace.index') }}">
                                 <i class="fa-solid fa-dog text-sky-400 w-6"></i>
@@ -33,7 +34,9 @@
                                 <span>{{ $tagCount }} Tags</span>
                             </a>
                         </div>
+
                     </div>
+
                 </div>
             </div>
 
@@ -66,17 +69,24 @@
                                 ></div>
                             @endforeach
                         </div>
+
+                        {{-- test --}}
+                        <div class="flex-1 flex items-center justify-center border rounded-xl">
+                            <i class="fa-solid fa-dog"></i>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
 
-        {{-- 最近のTrace --}}
+        {{-- Recently Trace --}}
         <div class="relative h-full rounded-xl border border-neutral-200 dark:border-neutral-700">
             <div class="rounded-xl p-6">
 
                 <h2 class="font-bold text-lg mb-4">
-                    最近のTrace
+                    Recently Trace
+                    <i class="fa-solid fa-dog"></i>
                 </h2>
 
                 <div class="space-y-3">
