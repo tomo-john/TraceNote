@@ -88,15 +88,15 @@
             <div class="rounded-xl p-6">
 
                 <h2 class="font-bold text-lg mb-4">
-                    検証
+                    活動履歴
                     <i class="fa-solid fa-dog"></i>
                 </h2>
 
-                <div class="flex flex-col gap-2 text-sm text-slate-500">
-                    @foreach($activityCounts as $key => $value)
-                        <div>
-                            {{ $key }} : {{ $value }}
-                        </div>
+                <div class="flex gap-1">
+                    @foreach($activityCounts as $activity)
+                        <div class="size-3 rounded-sm {{ $activity['colorClass'] }}"
+                             title="{{ $activity['date'] }} : {{ $activity['count'] }}"
+                        ></div>
                     @endforeach
                 </div>
             </div>

@@ -29,7 +29,7 @@
 
                     <flux:menu>
                         <flux:menu.item href="{{ route('trace.index') }}" icon="star">Trace</flux:menu.item>
-                        <flux:menu.item href="{{ route('dashboard') }}" icon="layout-grid">Dashboard</flux:menu.item>
+                        <flux:menu.item href="{{ route('dashboard') }}" icon="star">Dashboard</flux:menu.item>
                         <flux:menu.item href="{{ route('profile.edit') }}" icon="cog">Profile</flux:menu.item>
                         <flux:menu.separator />
                         <form method="POST" action="{{ route('logout') }}" class="w-full">

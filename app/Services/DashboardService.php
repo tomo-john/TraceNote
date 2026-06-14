@@ -66,7 +66,26 @@ class DashboardService
 
         // マージした配列を返す
         return $calendar->merge($traceCounts)
-            ->toArray();
+                        ->map(fn ($count, $date) => [
+                            'date' => $date,
+                            'count' => $count,
+                            'colorClass' => $this->getActivityColorClass($count),
+                        ])
+                        ->values()
+                        ->toArray();
+    }
+
+    private function getActivityColorClass(int $count): string
+    {
+        return match (true) {
+            $count === 0 => 'bg-slate-100',
+            $count <= 2 => 'bg-green-200',
+            $count <= 3 => 'bg-green-300',
+            $count <= 4 => 'bg-green-400',
+            $count <= 5 => 'bg-green-500',
+            $count >= 6 => 'bg-green-700',
+            default => 'bg-slate-100'
+        };
     }
 
     // コントローラーから呼び出すのはこれだけ
