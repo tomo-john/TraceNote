@@ -84,12 +84,40 @@ class DashboardService
     private function getActivityColorClass(int $count): string
     {
         return match (true) {
-            $count === 0 => 'bg-gray-300',
+            $count === 0 => 'bg-slate-400',
             $count <= 2 => 'bg-green-200',
             $count <= 3 => 'bg-green-300',
             $count <= 4 => 'bg-green-400',
             $count <= 5 => 'bg-green-500',
             default => 'bg-green-700'
+        };
+    }
+
+    // 表示用の犬
+    private function getDogInfo(User $user): array
+    {
+        $traceCount = $this->getTraceCount($user);
+
+        return match (true) {
+            $traceCount < 10 => [
+                'colorClass' => 'text-slate-100',
+                'sizeClass' => 'text-xl',
+            ],
+
+            $traceCount < 30 => [
+                'colorClass' => 'text-amber-400',
+                'sizeClass' => 'text-3xl',
+            ],
+
+            $traceCount < 50 => [
+                'colorClass' => 'text-orange-400',
+                'sizeClass' => 'text-5xl',
+            ],
+
+            default => [
+                'colorClass' => 'text-sky-400',
+                'sizeClass' => 'text-7xl',
+            ],
         };
     }
 
@@ -102,6 +130,7 @@ class DashboardService
             'statusCounts' => $this->getStatusCounts($user),
             'recentTraces' => $this->getRecentTraces($user),
             'activityCounts' => $this->getActivityCounts($user),
+            'dog' => $this->getDogInfo($user),
         ];
     }
 }

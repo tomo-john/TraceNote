@@ -70,9 +70,9 @@
                             @endforeach
                         </div>
 
-                        {{-- test --}}
+                        {{-- 犬 --}}
                         <div class="flex-1 flex items-center justify-center border rounded-xl">
-                            <i class="fa-solid fa-dog"></i>
+                            <i class="fa-solid fa-dog {{ $dog['colorClass'] }} {{ $dog['sizeClass'] }}"></i>
                         </div>
                     </div>
 
