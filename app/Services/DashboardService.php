@@ -9,6 +9,8 @@ use App\Enums\TraceStatus;
 
 class DashboardService
 {
+    private const ACTIVITY_DAYS = 30;
+
     // Trace数
     private function getTraceCount(User $user): int
     {
@@ -52,7 +54,7 @@ class DashboardService
     private function getActivityCounts(User $user): array
     {
         // 日付の枠(昇順)
-        $calendar =  collect(range(0, 30))->mapWithKeys(function ($days) {
+        $calendar =  collect(range(0, self::ACTIVITY_DAYS))->mapWithKeys(function ($days) {
             $date = now()->subDays($days)->format('Y-m-d');
             return [$date => 0];
         })->reverse();
@@ -83,8 +85,7 @@ class DashboardService
             $count <= 3 => 'bg-green-300',
             $count <= 4 => 'bg-green-400',
             $count <= 5 => 'bg-green-500',
-            $count >= 6 => 'bg-green-700',
-            default => 'bg-slate-100'
+            default => 'bg-green-700'
         };
     }
 

@@ -92,7 +92,7 @@
                     <i class="fa-solid fa-dog"></i>
                 </h2>
 
-                <div class="flex gap-1">
+                <div class="inline-grid grid-flow-col grid-rows-7 gap-1">
                     @foreach($activityCounts as $activity)
                         <div class="size-3 rounded-sm {{ $activity['colorClass'] }}"
                              title="{{ $activity['date'] }} : {{ $activity['count'] }}"
