@@ -36,13 +36,13 @@
 
 ## :world_map: ER Diagram
 
-![ER Diagram](docs/20260617_er_diagram.png)
+![ER Diagram](docs/er_diagram.png)
 
 ## :memo: Memo
 
 ```
 docs
-├── 2026xxyy_er_diagram.png
+├── er_diagram.png
 ├── screen_transition.png
 ├── dashboard_mock.png
 └── wireframe.png
