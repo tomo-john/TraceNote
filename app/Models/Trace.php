@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\User;
 use App\Models\Tag;
 use App\Enums\TraceStatus;
+use App\Models\TraceRelation;
 
 class Trace extends Model
 {
@@ -34,5 +36,15 @@ class Trace extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function outgoingRelations() :HasMany
+    {
+        return $this->HasMany(TraceRelation::class, 'from_trace_id');
+    }
+
+    public function incomingRelations() :HasMany
+    {
+        return $this->HasMany(TraceRelation::class, 'to_trace_id');
     }
 }
