@@ -47,4 +47,23 @@ class Trace extends Model
     {
         return $this->HasMany(TraceRelation::class, 'to_trace_id');
     }
+
+    public function prerequisiteTraces()
+    {
+        return $this->incomingRelations()
+                    ->where('relation_type', 'prerequisite')
+                    ->with('fromTrace')
+                    ->get()
+                    ->pluck('fromTrace');
+    }
+
+    public function childTraces()
+    {
+
+    }
+
+    public function relatedTraces()
+    {
+
+    }
 }
