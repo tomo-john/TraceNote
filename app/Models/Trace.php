@@ -68,6 +68,18 @@ class Trace extends Model
 
     public function relatedTraces()
     {
+        $incoming = $this->incomingRelations()
+                         ->where('relation_type', 'related')
+                         ->with('fromTrace')
+                         ->get()
+                         ->pluck('fromTrace');
 
+        $outgoing = $this->outgoingRelations()
+                         ->where('relation_type', 'related')
+                         ->with('toTrace')
+                         ->get()
+                         ->pluck('toTrace');
+
+        return $incoming->merge($outgoing);
     }
 }
