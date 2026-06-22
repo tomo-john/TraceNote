@@ -59,7 +59,11 @@ class Trace extends Model
 
     public function childTraces()
     {
-
+        return $this->outgoingRelations()
+                    ->where('relation_type', 'child')
+                    ->with('toTrace')
+                    ->get()
+                    ->pluck('toTrace');
     }
 
     public function relatedTraces()
