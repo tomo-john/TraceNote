@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\User;
 use App\Models\Tag;
-use App\Enums\TraceStatus;
 use App\Models\TraceRelation;
+use App\Enums\TraceStatus;
+use App\Enums\TraceRelationType;
 
 class Trace extends Model
 {
@@ -51,7 +52,7 @@ class Trace extends Model
     public function prerequisiteTraces()
     {
         return $this->incomingRelations()
-                    ->where('relation_type', 'prerequisite')
+                    ->where('relation_type', TraceRelationType::PREREQUISITE)
                     ->with('fromTrace')
                     ->get()
                     ->pluck('fromTrace');
@@ -60,7 +61,7 @@ class Trace extends Model
     public function childTraces()
     {
         return $this->outgoingRelations()
-                    ->where('relation_type', 'child')
+                    ->where('relation_type', TraceRelationType::CHILD)
                     ->with('toTrace')
                     ->get()
                     ->pluck('toTrace');
@@ -69,13 +70,13 @@ class Trace extends Model
     public function relatedTraces()
     {
         $incoming = $this->incomingRelations()
-                         ->where('relation_type', 'related')
+                         ->where('relation_type', TraceRelationType::RELATED)
                          ->with('fromTrace')
                          ->get()
                          ->pluck('fromTrace');
 
         $outgoing = $this->outgoingRelations()
-                         ->where('relation_type', 'related')
+                         ->where('relation_type', TraceRelationType::RELATED)
                          ->with('toTrace')
                          ->get()
                          ->pluck('toTrace');
