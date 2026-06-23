@@ -80,6 +80,9 @@ class Trace extends Model
                          ->get()
                          ->pluck('toTrace');
 
-        return $incoming->merge($outgoing);
+        return $incoming->merge($outgoing)
+                        ->unique('id')
+                        ->values();
+
     }
 }
