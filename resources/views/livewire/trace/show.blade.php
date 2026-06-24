@@ -70,12 +70,22 @@
         </div>
     </div>
 
-    {{-- 関連知識(検証中) --}}
+    {{-- 検証中 --}}
     <div class="">
-        @foreach($prerequisiteTraces as $prerequisiteTrace)
+        <label class="font-bold">
+            <i class="fa-solid fa-dog"></i>
+            前提知識
+        </label>
+        @forelse($this->prerequisiteTraces as $prerequisiteTrace)
             <div class="flex flex-col gap-2">
-                {{ $prerequisiteTrace['title'] }}
+                <a href="{{ route('trace.show', $prerequisiteTrace) }}" wire:navigate>
+                    <span class="text-sm text-slate-500">
+                        {{ $prerequisiteTrace->title }}
+                    </span>
+                </a>
             </div>
-        @endforeach
+        @empty
+            <p class="text-sm text-slate-500">登録された前提知識はありません</p>
+        @endforelse
     </div>
 </div>

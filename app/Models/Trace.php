@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use App\Models\User;
 use App\Models\Tag;
 use App\Models\TraceRelation;
@@ -49,7 +50,7 @@ class Trace extends Model
         return $this->HasMany(TraceRelation::class, 'to_trace_id');
     }
 
-    public function prerequisiteTraces()
+    public function prerequisiteTraces(): Collection
     {
         return $this->incomingRelations()
                     ->where('relation_type', TraceRelationType::PREREQUISITE)
@@ -58,7 +59,7 @@ class Trace extends Model
                     ->pluck('fromTrace');
     }
 
-    public function childTraces()
+    public function childTraces(): Collection
     {
         return $this->outgoingRelations()
                     ->where('relation_type', TraceRelationType::CHILD)
@@ -67,7 +68,7 @@ class Trace extends Model
                     ->pluck('toTrace');
     }
 
-    public function relatedTraces()
+    public function relatedTraces(): Collection
     {
         $incoming = $this->incomingRelations()
                          ->where('relation_type', TraceRelationType::RELATED)
