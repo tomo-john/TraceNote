@@ -14,11 +14,13 @@ class Show extends Component
     use AuthorizesRequests;
 
     public Trace $trace;
+    public $prerequisiteTraces = [];
 
     public function mount(Trace $trace): void
     {
         $this->authorize('view', $trace);
         $this->trace = $trace;
+        $this->prerequisiteTraces = $trace->prerequisiteTraces()->toArray();
     }
 
     public function delete()

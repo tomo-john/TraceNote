@@ -69,4 +69,13 @@
             <p class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white break-words whitespace-pre-wrap">{{ $trace->content }}</p>
         </div>
     </div>
+
+    {{-- 関連知識(検証中) --}}
+    <div class="">
+        @foreach($prerequisiteTraces as $prerequisiteTrace)
+            <div class="flex flex-col gap-2">
+                {{ $prerequisiteTrace['title'] }}
+            </div>
+        @endforeach
+    </div>
 </div>
