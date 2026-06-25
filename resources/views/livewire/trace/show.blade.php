@@ -71,21 +71,59 @@
     </div>
 
     {{-- 検証中 --}}
-    <div class="">
-        <label class="font-bold">
-            <i class="fa-solid fa-dog"></i>
-            前提知識
-        </label>
-        @forelse($this->prerequisiteTraces as $prerequisiteTrace)
-            <div class="flex flex-col gap-2">
-                <a href="{{ route('trace.show', $prerequisiteTrace) }}" wire:navigate>
-                    <span class="text-sm text-slate-500">
-                        {{ $prerequisiteTrace->title }}
-                    </span>
-                </a>
-            </div>
-        @empty
-            <p class="text-sm text-slate-500">登録された前提知識はありません</p>
-        @endforelse
+    <div class="grid grid-cols-3 gap-3">
+        <div class="rounded-xl border p-4">
+            <label class="font-bold">
+                <i class="fa-solid fa-dog"></i>
+                前提知識
+            </label>
+            @forelse($this->prerequisiteTraces as $prerequisiteTrace)
+                <div class="flex flex-col gap-2">
+                    <a href="{{ route('trace.show', $prerequisiteTrace) }}" wire:navigate>
+                        <span class="text-sm text-slate-500">
+                            {{ $prerequisiteTrace->title }}
+                        </span>
+                    </a>
+                </div>
+            @empty
+                <p class="text-sm text-slate-500">登録された前提知識はありません</p>
+            @endforelse
+        </div>
+
+        <div class="rounded-xl border p-4">
+            <label class="font-bold">
+                <i class="fa-solid fa-dog"></i>
+                子知識
+            </label>
+            @forelse($this->childTraces as $childTrace)
+                <div class="flex flex-col gap-2">
+                    <a href="{{ route('trace.show', $childTrace) }}" wire:navigate>
+                        <span class="text-sm text-slate-500">
+                            {{ $childTrace->title }}
+                        </span>
+                    </a>
+                </div>
+            @empty
+                <p class="text-sm text-slate-500">登録された子知識はありません</p>
+            @endforelse
+        </div>
+
+        <div class="rounded-xl border p-4">
+            <label class="font-bold">
+                <i class="fa-solid fa-dog"></i>
+                関連知識
+            </label>
+            @forelse($this->relatedTraces as $relatedTrace)
+                <div class="flex flex-col gap-2">
+                    <a href="{{ route('trace.show', $relatedTrace) }}" wire:navigate>
+                        <span class="text-sm text-slate-500">
+                            {{ $relatedTrace->title }}
+                        </span>
+                    </a>
+                </div>
+            @empty
+                <p class="text-sm text-slate-500">登録された関連知識はありません</p>
+            @endforelse
+        </div>
     </div>
 </div>

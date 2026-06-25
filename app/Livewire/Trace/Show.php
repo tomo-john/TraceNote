@@ -27,6 +27,18 @@ class Show extends Component
         return $this->trace->prerequisiteTraces();
     }
 
+    #[Computed]
+    public function childTraces()
+    {
+        return $this->trace->childTraces();
+    }
+
+    #[Computed]
+    public function relatedTraces()
+    {
+        return $this->trace->relatedTraces();
+    }
+
     public function delete()
     {
         $this->authorize('delete', $this->trace);
