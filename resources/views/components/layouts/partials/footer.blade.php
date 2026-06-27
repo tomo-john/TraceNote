@@ -1,7 +1,9 @@
 <footer class="mt-20 border-t border-slate-200 bg-white pt-12 pb-8 text-center">
 
     <div class="text-lg font-bold text-slate-600 flex items-center justify-center gap-2">
-        <img src="{{ asset('favicon.svg')}}" alt="Trace Note logo" class="w-8 h-8 inline">
+        <a href="{{ route('sandbox') }}">
+            <img src="{{ asset('favicon.svg')}}" alt="Trace Note logo" class="w-8 h-8 inline">
+        </a>
         Trace Note
     </div>
 

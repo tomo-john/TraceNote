@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SandboxController;
 use App\Livewire\Trace\Index as TraceIndex;
 use App\Livewire\Trace\Create as TraceCreate;
 use App\Livewire\Trace\Show as TraceShow;
@@ -9,6 +10,7 @@ use App\Livewire\Trace\Edit as TraceEdit;
 use App\Livewire\Tag\Index as TagIndex;
 
 Route::view('/', 'top')->name('home');
+Route::get('sandbox', SandboxController::class)->name('sandbox');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
