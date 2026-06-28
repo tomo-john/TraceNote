@@ -89,7 +89,7 @@ class Trace extends Model
     }
 
     // 検証
-    public function addPrerequisite(Trace $selectedTrace)
+    public function addPrerequisite(Trace $selectedTrace): TraceRelation
     {
         return $this->incomingRelations()
                     ->create([
