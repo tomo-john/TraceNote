@@ -87,4 +87,15 @@ class Trace extends Model
                         ->values();
 
     }
+
+    // 検証
+    public function addPrerequisite(Trace $selectedTrace)
+    {
+        return $this->incomingRelations()
+                    ->create([
+                        'from_trace_id' => $selectedTrace->id,
+                        'relation_type' => TraceRelationType::PREREQUISITE
+                    ]);
+    }
+
 }
