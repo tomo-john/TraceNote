@@ -98,4 +98,13 @@ class Trace extends Model
                     ]);
     }
 
+    // テスト用
+    public function test(Trace $selectedTrace): TraceRelation
+    {
+        return $this->incomingRelations()
+                    ->create([
+                        'from_trace_id' => $selectedTrace->id,
+                        'relation_type' => TraceRelationType::PREREQUISITE
+                    ]);
+    }
 }

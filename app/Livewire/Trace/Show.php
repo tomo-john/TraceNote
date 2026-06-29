@@ -55,6 +55,14 @@ class Show extends Component
         return $this->redirectRoute('trace.index', navigate: true);
     }
 
+    // test
+    public function test()
+    {
+        $trace_1 = Trace::find(1);
+
+        $this->trace->test($trace_1);
+    }
+
     public function render()
     {
         return view('livewire.trace.show')
