@@ -29,7 +29,6 @@ return new class extends Migration
             $table->unique([
                 'from_trace_id',
                 'to_trace_id',
-                'relation_type',
             ]);
         });
     }
