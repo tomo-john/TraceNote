@@ -70,6 +70,7 @@
         </div>
     </div>
 
+    {{-- Relation Traces --}}
     <div class="grid grid-cols-3 gap-3">
         <div class="rounded-xl border p-4">
             <label class="font-bold">
@@ -87,6 +88,11 @@
             @empty
                 <p class="text-sm text-slate-500">登録された前提知識はありません</p>
             @endforelse
+            <button wire:click="" class="">
+                <span class="text-sm text-sky-500 text-center">
+                    <i class="fa-solid fa-plus mr-1"></i>追加
+                </span>
+            </button>
         </div>
 
         <div class="rounded-xl border p-4">
@@ -127,9 +133,28 @@
     </div>
 
     {{-- 検証中 --}}
-    <div>
+    <div class="rounded-xl border p-4">
+        <label class="font-bold">
+            <i class="fa-solid fa-dog"></i>
+            関連付けすることのできるTrace
+        </label>
         @forelse($this->availableRelationTraces as $availableRelationTrace)
-            {{ $availableRelationTrace->id }} : {{ $availableRelationTrace->title }}
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2">
+                    <a href="{{ route('trace.show', $availableRelationTrace) }}" wire:navigate>
+                        <span class="text-sm text-slate-500">
+                            #
+                            {{ $availableRelationTrace->id }}
+                            {{ $availableRelationTrace->title }}
+                        </span>
+                    </a>
+                    <button wire:click="addPrerequisite({{ $availableRelationTrace }})" class="">
+                        <span class="text-sm text-sky-500">
+                            <i class="fa-solid fa-plus mr-1"></i>追加
+                        </span>
+                    </button>
+                </div>
+            </div>
         @empty
             関連付けすることのできるTraceがありません
             <i class="fa-solid fa-dog"></i>

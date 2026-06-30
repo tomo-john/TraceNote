@@ -45,6 +45,11 @@ class Show extends Component
         return $this->trace->availableRelationTraces();
     }
 
+    public function addPrerequisite(Trace $selectedTrace): void
+    {
+        $this->trace->addPrerequisite($selectedTrace);
+    }
+
     public function delete()
     {
         $this->authorize('delete', $this->trace);
