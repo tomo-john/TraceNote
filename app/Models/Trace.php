@@ -40,6 +40,9 @@ class Trace extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    /**
+     * Relations
+     */
     public function outgoingRelations() :HasMany
     {
         return $this->HasMany(TraceRelation::class, 'from_trace_id');
@@ -88,7 +91,6 @@ class Trace extends Model
 
     }
 
-    // 検証
     public function addPrerequisite(Trace $selectedTrace): TraceRelation
     {
         return $this->incomingRelations()
@@ -98,13 +100,22 @@ class Trace extends Model
                     ]);
     }
 
-    // テスト用
-    public function test(Trace $selectedTrace): TraceRelation
+    public function availableRelationTraces(): Collection
     {
-        return $this->incomingRelations()
-                    ->create([
-                        'from_trace_id' => $selectedTrace->id,
-                        'relation_type' => TraceRelationType::PREREQUISITE
-                    ]);
+        $excludedIds = $this->incomingRelations()
+                            ->pluck('from_trace_id')
+                            ->merge(
+                                $this->outgoingRelations()
+                                     ->pluck('to_trace_id')
+                            )
+                            ->push($this->id)
+                            ->unique()
+                            ->values();
+
+        return auth()->user()
+                     ->traces()
+                     ->whereNotIn('id', $excludedIds)
+                     ->get();
     }
+
 }

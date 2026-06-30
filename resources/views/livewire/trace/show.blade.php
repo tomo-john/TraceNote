@@ -126,5 +126,4 @@
             @endforelse
         </div>
     </div>
-    <button wire:click="test">TEST</button>
 </div>
