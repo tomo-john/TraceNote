@@ -39,6 +39,12 @@ class Show extends Component
         return $this->trace->relatedTraces();
     }
 
+    #[Computed]
+    public function availableRelationTraces()
+    {
+        return $this->trace->availableRelationTraces();
+    }
+
     public function delete()
     {
         $this->authorize('delete', $this->trace);

@@ -70,7 +70,6 @@
         </div>
     </div>
 
-    {{-- 検証中 --}}
     <div class="grid grid-cols-3 gap-3">
         <div class="rounded-xl border p-4">
             <label class="font-bold">
@@ -125,5 +124,15 @@
                 <p class="text-sm text-slate-500">登録された関連知識はありません</p>
             @endforelse
         </div>
+    </div>
+
+    {{-- 検証中 --}}
+    <div>
+        @forelse($this->availableRelationTraces as $availableRelationTrace)
+            {{ $availableRelationTrace->id }} : {{ $availableRelationTrace->title }}
+        @empty
+            関連付けすることのできるTraceがありません
+            <i class="fa-solid fa-dog"></i>
+        @endforelse
     </div>
 </div>
