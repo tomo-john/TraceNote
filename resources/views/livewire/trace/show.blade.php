@@ -96,10 +96,34 @@
                 追加
             </button>
 
+            {{-- Modal --}}
             @if($showAddPrerequisiteModal)
                 <div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-                    <div class="bg-white rounded-xl p-6">
-                        <i class="fa-solid fa-dog text-pink-400 text-4xl"></i>
+                    <div class="bg-white rounded-xl p-6 space-y-2">
+                        <p class="text-sm text-slate-500 text-center">前提知識に追加</p>
+                        <div class="space-y-1">
+                            @forelse($this->availableRelationTraces as $availableRelationTrace)
+                                <div class="grid grid-cols-2">
+                                    <div class="text-sm text-slate-500">
+                                        #
+                                        {{ $availableRelationTrace->id }}
+                                        {{ $availableRelationTrace->title }}
+                                    </div>
+                                    <button wire:click="addPrerequisite({{ $availableRelationTrace }})" class="">
+                                        <span class="text-sm text-sky-500">
+                                            <i class="fa-solid fa-plus mr-1"></i>追加
+                                        </span>
+                                    </button>
+                                </div>
+                            @empty
+                                <p class="text-sm text-slate-500">関連付けすることのできるTraceがありません</p>
+                            @endforelse
+                            <div class="flex items-center justify-center">
+                                <button wire:click="closeAddPrerequisiteModal" class="cursor-pointer border bg-gray-400 rounded-xl px-2 py-1">
+                                    <span class="text-xs">閉じる</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endif
@@ -151,20 +175,13 @@
         </label>
         @forelse($this->availableRelationTraces as $availableRelationTrace)
             <div class="flex flex-col gap-2">
-                <div class="flex items-center gap-2">
-                    <a href="{{ route('trace.show', $availableRelationTrace) }}" wire:navigate>
-                        <span class="text-sm text-slate-500">
-                            #
-                            {{ $availableRelationTrace->id }}
-                            {{ $availableRelationTrace->title }}
-                        </span>
-                    </a>
-                    <button wire:click="addPrerequisite({{ $availableRelationTrace }})" class="">
-                        <span class="text-sm text-sky-500">
-                            <i class="fa-solid fa-plus mr-1"></i>追加(前提知識)
-                        </span>
-                    </button>
-                </div>
+                <a href="{{ route('trace.show', $availableRelationTrace) }}" wire:navigate>
+                    <div class="text-sm text-slate-500">
+                        #
+                        {{ $availableRelationTrace->id }}
+                        {{ $availableRelationTrace->title }}
+                    </div>
+                </a>
             </div>
         @empty
             <p class="text-sm text-slate-500">関連付けすることのできるTraceがありません</p>
