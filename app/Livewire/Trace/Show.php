@@ -14,6 +14,7 @@ class Show extends Component
     use AuthorizesRequests;
 
     public Trace $trace;
+    public bool $showAddPrerequisiteModal = false;
 
     public function mount(Trace $trace): void
     {
@@ -48,6 +49,16 @@ class Show extends Component
     public function addPrerequisite(Trace $selectedTrace): void
     {
         $this->trace->addPrerequisite($selectedTrace);
+    }
+
+    public function openAddPrerequisiteModal(): void
+    {
+        $this->showAddPrerequisiteModal = true;
+    }
+
+    public function closeAddPrerequisiteModal(): void
+    {
+        $this->showAddPrerequisiteModal = false;
     }
 
     public function delete()

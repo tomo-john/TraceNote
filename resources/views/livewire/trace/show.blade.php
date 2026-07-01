@@ -73,10 +73,12 @@
     {{-- Relation Traces --}}
     <div class="grid grid-cols-3 gap-3">
         <div class="rounded-xl border p-4">
+
             <label class="font-bold">
                 <i class="fa-solid fa-dog"></i>
                 前提知識
             </label>
+
             @forelse($this->prerequisiteTraces as $prerequisiteTrace)
                 <div class="flex flex-col gap-2">
                     <a href="{{ route('trace.show', $prerequisiteTrace) }}" wire:navigate>
@@ -88,6 +90,20 @@
             @empty
                 <p class="text-sm text-slate-500">登録された前提知識はありません</p>
             @endforelse
+
+            <button wire:click="openAddPrerequisiteModal" class="text-sm text-sky-300">
+                <i class="fa-solid fa-plus mr-1"></i>
+                追加
+            </button>
+
+            @if($showAddPrerequisiteModal)
+                <div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+                    <div class="bg-white rounded-xl p-6">
+                        <i class="fa-solid fa-dog text-pink-400 text-4xl"></i>
+                    </div>
+                </div>
+            @endif
+
         </div>
 
         <div class="rounded-xl border p-4">
@@ -145,7 +161,7 @@
                     </a>
                     <button wire:click="addPrerequisite({{ $availableRelationTrace }})" class="">
                         <span class="text-sm text-sky-500">
-                            <i class="fa-solid fa-plus mr-1"></i>追加
+                            <i class="fa-solid fa-plus mr-1"></i>追加(前提知識)
                         </span>
                     </button>
                 </div>
