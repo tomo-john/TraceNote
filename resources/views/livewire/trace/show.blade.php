@@ -88,11 +88,6 @@
             @empty
                 <p class="text-sm text-slate-500">登録された前提知識はありません</p>
             @endforelse
-            <button wire:click="" class="">
-                <span class="text-sm text-sky-500 text-center">
-                    <i class="fa-solid fa-plus mr-1"></i>追加
-                </span>
-            </button>
         </div>
 
         <div class="rounded-xl border p-4">
@@ -156,8 +151,7 @@
                 </div>
             </div>
         @empty
-            関連付けすることのできるTraceがありません
-            <i class="fa-solid fa-dog"></i>
+            <p class="text-sm text-slate-500">関連付けすることのできるTraceがありません</p>
         @endforelse
     </div>
 </div>
