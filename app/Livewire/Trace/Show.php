@@ -49,6 +49,8 @@ class Show extends Component
     public function addPrerequisite(Trace $selectedTrace): void
     {
         $this->trace->addPrerequisite($selectedTrace);
+
+        $this->closeAddPrerequisiteModal();
     }
 
     public function openAddPrerequisiteModal(): void

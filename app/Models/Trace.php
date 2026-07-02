@@ -103,6 +103,38 @@ class Trace extends Model
                     ]);
     }
 
+    public function addChild(Trace $selectedTrace): TraceRelation
+    {
+        return $this->outgoingRelations()
+                    ->create([
+                        'to_trace_id' => $selectedTrace->id,
+                        'relation_type' => TraceRelationType::CHILD
+                    ]);
+    }
+
+    public function addRelated(Trace $selectedTrace): TraceRelation
+    {
+        return $this->outgoingRelations()
+                    ->create([
+                        'to_trace_id' => $selectedTrace->id,
+                        'relation_type' => TraceRelationType::RELATED
+                    ]);
+    }
+
+    public function removeRelation(Trace $relatedTrace): void
+    {
+        $relation = TraceRelation::query()
+            ->where([
+                'from_trace_id' => $this->id,
+                'to_trace_id' => $relatedTrace->id,
+            ])
+            ->orWhere([
+                'from_trace_id' => $relatedTrace->id,
+                'to_trace_id' => $this->id,
+            ])
+            ->delete();
+    }
+
     public function availableRelationTraces(): Collection
     {
         $excludedIds = $this->incomingRelations()

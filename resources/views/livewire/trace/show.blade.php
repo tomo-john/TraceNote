@@ -81,11 +81,18 @@
 
             @forelse($this->prerequisiteTraces as $prerequisiteTrace)
                 <div class="flex flex-col gap-2">
-                    <a href="{{ route('trace.show', $prerequisiteTrace) }}" wire:navigate>
-                        <span class="text-sm text-slate-500">
-                            {{ $prerequisiteTrace->title }}
-                        </span>
-                    </a>
+                    <div class="flex items-center gap-2">
+                        <a href="{{ route('trace.show', $prerequisiteTrace) }}" wire:navigate>
+                            <span class="text-sm text-slate-500">
+                                {{ $prerequisiteTrace->title }}
+                            </span>
+                        </a>
+                        <button wire:click="" wire:confirm="関連付けを解除しますか？">
+                            <span class="text-xs text-red-400">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </span>
+                        </button>
+                    </div>
                 </div>
             @empty
                 <p class="text-sm text-slate-500">登録された前提知識はありません</p>
@@ -99,8 +106,8 @@
             {{-- Modal --}}
             @if($showAddPrerequisiteModal)
                 <div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-                    <div class="bg-white rounded-xl p-6 space-y-2">
-                        <p class="text-sm text-slate-500 text-center">前提知識に追加</p>
+                    <div class="bg-white rounded-xl p-6 w-full max-w-lg max-h-[70vh] overflow-y-auto">
+                        <p class="text-sm text-slate-500 text-center">前提知識として追加するTraceを選択</p>
                         <div class="space-y-1">
                             @forelse($this->availableRelationTraces as $availableRelationTrace)
                                 <div class="grid grid-cols-2">
