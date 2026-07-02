@@ -87,7 +87,7 @@
                                 {{ $prerequisiteTrace->title }}
                             </span>
                         </a>
-                        <button wire:click="" wire:confirm="関連付けを解除しますか？">
+                        <button wire:click="removeRelation({{ $prerequisiteTrace }})" wire:confirm="関連付けを解除しますか？">
                             <span class="text-xs text-red-400">
                                 <i class="fa-solid fa-trash-can"></i>
                             </span>
@@ -116,7 +116,7 @@
                                         {{ $availableRelationTrace->id }}
                                         {{ $availableRelationTrace->title }}
                                     </div>
-                                    <button wire:click="addPrerequisite({{ $availableRelationTrace }})" class="">
+                                    <button wire:click="addRelation({{ $availableRelationTrace }})" class="">
                                         <span class="text-sm text-sky-500">
                                             <i class="fa-solid fa-plus mr-1"></i>追加
                                         </span>

@@ -17,7 +17,7 @@ class Show extends Component
 
     public Trace $trace;
     public bool $showAddRelationModal = false;
-    public TraceRelationType $relationType;
+    public ?TraceRelationType $relationType = null;
 
     public function mount(Trace $trace): void
     {
@@ -52,26 +52,20 @@ class Show extends Component
     /**
      * Relation Operator
      */
-    public function addPrerequisite(Trace $selectedTrace): void
+    public function addRelation(Trace $selectedTrace): void
     {
-        $this->trace->addPrerequisite($selectedTrace);
-        $this->closeAddRelationModal();
-    }
+        match($this->relationType) {
+            TraceRelationType::PREREQUISITE => $this->trace->addPrerequisite($selectedTrace),
+            TraceRelationType::CHILD        => $this->trace->addChild($selectedTrace),
+            TraceRelationType::RELATED      => $this->trace->addRelated($selectedTrace),
+        };
 
-    public function addChild(Trace $selectedTrace): void
-    {
-        $this->trace->addChild($selectedTrace);
-        $this->closeAddRelationModal();
-    }
-
-    public function addRelated(Trace $selectedTrace): void
-    {
-        $this->trace->addRelated($selectedTrace);
         $this->closeAddRelationModal();
     }
 
     public function removeRelation(Trace $relatedTrace): void
     {
+        dd($this->trace->id, $relatedTrace->id);
         $this->trace->removeRelation($relatedTrace);
     }
 
@@ -87,6 +81,7 @@ class Show extends Component
     public function closeAddRelationModal(): void
     {
         $this->showAddRelationModal = false;
+        $this->relationType = null;
     }
 
     /**
