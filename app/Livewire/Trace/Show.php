@@ -7,14 +7,17 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use App\Models\Trace;
 use App\Enums\TraceStatus;
+use App\Enums\TraceRelationType;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Collection;
 
 class Show extends Component
 {
     use AuthorizesRequests;
 
     public Trace $trace;
-    public bool $showAddPrerequisiteModal = false;
+    public bool $showAddRelationModal = false;
+    public TraceRelationType $relationType;
 
     public function mount(Trace $trace): void
     {
@@ -23,46 +26,72 @@ class Show extends Component
     }
 
     #[Computed]
-    public function prerequisiteTraces()
+    public function prerequisiteTraces(): Collection
     {
         return $this->trace->prerequisiteTraces();
     }
 
     #[Computed]
-    public function childTraces()
+    public function childTraces(): Collection
     {
         return $this->trace->childTraces();
     }
 
     #[Computed]
-    public function relatedTraces()
+    public function relatedTraces(): Collection
     {
         return $this->trace->relatedTraces();
     }
 
     #[Computed]
-    public function availableRelationTraces()
+    public function availableRelationTraces(): Collection
     {
         return $this->trace->availableRelationTraces();
     }
 
+    /**
+     * Relation Operator
+     */
     public function addPrerequisite(Trace $selectedTrace): void
     {
         $this->trace->addPrerequisite($selectedTrace);
-
-        $this->closeAddPrerequisiteModal();
+        $this->closeAddRelationModal();
     }
 
-    public function openAddPrerequisiteModal(): void
+    public function addChild(Trace $selectedTrace): void
     {
-        $this->showAddPrerequisiteModal = true;
+        $this->trace->addChild($selectedTrace);
+        $this->closeAddRelationModal();
     }
 
-    public function closeAddPrerequisiteModal(): void
+    public function addRelated(Trace $selectedTrace): void
     {
-        $this->showAddPrerequisiteModal = false;
+        $this->trace->addRelated($selectedTrace);
+        $this->closeAddRelationModal();
     }
 
+    public function removeRelation(Trace $relatedTrace): void
+    {
+        $this->trace->removeRelation($relatedTrace);
+    }
+
+    /**
+     * Add Relation Modal Operator
+     */
+    public function openAddRelationModal(string $relationType): void
+    {
+        $this->relationType = TraceRelationType::from($relationType);
+        $this->showAddRelationModal = true;
+    }
+
+    public function closeAddRelationModal(): void
+    {
+        $this->showAddRelationModal = false;
+    }
+
+    /**
+     * Trace Delete
+     */
     public function delete()
     {
         $this->authorize('delete', $this->trace);
