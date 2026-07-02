@@ -10,6 +10,11 @@ enum TraceRelationType: string
 
     public function label(): string
     {
+        return match($this) {
+            self::PREREQUISITE => '前提知識',
+            self::CHILD => '子知識',
+            self::RELATED => '関連知識',
+        };
     }
 
     public function iconClass(): string
