@@ -44,7 +44,7 @@ class Trace extends Model
     }
 
     /**
-     * Relations
+     * Relationships
      */
     public function outgoingRelations() :HasMany
     {
@@ -56,6 +56,11 @@ class Trace extends Model
         return $this->HasMany(TraceRelation::class, 'to_trace_id');
     }
 
+    /**
+     * Relation Operations
+     *
+     * TraceRelationを利用してrelation_typeごとのTrace一覧を取得
+     */
     public function prerequisiteTraces(): Collection
     {
         return $this->incomingRelations()
@@ -94,6 +99,11 @@ class Trace extends Model
 
     }
 
+    /**
+     * Commnads
+     *
+     * Trace同士のリレーションを作成・削除
+     */
     public function addPrerequisite(Trace $selectedTrace): TraceRelation
     {
         return $this->incomingRelations()
@@ -123,7 +133,7 @@ class Trace extends Model
 
     public function removeRelation(Trace $relatedTrace): void
     {
-        $relation = TraceRelation::query()
+        TraceRelation::query()
             ->where([
                 'from_trace_id' => $this->id,
                 'to_trace_id' => $relatedTrace->id,
@@ -135,6 +145,11 @@ class Trace extends Model
             ->delete();
     }
 
+    /**
+     * Candidate Query
+     *
+     * リレーション候補となるTrace一覧を取得
+     */
     public function availableRelationTraces(): Collection
     {
         $excludedIds = $this->incomingRelations()
