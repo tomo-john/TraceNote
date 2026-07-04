@@ -54,11 +54,7 @@ class Show extends Component
      */
     public function addRelation(Trace $selectedTrace): void
     {
-        match($this->relationType) {
-            TraceRelationType::PREREQUISITE => $this->trace->addPrerequisite($selectedTrace),
-            TraceRelationType::CHILD        => $this->trace->addChild($selectedTrace),
-            TraceRelationType::RELATED      => $this->trace->addRelated($selectedTrace),
-        };
+        $this->trace->addRelation($selectedTrace, $this->relationType);
 
         $this->closeAddRelationModal();
     }

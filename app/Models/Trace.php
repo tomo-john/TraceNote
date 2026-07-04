@@ -131,6 +131,15 @@ class Trace extends Model
                     ]);
     }
 
+    public function addRelation(Trace $selectedTrace, TraceRelationType $relationType): void
+    {
+        match($relationType) {
+            TraceRelationType::PREREQUISITE => $this->addPrerequisite($selectedTrace),
+            TraceRelationType::CHILD        => $this->addChild($selectedTrace),
+            TraceRelationType::RELATED      => $this->addRelated($selectedTrace),
+        };
+    }
+
     public function removeRelation(Trace $relatedTrace): void
     {
         TraceRelation::query()
