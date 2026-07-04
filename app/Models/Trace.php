@@ -134,14 +134,14 @@ class Trace extends Model
     public function removeRelation(Trace $relatedTrace): void
     {
         TraceRelation::query()
-            ->where([
-                'from_trace_id' => $this->id,
-                'to_trace_id' => $relatedTrace->id,
-            ])
-            ->orWhere([
-                'from_trace_id' => $relatedTrace->id,
-                'to_trace_id' => $this->id,
-            ])
+            ->where(function ($query) use ($relatedTrace) {
+                $query->where('from_trace_id', $this->id)
+                      ->where('to_trace_id', $relatedTrace->id);
+            })
+            ->orWhere(function ($query) use ($relatedTrace) {
+                $query->where('from_trace_id', $relatedTrace->id)
+                      ->where('to_trace_id', $this->id);
+            })
             ->delete();
     }
 

@@ -65,7 +65,6 @@ class Show extends Component
 
     public function removeRelation(Trace $relatedTrace): void
     {
-        dd($this->trace->id, $relatedTrace->id);
         $this->trace->removeRelation($relatedTrace);
     }
 
