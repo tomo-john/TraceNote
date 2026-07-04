@@ -104,6 +104,10 @@ class Trace extends Model
      *
      * Trace同士のリレーションを作成・削除
      */
+
+    /**
+     * 初回作成3種
+     */
     public function addPrerequisite(Trace $selectedTrace): TraceRelation
     {
         return $this->incomingRelations()
@@ -131,15 +135,28 @@ class Trace extends Model
                     ]);
     }
 
-    public function addRelation(Trace $selectedTrace, TraceRelationType $relationType): void
+    /**
+     * 関連付けこれ一本
+     */
+    public function addRelation(Trace $selectedTrace, TraceRelationType $relationType): TraceRelation
     {
-        match($relationType) {
-            TraceRelationType::PREREQUISITE => $this->addPrerequisite($selectedTrace),
-            TraceRelationType::CHILD        => $this->addChild($selectedTrace),
-            TraceRelationType::RELATED      => $this->addRelated($selectedTrace),
-        };
+        if($relationType === TraceRelationType::PREREQUISITE) {
+            $relation = $this->incomingRelations();
+            $data = ['from_trace_id' => $selectedTrace->id];
+        } else {
+            $relation = $this->outgoingRelations();
+            $data = ['to_trace_id' => $selectedTrace->id];
+        }
+
+        return $relation->create([
+            ...$data,
+            'relation_type' => $relationType,
+        ]);
     }
 
+    /**
+     * 関連付け削除
+     */
     public function removeRelation(Trace $relatedTrace): void
     {
         TraceRelation::query()
