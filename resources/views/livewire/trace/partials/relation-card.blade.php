@@ -2,7 +2,7 @@
 
     <label class="font-bold">
         <i class="fa-solid fa-dog"></i>
-        {{ $title }}
+        {{ $relationType->label() }}
     </label>
 
     @forelse($traces as $trace)

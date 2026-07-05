@@ -74,19 +74,16 @@
     <div class="grid grid-cols-3 gap-3">
 
         @include('livewire.trace.partials.relation-card', [
-            'title' => '前提知識',
             'traces' => $this->prerequisiteTraces,
             'relationType' => App\Enums\TraceRelationType::PREREQUISITE,
         ])
 
         @include('livewire.trace.partials.relation-card', [
-            'title' => '子知識',
             'traces' => $this->childTraces,
             'relationType' => App\Enums\TraceRelationType::CHILD,
         ])
 
         @include('livewire.trace.partials.relation-card', [
-            'title' => '関連知識',
             'traces' => $this->relatedTraces,
             'relationType' => App\Enums\TraceRelationType::RELATED,
         ])
