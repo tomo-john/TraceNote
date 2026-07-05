@@ -72,99 +72,11 @@
 
     {{-- Relation Traces --}}
     <div class="grid grid-cols-3 gap-3">
-        <div class="rounded-xl border p-4">
-
-            <label class="font-bold">
-                <i class="fa-solid fa-dog"></i>
-                前提知識
-            </label>
-
-            @forelse($this->prerequisiteTraces as $prerequisiteTrace)
-                <div class="flex flex-col gap-2">
-                    <div class="flex items-center gap-2">
-                        <a href="{{ route('trace.show', $prerequisiteTrace) }}" wire:navigate>
-                            <span class="text-sm text-slate-500">
-                                {{ $prerequisiteTrace->title }}
-                            </span>
-                        </a>
-                        <button wire:click="removeRelation({{ $prerequisiteTrace }})" wire:confirm="関連付けを解除しますか？">
-                            <span class="text-xs text-red-400">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            @empty
-                <p class="text-sm text-slate-500">登録された前提知識はありません</p>
-            @endforelse
-
-            <button wire:click="openAddRelationModal('prerequisite')" class="text-sm text-sky-300">
-                <i class="fa-solid fa-plus mr-1"></i>
-                追加
-            </button>
-
-            {{-- Modal --}}
-            @if($showAddRelationModal)
-                @include('livewire.trace.partials.add-relation-modal')
-            @endif
-
-        </div>
-
-        <div class="rounded-xl border p-4">
-            <label class="font-bold">
-                <i class="fa-solid fa-dog"></i>
-                子知識
-            </label>
-            @forelse($this->childTraces as $childTrace)
-                <div class="flex flex-col gap-2">
-                    <a href="{{ route('trace.show', $childTrace) }}" wire:navigate>
-                        <span class="text-sm text-slate-500">
-                            {{ $childTrace->title }}
-                        </span>
-                    </a>
-                </div>
-            @empty
-                <p class="text-sm text-slate-500">登録された子知識はありません</p>
-            @endforelse
-        </div>
-
-        <div class="rounded-xl border p-4">
-            <label class="font-bold">
-                <i class="fa-solid fa-dog"></i>
-                関連知識
-            </label>
-            @forelse($this->relatedTraces as $relatedTrace)
-                <div class="flex flex-col gap-2">
-                    <a href="{{ route('trace.show', $relatedTrace) }}" wire:navigate>
-                        <span class="text-sm text-slate-500">
-                            {{ $relatedTrace->title }}
-                        </span>
-                    </a>
-                </div>
-            @empty
-                <p class="text-sm text-slate-500">登録された関連知識はありません</p>
-            @endforelse
-        </div>
+        @include('livewire.trace.partials.prerequisite-card')
+        @include('livewire.trace.partials.child-card')
+        @include('livewire.trace.partials.related-card')
     </div>
 
-    {{-- 検証中 --}}
-    <div class="rounded-xl border p-4">
-        <label class="font-bold">
-            <i class="fa-solid fa-dog"></i>
-            関連付けすることのできるTrace
-        </label>
-        @forelse($this->availableRelationTraces as $availableRelationTrace)
-            <div class="flex flex-col gap-2">
-                <a href="{{ route('trace.show', $availableRelationTrace) }}" wire:navigate>
-                    <div class="text-sm text-slate-500">
-                        #
-                        {{ $availableRelationTrace->id }}
-                        {{ $availableRelationTrace->title }}
-                    </div>
-                </a>
-            </div>
-        @empty
-            <p class="text-sm text-slate-500">関連付けすることのできるTraceがありません</p>
-        @endforelse
-    </div>
+    @include('livewire.trace.partials.available-relation-card')
+
 </div>
