@@ -2,18 +2,18 @@
 
     <label class="font-bold">
         <i class="fa-solid fa-dog"></i>
-        前提知識
+        {{ $title }}
     </label>
 
-    @forelse($this->prerequisiteTraces as $prerequisiteTrace)
+    @forelse($traces as $trace)
         <div class="flex flex-col gap-2">
             <div class="flex items-center gap-2">
-                <a href="{{ route('trace.show', $prerequisiteTrace) }}" wire:navigate>
+                <a href="{{ route('trace.show', $trace) }}" wire:navigate>
                     <span class="text-sm text-slate-500">
-                        {{ $prerequisiteTrace->title }}
+                        {{ $trace->title }}
                     </span>
                 </a>
-                <button wire:click="removeRelation({{ $prerequisiteTrace }})" wire:confirm="関連付けを解除しますか？">
+                <button wire:click="removeRelation({{ $trace }})" wire:confirm="関連付けを解除しますか？">
                     <span class="text-xs text-red-400">
                         <i class="fa-solid fa-trash-can"></i>
                     </span>
@@ -21,10 +21,10 @@
             </div>
         </div>
     @empty
-        <p class="text-sm text-slate-500">登録された前提知識はありません</p>
+        <p class="text-sm text-slate-500">登録された{{ $relationType->label() }}はありません</p>
     @endforelse
 
-    <button wire:click="openAddRelationModal('prerequisite')" class="text-sm text-sky-300">
+    <button wire:click="openAddRelationModal('{{ $relationType->value }}')" class="text-sm text-sky-300">
         <i class="fa-solid fa-plus mr-1"></i>
         追加
     </button>
