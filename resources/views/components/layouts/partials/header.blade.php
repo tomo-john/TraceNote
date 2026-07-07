@@ -1,7 +1,7 @@
 <header class="sticky top-0 z-50 backdrop-blur bg-white/80 border-b border-slate-100 shadow-sm">
     <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
 
-        {{-- ロゴ --}}
+        {{-- Logo --}}
         <a href="{{ route('home') }}" class="flex items-center gap-3 text-lg text-slate-600 font-semibold hover:opacity-80 transition">
             <img src="{{ asset('favicon.svg')}}" class="w-8 h-8">
             <div class="flex flex-col">
@@ -10,47 +10,12 @@
             </div>
         </a>
 
-        {{-- ナビ --}}
-        <nav class="flex items-center gap-6 text-sm font-medium">
+        {{-- Navi --}}
+        @auth
+            <x-layouts.partials.header-auth />
+        @else
+            <x-layouts.partials.header-guest />
+        @endauth
 
-            <x-ui.nav-link :href="route('home')">Home</x-ui.nav-link>
-
-            <x-ui.nav-link>About</x-ui.nav-link>
-
-            @auth
-                <flux:dropdown>
-                    <flux:button variant="primary" icon-trailing="chevron-down" class="text-slate-600 font-bold hover:bg-slate-50 active:bg-slate-100 transition-all">
-                        Main
-                    </flux:button>
-
-                    <flux:menu>
-                        <flux:menu.item href="{{ route('trace.index') }}" icon="star">Trace</flux:menu.item>
-                        <flux:menu.item href="{{ route('dashboard') }}" icon="star">Dashboard</flux:menu.item>
-                        <flux:menu.item href="{{ route('profile.edit') }}" icon="cog">Profile</flux:menu.item>
-                        <flux:menu.separator />
-                        <form method="POST" action="{{ route('logout') }}" class="w-full">
-                            @csrf
-                            <flux:menu.item
-                                as="button"
-                                type="submit"
-                                icon="arrow-right-start-on-rectangle"
-                                class="w-full cursor-pointer"
-                                variant="danger"
-                            >
-                                Logout
-                            </flux:menu.item>
-                        </form>
-                    </flux:menu>
-                </flux:dropdown>
-            @endauth
-
-            @guest
-                <x-ui.button :href="route('login')" wire:navigate variant="primary">
-                    <i class="fa-solid fa-right-to-bracket text-sm"></i>
-                    Login
-                </x-ui.button>
-            @endguest
-
-        </nav>
     </div>
 </header>
