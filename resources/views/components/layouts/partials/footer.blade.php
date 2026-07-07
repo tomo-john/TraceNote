@@ -1,4 +1,4 @@
-<footer class="mt-20 border-t border-slate-200 bg-white pt-12 pb-8 text-center">
+<footer class="border-t border-slate-200 bg-white pt-12 pb-8 text-center">
 
     <div class="text-lg font-bold text-slate-600 flex items-center justify-center gap-2">
         <a href="{{ route('sandbox') }}">

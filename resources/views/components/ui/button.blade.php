@@ -5,20 +5,36 @@
 ])
 
 @php
-    $baseClass = 'inline-block px-2 py-1 rounded-xl';
 
-    $classes = match($variant) {
-        'primary' => 'bg-slate-700 text-white',
-        default => 'bg-gray-100 text-black'
-    };
+$baseClass = '
+    inline-flex
+    items-center
+    justify-center
+    gap-2
+    px-5
+    py-3
+    font-bold
+    rounded-xl
+    transition-all
+    hover:-translate-y-0.5
+    hover:shadow-sm
+    active:scale-95
+';
+
+$classes = match($variant) {
+    'primary' => 'bg-slate-700 text-white hover:bg-slate-800',
+    'secondary' => 'bg-white text-slate-700 border border-slate-300 hover:bg-stone-50',
+    default => 'bg-gray-100 text-black'
+};
+
 @endphp
 
 @if($href)
-    <a href="{{ $href }}" class="{{ $baseClass }} {{ $classes }}">
+    <a href="{{ $href }}" {{ $attributes->class([$baseClass, $classes,]) }}>
         {{ $slot }}
     </a>
 @else
-    <button type="{{ $type }}" class="{{ $baseClass }} {{ $classes }}">
+    <button type="{{ $type }}" {{ $attributes->class([$baseClass, $classes,]) }}>
         {{ $slot }}
     </button>
 @endif

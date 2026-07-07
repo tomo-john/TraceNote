@@ -49,10 +49,10 @@
             @endauth
 
             @guest
-                <a href="{{ route('login') }}"
-                   class="px-5 py-2 rounded-xl bg-slate-500 text-white font-bold hover:bg-slate-600 transition shadow-sm hover:shadow-lg active:scale-95 transition-all">
+                <x-ui.button :href="route('register')" wire:navigate variant="primary">
+                    <i class="fa-solid fa-right-to-bracket text-sm"></i>
                     Login
-                </a>
+                </x-ui.button>
             @endguest
 
         </nav>

@@ -26,33 +26,19 @@
             <hr class="border-dashed border-slate-200">
 
             <div class="flex flex-col items-center gap-4">
-                <a href="{{ route('login') }}"
-                   wire:navigate
-                   class="inline-flex items-center justify-center gap-2 w-full sm:w-36
-                          bg-slate-700 text-white font-bold rounded-xl py-3 px-5
-                          hover:bg-slate-800 hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all"
-                >
+
+                <x-ui.button :href="route('login')" wire:navigate variant="primary" class="w-full sm:w-36">
                     <i class="fa-solid fa-right-to-bracket text-sm"></i>
-                    <span>ログイン</span>
-                </a>
+                    ログイン
+                </x-ui.button>
 
                 <p class="text-sm font-medium text-slate-500">初めて利用しますか？</p>
 
-                <a href="{{ route('register') }}"
-                   wire:navigate
-                   class="inline-flex items-center justify-center gap-2 w-full sm:w-36
-                          bg-white text-slate-700 border border-slate-300 font-bold rounded-xl py-3 px-5
-                          hover:bg-stone-50 hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all"
-                >
+                <x-ui.button :href="route('register')" wire:navigate variant="secondary" class="w-full sm:w-36">
                     <i class="fa-solid fa-user-plus text-sm"></i>
-                    <span>新規登録</span>
-                </a>
+                    新規登録
+                </x-ui.button>
 
-                <div class="flex gap-3">
-                    <x-ui.button>ログイン</x-ui.button>
-                    <x-ui.button variant="a">ログイン</x-ui.button>
-                    <x-ui.button :href="route('login')">ログイン</x-ui.button>
-                </div>
             </div>
 
         </div>
