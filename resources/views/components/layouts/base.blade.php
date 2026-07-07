@@ -5,7 +5,7 @@
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
 
-    {{-- Header --}}
+    {{-- App Header --}}
     <x-layouts.partials.header />
 
     {{-- Main --}}
@@ -13,10 +13,11 @@
         {{ $slot }}
     </main>
 
-    <x-ui.toast />
-
-    {{-- Footer --}}
+    {{-- App Footer --}}
     <x-layouts.partials.footer />
+
+    {{-- App Toast--}}
+    <x-ui.toast />
 
     @fluxScripts
 </body>

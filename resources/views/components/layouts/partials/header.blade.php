@@ -13,13 +13,9 @@
         {{-- ナビ --}}
         <nav class="flex items-center gap-6 text-sm font-medium">
 
-            <a href="{{ route('home') }}" class="text-slate-600 hover:text-slate-500 transition">
-                Home
-            </a>
+            <x-ui.nav-link :href="route('home')">Home</x-ui.nav-link>
 
-            <a href="#" class="text-slate-600 hover:text-slate-500 transition">
-                Test
-            </a>
+            <x-ui.nav-link>About</x-ui.nav-link>
 
             @auth
                 <flux:dropdown>
@@ -49,7 +45,7 @@
             @endauth
 
             @guest
-                <x-ui.button :href="route('register')" wire:navigate variant="primary">
+                <x-ui.button :href="route('login')" wire:navigate variant="primary">
                     <i class="fa-solid fa-right-to-bracket text-sm"></i>
                     Login
                 </x-ui.button>
