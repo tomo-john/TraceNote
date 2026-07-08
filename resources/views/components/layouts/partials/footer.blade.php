@@ -1,9 +1,7 @@
 <footer class="border-t border-slate-200 bg-white pt-12 pb-8 text-center">
 
     <div class="text-lg font-bold text-slate-600 flex items-center justify-center gap-2">
-        <a href="{{ route('sandbox') }}">
-            <img src="{{ asset('favicon.svg')}}" alt="Trace Note logo" class="w-8 h-8 inline">
-        </a>
+        <img src="{{ asset('favicon.svg')}}" alt="Trace Note logo" class="w-8 h-8 inline">
         Trace Note
     </div>
 
@@ -15,6 +13,7 @@
         <x-ui.nav-link :href="route('about')">About</x-ui.nav-link>
         <x-ui.nav-link :href="route('privacy')">Privacy</x-ui.nav-link>
         <x-ui.nav-link :href="route('contact')">Contact</x-ui.nav-link>
+        <x-ui.nav-link :href="route('sandbox')">Snadbox</x-ui.nav-link>
     </div>
 
     <div class="text-[10px] text-slate-300 mt-10 uppercase tracking-widest">

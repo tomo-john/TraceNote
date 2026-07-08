@@ -10,6 +10,12 @@ use App\Livewire\Trace\Edit as TraceEdit;
 use App\Livewire\Tag\Index as TagIndex;
 
 Route::view('/', 'top')->name('home');
+
+Route::view('/test', 'dummy')->name('test');
+Route::view('/about', 'dummy')->name('about');
+Route::view('/privacy', 'dummy')->name('privacy');
+Route::view('/contact', 'dummy')->name('contact');
+
 Route::get('sandbox', SandboxController::class)->name('sandbox');
 
 Route::middleware(['auth', 'verified'])->group(function () {
