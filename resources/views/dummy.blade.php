@@ -1,16 +1,14 @@
 <x-layouts.base>
 
-    <div class="min-h-screen flex flex-col items-center justify-center  gap-4 bg-lime-50">
+    <div class="max-w-6xl mx-auto p-6">
 
-        <div class="flex items-center justify-center">
+        <div class="flex flex-col items-center justify-center gap-4 h-64">
 
-            <i class="fa-solid fa-dog text-4xl text-pink-400 animate-pulse"></i>
+            <img src="{{ asset('favicon.svg')}}" class="w-8 h-8 animate-pulse">
+
+            <p>Coming Soon ...</p>
 
         </div>
-
-        <p>Coming Soon ...</p>
-
-        <img src="{{ asset('favicon.svg')}}" class="w-8 h-8 animate-pulse">
 
     </div>
 
