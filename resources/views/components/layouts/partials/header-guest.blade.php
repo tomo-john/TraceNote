@@ -4,6 +4,6 @@
 
     <x-ui.nav-link :href="route('test')">Test</x-ui.nav-link>
 
-    <x-ui.button :href="route('login')">Login</x-ui.button>
+    <x-ui.nav-link :href="route('login')" variant="special">Login</x-ui.button>
 
 </nav>
