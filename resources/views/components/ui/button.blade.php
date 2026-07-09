@@ -25,6 +25,7 @@ $classes = match($variant) {
     'primary' => 'bg-slate-700 text-white hover:bg-slate-800',
     'secondary' => 'bg-white text-slate-700 border border-slate-300 hover:bg-stone-50',
     'danger' => 'bg-red-50 text-red-700 border border-red-300 hover:bg-red-100 hover:border-red-400',
+    'ghost' => 'hover:bg-slate-100',
     default => 'bg-gray-100 text-black'
 };
 
