@@ -3,10 +3,7 @@
          class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-slate-50 to-zinc-100 px-4"
     >
 
-        <div class="max-w-md w-full bg-white/80 backdrop-blur-md border border-slate-100
-                    p-8 rounded-3xl shadow-xl shadow-slate-200/50 text-center space-y-8
-                    transition-all duration-500 hover:shadow-2xl"
-        >
+        <x-ui.card class="max-w-md w-full text-center space-y-8">
 
             <div class="space-y-3">
                 <div class="inline-flex items-center justify-center w-20 h-20 bg-lime-50 text-lime-500 p-5 rounded-2xl text-4xl">
@@ -41,7 +38,7 @@
 
             </div>
 
-        </div>
+        </x-ui.card>
 
     </div>
 
