@@ -100,22 +100,22 @@ class DashboardService
 
         return match (true) {
             $traceCount < 10 => [
-                'colorClass' => 'text-slate-100',
+                'colorClass' => 'text-green-100',
                 'sizeClass' => 'text-xl',
             ],
 
             $traceCount < 30 => [
-                'colorClass' => 'text-amber-400',
+                'colorClass' => 'text-green-300',
                 'sizeClass' => 'text-3xl',
             ],
 
             $traceCount < 50 => [
-                'colorClass' => 'text-orange-400',
+                'colorClass' => 'text-green-500',
                 'sizeClass' => 'text-5xl',
             ],
 
             default => [
-                'colorClass' => 'text-sky-400',
+                'colorClass' => 'text-geeen-700',
                 'sizeClass' => 'text-7xl',
             ],
         };

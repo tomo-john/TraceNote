@@ -1,57 +1,45 @@
-<x-layouts::app :title="__('Dashboard')">
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
+<x-layouts.base>
+    <div class="min-h-screen flex flex-col items-center justify-center gap-8 bg-gradient-to-b from-slate-50 to-zinc-100 p-8">
 
-        <div class="grid gap-4 lg:grid-cols-2">
+        <div class="max-w-6xl w-full space-y-8">
 
-            {{-- Dashboard --}}
-            <div class="rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <div class="rounded-xl p-6">
-
-                    <h2 class="font-bold text-lg mb-4">
-                        Dashboard
-                        <i class="fa-solid fa-dog"></i>
-                    </h2>
-
-                    {{-- Trace Tag Count --}}
-                    <div class="flex flex-col gap-4">
-
-                        <div class="flex flex-wrap items-center gap-2">
-                            <a href="{{ route('trace.index') }}">
-                                <i class="fa-solid fa-dog text-sky-400 w-6"></i>
-                                <span>{{ $traceCount }} Traces</span>
-                            </a>
-                            @foreach($statusCounts as $status)
-                                <div class="w-12 text-center text-sm p-1 rounded-full {{ $status['colorClass'] }}">
-                                    <i class="{{ $status['iconClass'] }}"></i>
-                                    <span class="">{{ $status['count'] }}</span>
-                                </div>
-                            @endforeach
-                        </div>
-
-                        <div>
-                            <a href="{{ route('tag.index') }}">
-                                <i class="fa-solid fa-tag text-sky-400 w-6"></i>
-                                <span>{{ $tagCount }} Tags</span>
-                            </a>
-                        </div>
-
-                    </div>
-
+            {{-- Hero --}}
+            <x-ui.card class="w-full">
+                <p>Hero</p>
+                <div class="flex items-center gap-4">
+                    <i class="fa-solid fa-dog text-2xl text-green-100"></i>
+                    <i class="fa-solid fa-dog text-2xl text-green-300"></i>
+                    <i class="fa-solid fa-dog text-2xl text-green-500"></i>
+                    <i class="fa-solid fa-dog text-2xl text-green-700"></i>
                 </div>
+            </x-ui.card>
+
+            {{-- Count --}}
+            <div class="grid grid-cols-3 gap-4 w-full">
+                <x-ui.card class="flex flex-col gap-2">
+                    Trace
+                    <span>{{ $traceCount }} Traces</span>
+                </x-ui.card>
+
+                <x-ui.card class="flex flex-col gap-2">
+                    Tag
+                    <span>{{ $tagCount }} Tags</span>
+                </x-ui.card>
+
+                <x-ui.card class="flex flex-col gap-2">
+                    Growth
+                    <span>Lv.3</span>
+                </x-ui.card>
             </div>
 
             {{-- Activity History --}}
-            <div class="relative h-full rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <div class="rounded-xl p-6">
-
-                    <h2 class="font-bold text-lg mb-4">
-                        Activity History
-                        <i class="fa-solid fa-dog"></i>
-                    </h2>
+            <div class="grid grid-cols-2 gap-4 w-full">
+                <x-ui.card>
+                    Activity History
 
                     <div class="flex gap-2">
                         {{-- 曜日 --}}
-                        <div class="grid grid-rows-7 gap-0 5 text-xs text-slate-500">
+                        <div class="grid grid-rows-7 gap-0.5 text-xs text-slate-500">
                             <div>Sun</div>
                             <div>Mon</div>
                             <div>Tue</div>
@@ -76,18 +64,24 @@
                         </div>
                     </div>
 
-                </div>
+                </x-ui.card>
+
+                <x-ui.card>
+                    Status
+                    <div class="grid grid-cols-2 gap-4">
+                        @foreach($statusCounts as $status)
+                            <div class="w-12 text-center text-sm p-1 rounded-full {{ $status['colorClass'] }}">
+                                <i class="{{ $status['iconClass'] }}"></i>
+                                <span class="">{{ $status['count'] }}</span>
+                            </div>
+                        @endforeach
+                    </div>
+                </x-ui.card>
             </div>
-        </div>
 
-        {{-- Recently Trace --}}
-        <div class="relative h-full rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <div class="rounded-xl p-6">
-
-                <h2 class="font-bold text-lg mb-4">
-                    Recently Trace
-                    <i class="fa-solid fa-dog"></i>
-                </h2>
+            {{-- Recently Trace --}}
+            <x-ui.card class="w-full">
+                Recently Trace
 
                 <div class="space-y-3">
 
@@ -124,11 +118,10 @@
                         </p>
 
                     @endforelse
-
                 </div>
+            </x-ui.card>
 
-            </div>
         </div>
 
     </div>
-</x-layouts::app>
+</x-layouts.base>
