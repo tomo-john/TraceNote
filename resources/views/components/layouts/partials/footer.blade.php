@@ -1,13 +1,6 @@
 <footer class="border-t border-slate-200 bg-white pt-12 pb-8 text-center">
 
-    <div class="text-lg font-bold text-slate-600 flex items-center justify-center gap-2">
-        <img src="{{ asset('favicon.svg')}}" alt="Trace Note logo" class="w-8 h-8 inline">
-        Trace Note
-    </div>
-
-    <p class="text-sm text-slate-500 mt-3">
-        学びの痕跡を積み重ねる学習ノート
-    </p>
+    <x-ui.logo />
 
     <div class="flex justify-center gap-8 mt-6">
         <x-ui.nav-link :href="route('about')">About</x-ui.nav-link>

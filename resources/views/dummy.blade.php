@@ -1,14 +1,12 @@
 <x-layouts.base>
 
-    <div class="max-w-6xl mx-auto p-6">
+    <div class="min-h-screen max-w-6xl mx-auto flex flex-col items-center justify-center gap-8 p-8 animate-pulse">
 
-        <div class="flex flex-col items-center justify-center gap-4 h-64">
+        <x-ui.logo />
 
-            <img src="{{ asset('favicon.svg')}}" class="w-8 h-8 animate-pulse">
-
+        <x-ui.card>
             <p>Coming Soon ...</p>
-
-        </div>
+        </x-ui.card>
 
     </div>
 

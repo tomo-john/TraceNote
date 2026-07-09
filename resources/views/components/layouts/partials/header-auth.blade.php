@@ -4,33 +4,43 @@
 
     <x-ui.nav-link :href="route('trace.index')">Trace</x-ui.nav-link>
 
-    <div x-data="dropdown()" class="relative">
-        <x-ui.button variant="" @click="toggle()">
+    <div x-data="headerDropdown()" class="relative">
+        <x-ui.button variant="ghost" @click="toggle()">
             <i class="fa-solid fa-caret-down"></i>
             {{ auth()->user()->name }}
         </x-ui.button>
 
         <div x-show="open"
+             x-transition
              @click.outside="close()"
-             class="absolute z-50 mt-2 p-6 w-48 bg-white rounded-lg shadow-lg border"
+             class="absolute z-50 right-0 mt-2 p-6 w-48 bg-white rounded-lg shadow-lg border"
         >
+
+            {{-- Dropdown Menu --}}
             <div class="flex flex-col gap-2">
-                <x-ui.nav-link :href="route('profile.edit')" wire:navigate>Profile</x-ui.nav-link>
-                <x-ui.nav-link>Logout</x-ui.nav-link>
+
+                <x-ui.dropdown-item :href="route('profile.edit')">
+                    <i class="fa-solid fa-user w-4"></i>
+                    Profile
+                </x-ui.dropdown-item>
+
+                <hr class="border-gray-200 my-2">
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <x-ui.dropdown-item type="submit" danger>
+                        <i class="fa-solid fa-right-from-bracket w-4"></i>
+                        Logout
+                    </x-ui.dropdown-item>
+                </form>
+
             </div>
+
         </div>
     </div>
 
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <x-ui.button type="submit" variant="danger">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            Logout
-        </x-ui.button>
-    </form>
-
     <script>
-        function dropdown() {
+        function headerDropdown() {
             return {
                 open: false,
 
