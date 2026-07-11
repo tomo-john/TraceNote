@@ -99,8 +99,13 @@ class DashboardService
         $traceCount = $this->getTraceCount($user);
 
         return match (true) {
-            $traceCount < 10 => [
+            $traceCount < 1 => [
                 'colorClass' => 'text-green-100',
+                'sizeClass' => 'text-xl',
+            ],
+
+            $traceCount < 1 => [
+                'colorClass' => 'text-green-200',
                 'sizeClass' => 'text-xl',
             ],
 
