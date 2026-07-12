@@ -4,6 +4,8 @@
 
     <x-ui.nav-link :href="route('trace.index')">Trace</x-ui.nav-link>
 
+    <x-ui.nav-link :href="route('tag.index')">Tag</x-ui.nav-link>
+
     <div x-data="headerDropdown()" class="relative">
         <x-ui.button variant="ghost" @click="toggle()">
             <i class="fa-solid fa-caret-down"></i>
