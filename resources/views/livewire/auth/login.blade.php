@@ -45,9 +45,9 @@
                                focus:border-lime-500 focus:ring-2 focus:ring-lime-200 outline-none transition"
                     />
 
-                    <a class="" href="{{ route('password.request') }}" wire:navigate>
-                        パスワードリセット
-                    </a>
+                    <x-ui.link :href="route('password.request')">
+                        パスワードを忘れた場合
+                    </x-ui.link>
 
                     <label for="remember">チェックボックス</label>
                     <input type="checkbox" name="remember" />
