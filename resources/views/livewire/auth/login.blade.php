@@ -2,51 +2,52 @@
 
     <div class="min-h-screen flex flex-col items-center justify-center">
 
-        <x-ui.card class="max-w-md w-full text-center space-y-6">
+        <x-ui.card class="max-w-md w-full space-y-6">
 
             <div class="space-y-3">
 
                 <x-ui.logo />
 
-                <h1 class="text-2xl font-bold">
-                    ログイン
-                </h1>
-
-                <p class="text-slate-500">
-                    ログイン画面説明
+                <p class="text-slate-500 text-center my-4">
+                    <i class="fa-solid fa-dog mr-1"></i>
+                    ログイン画面を作成中
                 </p>
 
                 <!-- Session Status -->
                 <x-auth-session-status class="text-center" :status="session('status')" />
 
-                <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-6">
+                <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-4">
                     @csrf
 
-                    <label for="email">Email Address</label>
+                    <label for="email" class="text-sm font-semibold text-slate-700">Email Address</label>
+
                     <input
+                        id="email"
                         name="email"
                         type="email"
                         value="{{ old('email') }}"
                         required
                         autocomplete="email"
                         placeholder="email@example.com"
+                        class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-700 placeholder:text-slate-400
+                               focus:border-lime-500 focus:ring-2 focus:ring-lime-200 outline-none transition"
                     />
 
-                    <label for="password">Password</label>
+                    <label for="password" class="text-sm font-semibold text-slate-700">Password</label>
+
                     <input
                         name="password"
                         type="password"
                         required
                         autocomplete="current-password"
                         placeholder="パスワード"
-                        viewable
+                        class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-700 placeholder:text-slate-400
+                               focus:border-lime-500 focus:ring-2 focus:ring-lime-200 outline-none transition"
                     />
 
-                    @if (Route::has('password.request'))
-                        <a class="" href="{{ route('password.request') }}" wire:navigate>
-                            パスワードリセット
-                        </a>
-                    @endif
+                    <a class="" href="{{ route('password.request') }}" wire:navigate>
+                        パスワードリセット
+                    </a>
 
                     <label for="remember">チェックボックス</label>
                     <input type="checkbox" name="remember" />
