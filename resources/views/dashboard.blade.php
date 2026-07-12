@@ -38,7 +38,7 @@
                         <i class="fa-brands fa-pagelines text-green-400"></i>
                         成長レベル
                     </span>
-                    <span>Lv.3</span>
+                    <span>Lv. {{ $level }}</span>
                 </x-ui.card>
             </div>
 

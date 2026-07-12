@@ -6,10 +6,14 @@ use App\Models\User;
 use App\Models\Trace;
 use App\Models\Tag;
 use App\Enums\TraceStatus;
+use App\Services\Growth;
 
 class DashboardService
 {
     private const ACTIVITY_DAYS = 167; // Activity Historyの日数
+
+    // DI
+    public function __construct(private GrowthService $growthService) {}
 
     // Trace数
     private function getTraceCount(User $user): int
@@ -136,6 +140,7 @@ class DashboardService
             'recentTraces' => $this->getRecentTraces($user),
             'activityCounts' => $this->getActivityCounts($user),
             'dog' => $this->getDogInfo($user),
+            'level' => $this->growthService->level($user),
         ];
     }
 }
