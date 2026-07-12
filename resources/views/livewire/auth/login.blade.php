@@ -1,59 +1,68 @@
-<x-layouts::auth :title="__('Log in')">
-    <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
+<x-layouts.base>
 
-        <!-- Session Status -->
-        <x-auth-session-status class="text-center" :status="session('status')" />
+    <div class="min-h-screen flex flex-col items-center justify-center">
 
-        <x-passkey-verify />
+        <x-ui.card class="max-w-md w-full text-center space-y-6">
 
-        <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-6">
-            @csrf
+            <div class="space-y-3">
 
-            <!-- Email Address -->
-            <flux:input
-                name="email"
-                :label="__('Email address')"
-                :value="old('email')"
-                type="email"
-                required
-                autofocus
-                autocomplete="email"
-                placeholder="email@example.com"
-            />
+                <x-ui.logo />
 
-            <!-- Password -->
-            <div class="relative">
-                <flux:input
-                    name="password"
-                    :label="__('Password')"
-                    type="password"
-                    required
-                    autocomplete="current-password"
-                    :placeholder="__('Password')"
-                    viewable
-                />
+                <h1 class="text-2xl font-bold">
+                    ログイン
+                </h1>
 
-                @if (Route::has('password.request'))
-                    <flux:link class="absolute top-0 text-sm end-0" :href="route('password.request')" wire:navigate>
-                        {{ __('Forgot your password?') }}
-                    </flux:link>
-                @endif
+                <p class="text-slate-500">
+                    ログイン画面説明
+                </p>
+
+                <!-- Session Status -->
+                <x-auth-session-status class="text-center" :status="session('status')" />
+
+                <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-6">
+                    @csrf
+
+                    <label for="email">Email Address</label>
+                    <input
+                        name="email"
+                        type="email"
+                        value="{{ old('email') }}"
+                        required
+                        autocomplete="email"
+                        placeholder="email@example.com"
+                    />
+
+                    <label for="password">Password</label>
+                    <input
+                        name="password"
+                        type="password"
+                        required
+                        autocomplete="current-password"
+                        placeholder="パスワード"
+                        viewable
+                    />
+
+                    @if (Route::has('password.request'))
+                        <a class="" href="{{ route('password.request') }}" wire:navigate>
+                            パスワードリセット
+                        </a>
+                    @endif
+
+                    <label for="remember">チェックボックス</label>
+                    <input type="checkbox" name="remember" />
+
+                    <x-ui.button type="submit">
+                        ログイン
+                    </x-ui.button>
+
+                </form>
+
+                <span>アカウントをお持ちでない場合</span>
+                <a href="{{ route('register') }}">新規登録</a>
+
             </div>
 
-            <!-- Remember Me -->
-            <flux:checkbox name="remember" :label="__('Remember me')" :checked="old('remember')" />
+        </x-ui.card>
 
-            <div class="flex items-center justify-end">
-                <flux:button variant="primary" type="submit" class="w-full" data-test="login-button">
-                    {{ __('Log in') }}
-                </flux:button>
-            </div>
-        </form>
-
-        <div class="space-x-1 text-sm text-center rtl:space-x-reverse text-zinc-600 dark:text-zinc-400">
-            <span>{{ __('Don\'t have an account?') }}</span>
-            <flux:link :href="route('register')" wire:navigate>{{ __('Sign up') }}</flux:link>
-        </div>
     </div>
-</x-layouts::auth>
+</x-layouts.base>
