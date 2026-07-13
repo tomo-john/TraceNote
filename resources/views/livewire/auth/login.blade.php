@@ -45,12 +45,24 @@
                                focus:border-lime-500 focus:ring-2 focus:ring-lime-200 outline-none transition"
                     />
 
-                    <x-ui.link :href="route('password.request')">
+                    <x-ui.link :href="route('password.request')" wire:navigate>
                         パスワードを忘れた場合
                     </x-ui.link>
 
-                    <label for="remember">チェックボックス</label>
-                    <input type="checkbox" name="remember" />
+                    <div class="flex items-center gap-2">
+                        <input
+                            id="remember"
+                            type="checkbox"
+                            name="remember"
+                            class="size-4 rounded border-slate-300 accent-lime-500"
+                        >
+
+                        <label for="remember"
+                               class="text-sm text-slate-600 cursor-pointer"
+                        >
+                            ログイン状態を保持する
+                        </label>
+                    </div>
 
                     <x-ui.button type="submit">
                         ログイン
@@ -59,7 +71,9 @@
                 </form>
 
                 <span>アカウントをお持ちでない場合</span>
-                <a href="{{ route('register') }}">新規登録</a>
+                <x-ui.link :href="route('register')" wire:navigate>
+                    新規登録
+                </x-ui.link>
 
             </div>
 

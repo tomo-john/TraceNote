@@ -8,7 +8,8 @@ $baseClass = '
     text-sm
     text-slate-500
     hover:text-lime-600
-    hover:under-line
+    hover:underline
+    hover:decoration-lime-600
     underline-offset-4
     transition
 ';
