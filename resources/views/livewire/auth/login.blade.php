@@ -2,52 +2,57 @@
 
     <div class="min-h-screen flex flex-col items-center justify-center">
 
-        <x-ui.card class="max-w-md w-full space-y-6">
+        <x-ui.card class="max-w-md w-full">
 
-            <div class="space-y-3">
+            <div class="space-y-6">
 
                 <x-ui.logo />
 
-                <p class="text-slate-500 text-center my-4">
-                    <i class="fa-solid fa-dog mr-1"></i>
-                    ログイン画面を作成中
-                </p>
+                <h1 class="text-lg font-bold text-slate-500 text-center my-4">
+                    ログイン
+                </h1>
 
                 <!-- Session Status -->
                 <x-auth-session-status class="text-center" :status="session('status')" />
 
-                <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-4">
+                <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-6">
                     @csrf
 
-                    <label for="email" class="text-sm font-semibold text-slate-700">Email Address</label>
+                    <div class="space-y-2">
+                        <label for="email" class="text-sm font-semibold text-slate-700">Email Address</label>
 
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value="{{ old('email') }}"
-                        required
-                        autocomplete="email"
-                        placeholder="email@example.com"
-                        class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-700 placeholder:text-slate-400
-                               focus:border-lime-500 focus:ring-2 focus:ring-lime-200 outline-none transition"
-                    />
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            value="{{ old('email') }}"
+                            required
+                            autocomplete="email"
+                            placeholder="email@example.com"
+                            class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-700 placeholder:text-slate-400
+                                   focus:border-lime-500 focus:ring-2 focus:ring-lime-200 outline-none transition"
+                        />
+                    </div>
 
-                    <label for="password" class="text-sm font-semibold text-slate-700">Password</label>
+                    <div class="space-y-2">
+                        <label for="password" class="text-sm font-semibold text-slate-700">Password</label>
 
-                    <input
-                        name="password"
-                        type="password"
-                        required
-                        autocomplete="current-password"
-                        placeholder="パスワード"
-                        class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-700 placeholder:text-slate-400
-                               focus:border-lime-500 focus:ring-2 focus:ring-lime-200 outline-none transition"
-                    />
+                        <input
+                            name="password"
+                            type="password"
+                            required
+                            autocomplete="current-password"
+                            placeholder="パスワード"
+                            class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-700 placeholder:text-slate-400
+                                   focus:border-lime-500 focus:ring-2 focus:ring-lime-200 outline-none transition"
+                        />
 
-                    <x-ui.link :href="route('password.request')" wire:navigate>
-                        パスワードを忘れた場合
-                    </x-ui.link>
+                        <x-ui.link :href="route('password.request')" wire:navigate>
+                            パスワードを忘れた場合はこちら
+                            <i class="fa-solid fa-paw"></i>
+                        </x-ui.link>
+                    </div>
+
 
                     <div class="flex items-center gap-2">
                         <input
@@ -70,10 +75,15 @@
 
                 </form>
 
-                <span>アカウントをお持ちでない場合</span>
-                <x-ui.link :href="route('register')" wire:navigate>
-                    新規登録
-                </x-ui.link>
+                <div class="text-center text-sm text-slate-500">
+
+                    アカウントをお持ちでないですか？
+
+                    <x-ui.link :href="route('register')" wire:navigate>
+                        新規登録
+                    </x-ui.link>
+
+                </div>
 
             </div>
 
