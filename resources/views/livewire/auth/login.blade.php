@@ -21,7 +21,7 @@
                     <div class="space-y-2">
                         <label for="email" class="text-sm font-semibold text-slate-700">Email Address</label>
 
-                        <input
+                        <x-ui.input
                             id="email"
                             name="email"
                             type="email"
@@ -29,8 +29,6 @@
                             required
                             autocomplete="email"
                             placeholder="email@example.com"
-                            class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-700 placeholder:text-slate-400
-                                   focus:border-lime-500 focus:ring-2 focus:ring-lime-200 outline-none transition"
                         />
                     </div>
 
