@@ -78,4 +78,48 @@
         </table>
     </div>
 </div>
+
+{{-- Line --}}
+<hr class="w-full my-6" />
+
+{{-- UI Test --}}
+<div class="max-w-6xl mx-auto p-6">
+
+    <h1 class="text-2xl font-bold text-gray-800 tracking-tight">Sandbox UI Test</h1>
+
+    <p class="text-sm text-gray-500 mt-1">Blade Components</p>
+
+    <div class="max-w-md w-full mx-auto space-y-4">
+
+        <div class="space-y-2">
+            <label for="email" class="text-sm font-semibold text-slate-700">Email Address</label>
+
+            <x-ui.input
+                id="email"
+                name="email"
+                type="email"
+                value="{{ old('email') }}"
+                required
+                autocomplete="email"
+                placeholder="email@example.com"
+            />
+        </div>
+
+        <div class="space-y-2">
+            <label for="email" class="text-sm font-semibold text-slate-700">Email Address</label>
+
+            <x-ui.input
+                id="email"
+                name="email"
+                type="email"
+                value="{{ old('email') }}"
+                required
+                autocomplete="email"
+                placeholder="email@example.com"
+            />
+        </div>
+
+    </div>
+</div>
+
 </x-layouts.base>
