@@ -8,7 +8,7 @@
 
                 <x-ui.logo />
 
-                <h1 class="text-lg font-bold text-slate-500 text-center my-4">
+                <h1 class="text-2xl font-bold text-slate-500 text-center my-4">
                     ログイン
                 </h1>
 
@@ -25,7 +25,7 @@
                             id="email"
                             name="email"
                             type="email"
-                            value="{{ old('email') }}"
+                            :value="old('email')"
                             required
                             autocomplete="email"
                             placeholder="email@example.com"
@@ -35,14 +35,13 @@
                     <div class="space-y-2">
                         <label for="password" class="text-sm font-semibold text-slate-700">Password</label>
 
-                        <input
+                        <x-ui.input
+                            id="password"
                             name="password"
                             type="password"
                             required
                             autocomplete="current-password"
                             placeholder="パスワード"
-                            class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-700 placeholder:text-slate-400
-                                   focus:border-lime-500 focus:ring-2 focus:ring-lime-200 outline-none transition"
                         />
 
                         <x-ui.link :href="route('password.request')" wire:navigate>
