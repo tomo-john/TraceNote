@@ -30,6 +30,8 @@
                             autocomplete="email"
                             placeholder="email@example.com"
                         />
+
+                        <x-ui.error name="email" />
                     </div>
 
                     <div class="space-y-2">
