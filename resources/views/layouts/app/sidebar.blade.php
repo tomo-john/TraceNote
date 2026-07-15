@@ -12,15 +12,17 @@
 
             <flux:sidebar.nav>
                 <flux:sidebar.group :heading="__('Platform')" class="grid">
+
                     {{-- Dashboard--}}
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
+                        Dashboard
                     </flux:sidebar.item>
+
                     {{-- Trace --}}
                     <flux:sidebar.item icon="home" :href="route('trace.index')" :current="request()->routeIs('trace.index')" wire:navigate>
                         Trace
-                        <i class="fa-solid fa-dog"></i>
                     </flux:sidebar.item>
+
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
