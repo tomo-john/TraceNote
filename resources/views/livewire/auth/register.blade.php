@@ -1,69 +1,107 @@
-<x-layouts::auth :title="__('Register')">
-    <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Create an account')" :description="__('Enter your details below to create your account')" />
+<x-layouts.base>
 
-        <!-- Session Status -->
-        <x-auth-session-status class="text-center" :status="session('status')" />
+    <div class="min-h-screen flex flex-col items-center justify-center">
 
-        <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
-            @csrf
-            <!-- Name -->
-            <flux:input
-                name="name"
-                :label="__('Name')"
-                :value="old('name')"
-                type="text"
-                required
-                autofocus
-                autocomplete="name"
-                :placeholder="__('Full name')"
-            />
+        <x-ui.card class="max-w-md w-full">
 
-            <!-- Email Address -->
-            <flux:input
-                name="email"
-                :label="__('Email address')"
-                :value="old('email')"
-                type="email"
-                required
-                autocomplete="email"
-                placeholder="email@example.com"
-            />
+            <div class="space-y-6">
 
-            <!-- Password -->
-            <flux:input
-                name="password"
-                :label="__('Password')"
-                type="password"
-                required
-                autocomplete="new-password"
-                :placeholder="__('Password')"
-                passwordrules="{{ \Illuminate\Validation\Rules\Password::defaults()->toPasswordRulesString() }}"
-                viewable
-            />
+                <x-ui.logo />
 
-            <!-- Confirm Password -->
-            <flux:input
-                name="password_confirmation"
-                :label="__('Confirm password')"
-                type="password"
-                required
-                autocomplete="new-password"
-                :placeholder="__('Confirm password')"
-                passwordrules="{{ \Illuminate\Validation\Rules\Password::defaults()->toPasswordRulesString() }}"
-                viewable
-            />
+                <h1 class="text-2xl font-bold text-slate-500 text-center my-4">
+                    新規登録
+                </h1>
 
-            <div class="flex items-center justify-end">
-                <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">
-                    {{ __('Create account') }}
-                </flux:button>
+                <!-- Session Status -->
+                <x-auth-session-status class="text-center" :status="session('status')" />
+
+                <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
+                    @csrf
+
+                    <div class="space-y-2">
+                        <label for="name" class="text-sm font-semibold text-slate-700">Name</label>
+
+                        <x-ui.input
+                            id="name"
+                            name="name"
+                            :value="old('name')"
+                            type="text"
+                            required
+                            autofocus
+                            autocomplete="name"
+                            placeholder="じょん"
+                        />
+
+                        <x-ui.error name="name" />
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="email" class="text-sm font-semibold text-slate-700">Email Address</label>
+
+                        <x-ui.input
+                            id="email"
+                            name="email"
+                            :value="old('email')"
+                            type="email"
+                            required
+                            autocomplete="email"
+                            placeholder="email@example.com"
+                        />
+
+                        <x-ui.error name="email" />
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="password" class="text-sm font-semibold text-slate-700">Password</label>
+
+                        <x-ui.input
+                            id="password"
+                            name="password"
+                            type="password"
+                            required
+                            autocomplete="new-password"
+                            placeholder="パスワード"
+                        />
+
+                        <x-ui.error name="password" />
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="password_confirmation" class="text-sm font-semibold text-slate-700">Confirm Password</label>
+
+                        <x-ui.input
+                            id="password_confirmation"
+                            name="password_confirmation"
+                            type="password"
+                            required
+                            autocomplete="new-password"
+                            placeholder="パスワード"
+                        />
+
+                        <x-ui.error name="password_confirmation" />
+                    </div>
+
+                    <x-ui.button type="submit">
+                        <i class="fa-solid fa-user-plus text-sm"></i>
+                        登録
+                    </x-ui.button>
+
+                </form>
+
+                <div class="text-center text-sm text-slate-500">
+
+                    既にアカウントをお持ちですか？
+                    <i class="fa-solid fa-paw"></i>
+
+                    <x-ui.link :href="route('login')" wire:navigate>
+                        ログイン
+                    </x-ui.link>
+
+                </div>
+
             </div>
-        </form>
 
-        <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
-            <span>{{ __('Already have an account?') }}</span>
-            <flux:link :href="route('login')" wire:navigate>{{ __('Log in') }}</flux:link>
-        </div>
+        </x-ui.card>
+
     </div>
-</x-layouts::auth>
+</x-layouts.base>

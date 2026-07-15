@@ -69,6 +69,7 @@
                     </div>
 
                     <x-ui.button type="submit">
+                        <i class="fa-solid fa-right-to-bracket text-sm"></i>
                         ログイン
                     </x-ui.button>
 
