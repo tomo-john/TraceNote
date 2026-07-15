@@ -85,7 +85,7 @@
                         ステータス
                     </span>
 
-                    <div class="grid grid-cols-2 gap-4 mt-2">
+                    <div class="grid grid-cols-2 gap-4 mt-8">
                         @foreach($statusCounts as $status)
                             <div class="w-full text-center text-sm p-1 rounded-full {{ $status['colorClass'] }}">
                                 <i class="{{ $status['iconClass'] }}"></i>
