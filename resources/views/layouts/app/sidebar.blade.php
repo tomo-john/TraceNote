@@ -14,13 +14,18 @@
                 <flux:sidebar.group :heading="__('Platform')" class="grid">
 
                     {{-- Dashboard--}}
-                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                    <flux:sidebar.item icon="home" :href="route('dashboard')" wire:navigate>
                         Dashboard
                     </flux:sidebar.item>
 
                     {{-- Trace --}}
-                    <flux:sidebar.item icon="home" :href="route('trace.index')" :current="request()->routeIs('trace.index')" wire:navigate>
+                    <flux:sidebar.item icon="home" :href="route('trace.index')" wire:navigate>
                         Trace
+                    </flux:sidebar.item>
+
+                    {{-- Tag --}}
+                    <flux:sidebar.item icon="home" :href="route('tag.index')" wire:navigate>
+                        Tag
                     </flux:sidebar.item>
 
                 </flux:sidebar.group>
@@ -29,12 +34,12 @@
             <flux:spacer />
 
             <flux:sidebar.nav>
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                    {{ __('Repository') }}
+                <flux:sidebar.item icon="folder-git-2" href="https://github.com/tomo-john/TraceNote" target="_blank">
+                    リポジトリ
                 </flux:sidebar.item>
 
                 <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                    {{ __('Documentation') }}
+                    ドキュメント
                 </flux:sidebar.item>
             </flux:sidebar.nav>
 
