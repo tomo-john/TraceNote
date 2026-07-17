@@ -8,6 +8,7 @@ use App\Livewire\Trace\Create as TraceCreate;
 use App\Livewire\Trace\Show as TraceShow;
 use App\Livewire\Trace\Edit as TraceEdit;
 use App\Livewire\Tag\Index as TagIndex;
+use App\Livewire\User\Show as UserShow;
 use App\Livewire\Sandbox\Test as SandboxTest;
 
 Route::view('/', 'top')->name('home');
@@ -29,6 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('traces/{trace}/edit', TraceEdit::class)->name('trace.edit');
 
     Route::get('tags', TagIndex::class)->name('tag.index');
+
+    Route::get('user', UserShow::class)->name('user.show');
 });
 
 require __DIR__.'/settings.php';

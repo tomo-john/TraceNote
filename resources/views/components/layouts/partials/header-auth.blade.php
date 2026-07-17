@@ -21,9 +21,14 @@
             {{-- Dropdown Menu --}}
             <div class="flex flex-col gap-2">
 
-                <x-ui.dropdown-item :href="route('profile.edit')">
+                <x-ui.dropdown-item :href="route('user.show',)">
                     <i class="fa-solid fa-user w-4"></i>
                     Profile
+                </x-ui.dropdown-item>
+
+                <x-ui.dropdown-item :href="route('profile.edit')">
+                    <i class="fa-solid fa-user w-4"></i>
+                    Profile2
                 </x-ui.dropdown-item>
 
                 <hr class="border-gray-200 my-2">
