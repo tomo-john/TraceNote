@@ -8,6 +8,7 @@ use App\Livewire\Trace\Create as TraceCreate;
 use App\Livewire\Trace\Show as TraceShow;
 use App\Livewire\Trace\Edit as TraceEdit;
 use App\Livewire\Tag\Index as TagIndex;
+use App\Livewire\Sandbox\Index as SandboxIndex;
 
 Route::view('/', 'top')->name('home');
 
@@ -17,6 +18,7 @@ Route::view('/privacy', 'dummy')->name('privacy');
 Route::view('/contact', 'dummy')->name('contact');
 
 Route::get('sandbox', SandboxController::class)->name('sandbox');
+Route::get('sandbox/livewire', SandboxIndex::class)->name('sandbox/livewire');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
