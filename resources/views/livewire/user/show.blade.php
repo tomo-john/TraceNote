@@ -6,4 +6,8 @@
         <i class="fa-solid fa-dog"></i>
     </div>
 
+    <div>
+        {{ $user->name }}
+        {{ $user->email }}
+    </div>
 </div>
