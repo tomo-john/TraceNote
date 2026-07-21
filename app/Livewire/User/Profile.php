@@ -10,14 +10,23 @@ use App\Models\User;
 class Profile extends Component
 {
     public User $user;
+    public string $name;
+    public string $email;
 
     public function mount()
     {
         $this->user = Auth::user();
+        $this->name = $this->user->name;
+        $this->email = $this->user->email;
+    }
+
+    public function save()
+    {
     }
 
     public function render()
     {
-        return view('livewire.user.profile');
+        return view('livewire.user.profile')
+            ->layout('components.layouts.base');
     }
 }
