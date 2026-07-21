@@ -3,6 +3,7 @@
 namespace App\Livewire\User;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
 use App\Models\User;
@@ -20,11 +21,25 @@ class Profile extends Component
         $this->email = $this->user->email;
     }
 
+    protected function rules(): array
+    {
+        return [
+            'name' => 'required|string|max:255',
+        ];
+    }
+
+    protected function payload(): array
+    {
+        return [
+            'name'   => $this->name,
+        ];
+    }
+
     public function save()
     {
-        $this->user->update([
-            'name' => $this->name,
-        ]);
+        $this->validate();
+
+        $this->user->update($this->payload());
     }
 
     public function render()

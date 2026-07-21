@@ -2,7 +2,7 @@
 
     <x-ui.card class="max-w-md w-full">
 
-        <div class="space-y-6">
+        <form wire:submit="save" class="space-y-6">
 
             <h1 class="text-2xl font-bold text-slate-500 text-center my-4">
                 プロフィール
@@ -17,19 +17,18 @@
                     id="name"
                     name="name"
                     type="text"
-                    :value="old('name')"
                     required
                 />
 
                 <x-ui.error name="name" />
             </div>
 
-            <x-ui.button wire:click="save">
+            <x-ui.button type="submit">
                 保存する
                 <i class="fa-solid fa-dog"></i>
             </x-ui.button>
 
-        </div>
+        </form>
 
     </x-ui.card>
 </div>
