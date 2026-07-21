@@ -22,6 +22,9 @@ class Profile extends Component
 
     public function save()
     {
+        $this->user->update([
+            'name' => $this->name,
+        ]);
     }
 
     public function render()
