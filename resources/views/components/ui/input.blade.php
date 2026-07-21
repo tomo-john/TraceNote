@@ -29,6 +29,6 @@ $stateClass = $errors->has($name)
     id="{{ $id }}"
     name="{{ $name }}"
     type="{{ $type }}"
-    value="{{ old($name), $value }}"
+    value="{{ old($name, $value) }}"
     {{ $attributes->class([$baseClass, $stateClass]) }}
 >
