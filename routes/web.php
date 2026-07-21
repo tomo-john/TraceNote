@@ -8,8 +8,8 @@ use App\Livewire\Trace\Create as TraceCreate;
 use App\Livewire\Trace\Show as TraceShow;
 use App\Livewire\Trace\Edit as TraceEdit;
 use App\Livewire\Tag\Index as TagIndex;
-use App\Livewire\User\Show as UserShow;
-use App\Livewire\Sandbox\Test as SandboxTest;
+use App\Livewire\User\Profile;
+use App\Livewire\Sandbox\Test;
 
 Route::view('/', 'top')->name('home');
 
@@ -19,7 +19,7 @@ Route::view('/privacy', 'dummy')->name('privacy');
 Route::view('/contact', 'dummy')->name('contact');
 
 Route::get('sandbox', SandboxController::class)->name('sandbox');
-Route::get('sandbox/test', SandboxTest::class)->name('sandbox.test');
+Route::get('sandbox/test', Test::class)->name('sandbox.test');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
@@ -31,7 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('tags', TagIndex::class)->name('tag.index');
 
-    Route::get('user', UserShow::class)->name('user.show');
+    Route::get('user/profile', Profile::class)->name('user.profile');
 });
 
 require __DIR__.'/settings.php';

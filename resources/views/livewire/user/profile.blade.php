@@ -2,7 +2,7 @@
 
     <div class="flex items-center justify-center gap-4">
         <i class="fa-solid fa-dog"></i>
-        <p>User Show</p>
+        <p>User Profile</p>
         <i class="fa-solid fa-dog"></i>
     </div>
 
