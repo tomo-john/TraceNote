@@ -28,6 +28,11 @@
                         Tag
                     </flux:sidebar.item>
 
+                    {{-- Tag --}}
+                    <flux:sidebar.item icon="home" :href="route('user.profile')" wire:navigate>
+                        Profile
+                    </flux:sidebar.item>
+
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
