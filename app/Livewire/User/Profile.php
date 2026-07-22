@@ -48,6 +48,11 @@ class Profile extends Component
         $this->validate();
 
         $this->user->update($this->payload());
+
+        $this->dispatch(
+            'notify',
+            message: 'プロフィールを更新しました',
+            type: 'success');
     }
 
     public function render()
