@@ -1,48 +1,97 @@
 <div class="min-h-screen flex flex-col items-center justify-center">
 
-    <x-ui.card class="max-w-md w-full">
+    <div class="grid grid-cols-3 gap-6">
 
-        <form wire:submit="save" class="space-y-6">
+        {{-- 基本情報 --}}
+        <x-ui.card class="max-w-md w-full">
 
-            <h1 class="text-2xl font-bold text-slate-500 text-center my-4">
-                プロフィール
-            </h1>
+            <form wire:submit="save" class="space-y-6">
+
+                <h1 class="text-2xl font-bold text-slate-500 text-center my-4">
+                    プロフィール
+                </h1>
 
 
-            <div class="space-y-2">
-                <label for="name" class="text-sm font-semibold text-slate-700">Name</label>
+                <div class="space-y-2">
+                    <label for="name" class="text-sm font-semibold text-slate-700">Name</label>
 
-                <x-ui.input
-                    wire:model="name"
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                />
+                    <x-ui.input
+                        wire:model="name"
+                        id="name"
+                        name="name"
+                        type="text"
+                        required
+                    />
 
-                <x-ui.error name="name" />
-            </div>
+                    <x-ui.error name="name" />
+                </div>
 
-            <div class="space-y-2">
-                <label for="email" class="text-sm font-semibold text-slate-700">Email</label>
+                <div class="space-y-2">
+                    <label for="email" class="text-sm font-semibold text-slate-700">Email</label>
 
-                <x-ui.input
-                    wire:model="email"
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                />
+                    <x-ui.input
+                        wire:model="email"
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                    />
 
-                <x-ui.error name="email" />
-            </div>
+                    <x-ui.error name="email" />
+                </div>
 
-            <x-ui.button type="submit">
-                <i class="fa-solid fa-floppy-disk text-sm"></i>
-                登録
-            </x-ui.button>
+                <x-ui.button type="submit">
+                    <i class="fa-solid fa-floppy-disk text-sm"></i>
+                    登録
+                </x-ui.button>
 
-        </form>
+            </form>
 
-    </x-ui.card>
+        </x-ui.card>
+
+        {{-- パスワード変更 --}}
+        <x-ui.card class="max-w-md w-full">
+
+            <form wire:submit="save" class="space-y-6">
+
+                <h1 class="text-2xl font-bold text-slate-500 text-center my-4">
+                    パスワード変更
+                </h1>
+
+
+                <div class="space-y-2">
+                    <label for="current_password" class="text-sm font-semibold text-slate-700">Current Password</label>
+
+                    <x-ui.input
+                        wire:model="current_password"
+                        id="current_password"
+                        name="current_password"
+                        type="password"
+                        required
+                    />
+
+                    <x-ui.error name="current_password" />
+                </div>
+
+                <x-ui.button type="submit">
+                    <i class="fa-solid fa-floppy-disk text-sm"></i>
+                    登録
+                </x-ui.button>
+
+            </form>
+
+        </x-ui.card>
+
+        {{-- Coming Soon --}}
+        <div class="max-w-6xl mx-auto flex flex-col items-center justify-center gap-8 p-8 animate-pulse">
+
+            <x-ui.logo />
+
+            <x-ui.card>
+                <p>Coming Soon ...</p>
+            </x-ui.card>
+
+        </div>
+
+    </div>
 </div>

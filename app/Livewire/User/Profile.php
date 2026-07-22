@@ -10,8 +10,12 @@ use App\Models\User;
 class Profile extends Component
 {
     public User $user;
-    public string $name;
-    public string $email;
+    public string $name = '';
+    public string $email = '';
+    public string $current_password = '';
+    public string $password = '';
+    public string $password_confirm = '';
+
 
     public function mount()
     {
