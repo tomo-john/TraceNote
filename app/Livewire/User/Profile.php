@@ -5,7 +5,6 @@ namespace App\Livewire\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
-use Livewire\Attributes\Computed;
 use App\Models\User;
 
 class Profile extends Component
@@ -24,7 +23,15 @@ class Profile extends Component
     protected function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name'  => ['required', 'string', 'max:255'],
+
+            'email'  => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique(User::class)->ignore($this->user->id),
+            ],
         ];
     }
 
@@ -32,10 +39,11 @@ class Profile extends Component
     {
         return [
             'name'   => $this->name,
+            'email'   => $this->email,
         ];
     }
 
-    public function save()
+    public function save(): void
     {
         $this->validate();
 

@@ -23,9 +23,23 @@
                 <x-ui.error name="name" />
             </div>
 
+            <div class="space-y-2">
+                <label for="email" class="text-sm font-semibold text-slate-700">Email</label>
+
+                <x-ui.input
+                    wire:model="email"
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                />
+
+                <x-ui.error name="email" />
+            </div>
+
             <x-ui.button type="submit">
-                保存する
-                <i class="fa-solid fa-dog"></i>
+                <i class="fa-solid fa-floppy-disk text-sm"></i>
+                登録
             </x-ui.button>
 
         </form>
