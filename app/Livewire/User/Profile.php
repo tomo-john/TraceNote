@@ -9,6 +9,7 @@ use App\Models\User;
 
 class Profile extends Component
 {
+    // ==== Properties ====
     public User $user;
     public string $name = '';
     public string $email = '';
@@ -16,15 +17,17 @@ class Profile extends Component
     public string $password = '';
     public string $password_confirm = '';
 
-
+    // ==== Lifecycle ====
     public function mount()
     {
         $this->user = Auth::user();
         $this->name = $this->user->name;
         $this->email = $this->user->email;
+        $this->current_password = $this->user->password;
     }
 
-    protected function rules(): array
+    // ==== Validation ====
+    protected function profileRules(): array
     {
         return [
             'name'  => ['required', 'string', 'max:255'],
@@ -47,9 +50,10 @@ class Profile extends Component
         ];
     }
 
+    // ==== Actions ====
     public function save(): void
     {
-        $this->validate();
+        $this->validate($this->profileRules());
 
         $this->user->update($this->payload());
 
@@ -59,6 +63,7 @@ class Profile extends Component
             type: 'success');
     }
 
+    // ==== Render ====
     public function render()
     {
         return view('livewire.user.profile')
