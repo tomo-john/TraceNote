@@ -5,7 +5,7 @@
         {{-- 基本情報 --}}
         <x-ui.card class="max-w-md w-full">
 
-            <form wire:submit="save" class="space-y-6">
+            <form wire:submit="saveProfile" class="space-y-6">
 
                 <h1 class="text-2xl font-bold text-slate-500 text-center my-4">
                     プロフィール
@@ -42,7 +42,7 @@
 
                 <x-ui.button type="submit">
                     <i class="fa-solid fa-floppy-disk text-sm"></i>
-                    登録
+                    更新
                 </x-ui.button>
 
             </form>
@@ -73,9 +73,37 @@
                     <x-ui.error name="current_password" />
                 </div>
 
+                <div class="space-y-2">
+                    <label for="password" class="text-sm font-semibold text-slate-700">New Password</label>
+
+                    <x-ui.input
+                        wire:model="password"
+                        id="password"
+                        name="password"
+                        type="password"
+                        required
+                    />
+
+                    <x-ui.error name="password" />
+                </div>
+
+                <div class="space-y-2">
+                    <label for="confirm_password" class="text-sm font-semibold text-slate-700">Confirm Password</label>
+
+                    <x-ui.input
+                        wire:model="confirm_password"
+                        id="confirm_password"
+                        name="confirm_password"
+                        type="confirm_password"
+                        required
+                    />
+
+                    <x-ui.error name="confirm_password" />
+                </div>
+
                 <x-ui.button type="submit">
-                    <i class="fa-solid fa-floppy-disk text-sm"></i>
-                    登録
+                    <i class="fa-solid fa-key text-sm"></i>
+                    更新
                 </x-ui.button>
 
             </form>

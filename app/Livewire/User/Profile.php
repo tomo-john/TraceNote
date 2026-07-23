@@ -23,7 +23,6 @@ class Profile extends Component
         $this->user = Auth::user();
         $this->name = $this->user->name;
         $this->email = $this->user->email;
-        $this->current_password = $this->user->password;
     }
 
     // ==== Validation ====
@@ -42,6 +41,22 @@ class Profile extends Component
         ];
     }
 
+    protected function passwordRules(): array
+    {
+        return [
+            'current_password' => [
+                'required',
+                'current_password',
+            ],
+
+            'password' => [
+                'required',
+                Password::defaults(),
+                'confirmed'
+            ],
+        ];
+    }
+
     protected function payload(): array
     {
         return [
@@ -51,7 +66,7 @@ class Profile extends Component
     }
 
     // ==== Actions ====
-    public function save(): void
+    public function saveProfile(): void
     {
         $this->validate($this->profileRules());
 
@@ -61,6 +76,10 @@ class Profile extends Component
             'notify',
             message: 'プロフィールを更新しました',
             type: 'success');
+    }
+
+    public function savePassword(): void
+    {
     }
 
     // ==== Render ====
