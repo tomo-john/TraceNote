@@ -52,7 +52,7 @@
         {{-- パスワード変更 --}}
         <x-ui.card class="max-w-md w-full">
 
-            <form wire:submit="save" class="space-y-6">
+            <form wire:submit="savePassword" class="space-y-6">
 
                 <h1 class="text-2xl font-bold text-slate-500 text-center my-4">
                     パスワード変更
@@ -88,13 +88,13 @@
                 </div>
 
                 <div class="space-y-2">
-                    <label for="confirm_password" class="text-sm font-semibold text-slate-700">Confirm Password</label>
+                    <label for="password_confirmation" class="text-sm font-semibold text-slate-700">Confirm Password</label>
 
                     <x-ui.input
-                        wire:model="confirm_password"
-                        id="confirm_password"
-                        name="confirm_password"
-                        type="confirm_password"
+                        wire:model="password_confirmation"
+                        id="password_confirmation"
+                        name="password_confirmation"
+                        type="password"
                         required
                     />
 

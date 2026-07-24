@@ -4,6 +4,7 @@ namespace App\Livewire\User;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
 use App\Models\User;
 
@@ -15,7 +16,7 @@ class Profile extends Component
     public string $email = '';
     public string $current_password = '';
     public string $password = '';
-    public string $password_confirm = '';
+    public string $password_confirmation = '';
 
     // ==== Lifecycle ====
     public function mount()
@@ -80,6 +81,7 @@ class Profile extends Component
 
     public function savePassword(): void
     {
+        $this->validate($this->passwordRules());
     }
 
     // ==== Render ====
