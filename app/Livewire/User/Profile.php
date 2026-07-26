@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use App\Models\User;
 
@@ -18,9 +19,11 @@ class Profile extends Component
     public string $current_password = '';
     public string $password = '';
     public string $password_confirmation = '';
+    public bool $showDeleteModal = false;
+    public string $delete_password = '';
 
     // ==== Lifecycle ====
-    public function mount()
+    public function mount(): void
     {
         $this->user = Auth::user();
         $this->name = $this->user->name;
@@ -55,6 +58,16 @@ class Profile extends Component
                 'required',
                 Password::defaults(),
                 'confirmed'
+            ],
+        ];
+    }
+
+    protected function deleteAccountRules(): array
+    {
+        return [
+            'delete_password' => [
+                'required',
+                'current_password',
             ],
         ];
     }
@@ -102,6 +115,38 @@ class Profile extends Component
             message: 'パスワードを更新しました',
             type: 'success'
         );
+    }
+
+    public function deleteAccount(Request $request): void
+    {
+        $this->validate($this->deleteAccountRules());
+
+        $user = $this->user;
+
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        $this->redirect('/', navigate: true);
+    }
+
+    // ==== Modal ====
+    public function openDeleteModal(): void
+    {
+        $this->showDeleteModal = true;
+    }
+
+    public function closeDeleteModal(): void
+    {
+        $this->reset('delete_password');
+
+        $this->resetValidation();
+
+        $this->showDeleteModal = false;
     }
 
     // ==== Render ====

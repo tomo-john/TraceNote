@@ -98,7 +98,7 @@
                         required
                     />
 
-                    <x-ui.error name="confirm_password" />
+                    <x-ui.error name="password_confirmation" />
                 </div>
 
                 <x-ui.button type="submit">
@@ -110,16 +110,68 @@
 
         </x-ui.card>
 
-        {{-- Coming Soon --}}
-        <div class="max-w-6xl mx-auto flex flex-col items-center justify-center gap-8 p-8 animate-pulse">
+        {{-- アカウント削除 --}}
+        <x-ui.card>
 
-            <x-ui.logo />
+            <h1 class="text-2xl font-bold text-red-500 text-center my-4">
+                アカウント削除
+            </h1>
 
-            <x-ui.card>
-                <p>Coming Soon ...</p>
-            </x-ui.card>
+            <p class="text-sm text-slate-500">
+                アカウントを削除すると、<br>
+                すべてのデータが削除されます。
+            </p>
 
-        </div>
+            <x-ui.button variant="danger" wire:click="openDeleteModal">
+                アカウントを削除する
+            </x-ui.button>
+
+        </x-ui.card>
+
+        {{-- アカウント削除モーダル --}}
+        @if($showDeleteModal)
+            <div class="fixed inset-0 z-50 flex items-center justify-center bg-white/70">
+                <x-ui.card>
+
+                    <form wire:submit="deleteAccount" class="space-y-6">
+
+                        <h2 class="text-xl font-bold text-red-500">
+                            アカウントを本当に削除しますか？
+                        </h2>
+
+                        <p class="text-sm text-slate-500">
+                            この操作は取り消せません!
+                        </p>
+
+                        <div class="space-y-2">
+                            <label for="delete_password" class="text-sm font-semibold text-slate-700">現在のパスワード</label>
+
+                            <x-ui.input
+                                wire:model="delete_password"
+                                id="delete_password"
+                                name="delete_password"
+                                type="password"
+                                required
+                            />
+
+                            <x-ui.error name="delete_password" />
+                        </div>
+
+                        <div class="flex justify-end gap-2">
+                            <x-ui.button variant="secondary" type="button" wire:click="closeDeleteModal">
+                                キャンセル
+                            </x-ui.button>
+
+                            <x-ui.button variant="danger" type="submit">
+                                削除する
+                            </x-ui.button>
+                        </div>
+
+                    </form>
+
+                </x-ui.card>
+            </div>
+        @endif
 
     </div>
 </div>
