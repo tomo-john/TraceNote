@@ -3,6 +3,7 @@
 namespace App\Livewire\User;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
@@ -58,11 +59,19 @@ class Profile extends Component
         ];
     }
 
-    protected function payload(): array
+    // ==== Payload ====
+    protected function profilePayload(): array
     {
         return [
             'name'   => $this->name,
             'email'   => $this->email,
+        ];
+    }
+
+    protected function passwordPayload(): array
+    {
+        return [
+            'password' => Hash::make($this->password),
         ];
     }
 
@@ -71,17 +80,28 @@ class Profile extends Component
     {
         $this->validate($this->profileRules());
 
-        $this->user->update($this->payload());
+        $this->user->update($this->profilePayload());
 
         $this->dispatch(
             'notify',
             message: 'プロフィールを更新しました',
-            type: 'success');
+            type: 'success'
+        );
     }
 
     public function savePassword(): void
     {
         $this->validate($this->passwordRules());
+
+        $this->user->update($this->passwordPayload());
+
+        $this->reset('current_password', 'password', 'password_confirmation');
+
+        $this->dispatch(
+            'notify',
+            message: 'パスワードを更新しました',
+            type: 'success'
+        );
     }
 
     // ==== Render ====
