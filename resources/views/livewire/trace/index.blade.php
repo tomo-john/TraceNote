@@ -34,10 +34,18 @@
 
         {{-- フィルターカード --}}
         <x-ui.card class="space-y-4">
-            <h2 class="text-sm font-bold text-slate-700 flex items-center gap-2">
-                <i class="fa-solid fa-filter"></i>
-                絞り込み
-            </h2>
+            <div class="flex items-center justify-between">
+                <h2 class="text-sm font-bold text-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-filter"></i>
+                    絞り込み
+                </h2>
+
+                {{-- 検索条件リセット --}}
+                <x-ui.button variant="ghost" type="button" wire:click="clearFilters">
+                    <i class="fa-solid fa-arrow-rotate-left"></i>
+                    検索条件をリセット
+                </x-ui.button>
+            </div>
 
             {{-- 検索 --}}
             <div>
@@ -56,44 +64,40 @@
                 {{-- ステータス --}}
                 <div class="w-full md:w-48">
                     <label for="status" class="text-sm font-semibold text-slate-700">ステータス</label>
-                    <select wire:model.live="status" id="status"
-                            class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 shadow-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400"
-                    >
+                    <x-ui.select wire:model.live="status" id="status">
                         <option value="">すべてのステータス</option>
                         @foreach($statuses as $status)
                             <option value="{{ $status['value'] }}">{{ $status['label'] }}</option>
                         @endforeach
-                    </select>
+                    </x-ui.select>
                 </div>
 
                 {{-- 並び替え --}}
                 <div class="w-full md:w-48">
                     <label for="sort" class="text-sm font-semibold text-slate-700">並び替え</label>
-                    <select wire:model.live="sort" id="sort"
-                            class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 shadow-sm">
+                    <x-ui.select wire:model.live="sort" id="sort">
                         <option value="latest">新しい順</option>
                         <option value="oldest">古い順</option>
                         <option value="title">タイトル順</option>
-                    </select>
+                    </x-ui.select>
                 </div>
 
             </div>
-
-            {{-- 検索条件リセット --}}
-            <div class="border-t border-slate-200 pt-4 flex justify-end">
-                <x-ui.button variant="ghost" type="button" wire:click="clearFilters">
-                    <i class="fa-solid fa-arrow-rotate-left"></i>
-                    検索条件をリセット
-                </x-ui.button>
-            </div>
         </x-ui.card>
 
-        {{-- Tag選択 --}}
-        <div class="space-y-3">
+        {{-- タグ選択 --}}
+        <x-ui.card>
+            <div class="flex items-center justify-between">
+                <h2 class="text-sm font-bold text-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-tags"></i>
+                    タグ選択
+                </h2>
 
-            <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
-                <i class="fa-solid fa-tags"></i>
-                Tags
+                {{-- タグ選択リセット --}}
+                <x-ui.button variant="ghost" type="button" wire:click="clearFilters">
+                    <i class="fa-solid fa-arrow-rotate-left"></i>
+                    タグ選択をリセット
+                </x-ui.button>
             </div>
 
             <div class="flex flex items-center gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-200 shadow-sm">
@@ -114,7 +118,7 @@
                     </button>
                 @endforeach
             </div>
-        </div>
+        </x-ui.card>
 
     @endif
 
