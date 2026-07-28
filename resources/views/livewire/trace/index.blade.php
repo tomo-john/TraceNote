@@ -1,58 +1,62 @@
 <div class="max-w-5xl mx-auto p-6 space-y-6">
 
-    <div class="flex items-center justify-between">
-        <div class="flex flex-col">
-            <h1 class="text-3xl font-bold text-slate-800">
+    {{-- Header --}}
+    <div class="flex items-end justify-between">
+
+        <div class="space-y-4">
+            <h1 class="text-3xl font-bold text-slate-700">
+                <i class="fa-solid fa-book"></i>
                 Trace一覧
-                <i class="fa-solid fa-dog"></i>
             </h1>
+
+            <p class="text-md text-slate-500">
+                学習した内容を管理します。<br>
+                記録・検索・整理ができます。
+            </p>
         </div>
 
-        <div class="flex items-center gap-2">
-            <a href="{{ route('trace.create') }}"
-               wire:navigate
-               class="inline-block w-28 text-center bg-slate-400 text-white rounded-lg py-2 px-5 hover:bg-slate-500 transition"
-            >
+        <div class="flex justify-end gap-2">
+            <x-ui.button :href="route('trace.create')" variant="primary" wire:navigate>
                 <i class="fa-solid fa-plus"></i>
-                Create
-            </a>
-            <a href="{{ route('tag.index') }}"
-               wire:navigate
-               class="inline-flex items-center justify-center gap-1.5 w-28 text-center bg-white border border-slate-200 text-slate-600 rounded-lg py-2 px-5 hover:bg-slate-50 transition"
-            >
+                新規作成
+            </x-ui.button>
+            <x-ui.button :href="route('tag.index')" variant="secondary" wire:navigate>
                 <i class="fa-solid fa-tag"></i>
-                Tags
-            </a>
+                タグ
+            </x-ui.button>
         </div>
+
     </div>
+
+    <hr class="border-dashed border-slate-200">
 
     @if($this->totalTraces)
 
-        {{-- 検索・フィルター用ツールバーエリア --}}
-        <div class="space-y-3">
-            <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+        {{-- フィルターカード --}}
+        <x-ui.card class="space-y-4">
+            <h2 class="text-sm font-bold text-slate-700 flex items-center gap-2">
                 <i class="fa-solid fa-filter"></i>
-                Filter
+                絞り込み
+            </h2>
+
+            {{-- 検索 --}}
+            <div>
+                <label for="search" class="text-sm font-semibold text-slate-700">検索</label>
+
+                <x-ui.input
+                    wire:model.live.debounce.300ms="search"
+                    id="search"
+                    name="search"
+                    type="text"
+                    placeholder="タイトルや概要を検索..."
+                />
             </div>
 
-            <div class="flex flex-col md:flex-row items-stretch md:items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200 shadow-sm">
-
-                {{-- 検索インプット --}}
-                <div class="flex-1 relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                        <i class="fa-solid fa-magnifying-glass text-sm"></i>
-                    </div>
-                    <input type="text"
-                           wire:model.live.debounce.300ms="search"
-                           placeholder="タイトルや概要を検索..."
-                           class="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2.5 text-sm bg-white shadow-inner focus:border-pink-400 focus:ring-1 focus:ring-pink-400 placeholder-slate-400"
-                    >
-                </div>
-
-                {{-- ステータス選択 --}}
-                <div class="w-full md:w-56 flex items-center gap-2">
-                    <span class="text-xs font-bold text-slate-500 whitespace-nowrap hidden md:inline">Status:</span>
-                    <select wire:model.live="status"
+            <div class="flex items-center gap-4">
+                {{-- ステータス --}}
+                <div class="w-full md:w-48">
+                    <label for="status" class="text-sm font-semibold text-slate-700">ステータス</label>
+                    <select wire:model.live="status" id="status"
                             class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 shadow-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400"
                     >
                         <option value="">すべてのステータス</option>
@@ -63,12 +67,9 @@
                 </div>
 
                 {{-- 並び替え --}}
-                <div class="w-full md:w-48 flex items-center gap-2">
-                    <span class="text-xs font-bold text-slate-500 hidden md:inline">
-                        Sort:
-                    </span>
-
-                    <select wire:model.live="sort"
+                <div class="w-full md:w-48">
+                    <label for="sort" class="text-sm font-semibold text-slate-700">並び替え</label>
+                    <select wire:model.live="sort" id="sort"
                             class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 shadow-sm">
                         <option value="latest">新しい順</option>
                         <option value="oldest">古い順</option>
@@ -77,7 +78,15 @@
                 </div>
 
             </div>
-        </div>
+
+            {{-- 検索条件リセット --}}
+            <div class="border-t border-slate-200 pt-4 flex justify-end">
+                <x-ui.button variant="ghost" type="button" wire:click="clearFilters">
+                    <i class="fa-solid fa-arrow-rotate-left"></i>
+                    検索条件をリセット
+                </x-ui.button>
+            </div>
+        </x-ui.card>
 
         {{-- Tag選択 --}}
         <div class="space-y-3">
