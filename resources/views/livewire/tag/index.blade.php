@@ -1,104 +1,115 @@
 <div class="max-w-5xl mx-auto p-6 space-y-6">
 
-    {{-- ヘッダー --}}
-    <div class="flex items-center justify-between">
-        <div class="flex flex-col">
-            <h1 class="text-3xl font-bold text-slate-800">
-                Tags
-                <i class="fa-solid fa-dog"></i>
+    {{-- Header --}}
+    <div class="flex items-end justify-between">
+
+        <div class="space-y-4">
+            <h1 class="text-3xl font-bold text-slate-700">
+                <i class="fa-solid fa-tags"></i>
+                Tag一覧
             </h1>
 
-            <p class="text-sm text-slate-500">
-                {{ $tags->count() }} tags
+            <p class="text-md text-slate-500">
+                Traceを整理するためのタグを作成・管理します。
             </p>
         </div>
 
-        <div class="flex items-center gap-2">
-            <a href="{{ route('trace.index') }}"
-               wire:navigate
-               class="inline-block w-28 text-center bg-slate-400 text-white rounded-lg py-2 px-5 hover:bg-slate-500 transition"
-            >
-                <i class="fa-solid fa-dog"></i>
-                Trace
-            </a>
+        <div class="flex justify-end gap-2">
+            <x-ui.button :href="route('trace.index')" variant="secondary" wire:navigate>
+                <i class="fa-solid fa-book"></i>
+                Trace一覧
+            </x-ui.button>
         </div>
+
     </div>
+
+    <hr class="border-dashed border-slate-200">
 
     {{-- 新規作成ボタン --}}
     <div class="flex items-center gap-5">
         @if(! $editingId && ! $showForm)
-            <button wire:click="openForm"
-                    class="bg-slate-200 border rounded-xl p-2 cursor-pointer"
-            >
+            <x-ui.button variant="primary" button wire:click="openForm">
                 <i class="fa-solid fa-plus"></i>
                 新規作成
-            </button>
+            </x-ui.button>
         @endif
     </div>
 
     {{-- 作成・編集フォーム --}}
     @if($showForm)
-        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
-            <div class="space-y-3">
-                <label class="text-sm font-bold text-slate-500">{{ $editingId ? 'Edit Tag' : 'New Tag' }}</label>
-                <div class="flex items-center gap-2 w-full">
-                    {{-- タグ名 --}}
-                    <input type="text"
-                           wire:model.live="name"
-                           class="w-56 rounded-full border px-3 py-1">
+        <x-ui.card class="max-w-xl mx-auto space-y-4">
 
-                    {{-- 色 --}}
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-tag"></i>
+                    {{ $editingId ? 'タグを編集' : 'タグを作成' }}
+                </h2>
+
+                <p class="text-sm text-slate-500 mt-1">
+                    Traceを整理するためのタグです。
+                </p>
+            </div>
+
+
+            <div>
+                <label for="name"class="text-sm font-semibold text-slate-700">タグ名</label>
+
+                <x-ui.input
+                    wire:model.live="name"
+                    id="name"
+                    name="name"
+                    placeholder="Laravel"
+                />
+
+                <x-ui.error name="name" />
+            </div>
+
+            <div>
+                <label for="color" class="text-sm font-semibold text-slate-700">カラー</label>
+
+                <div class="flex flex-wrap gap-4">
                     @foreach($this->colorClasses as $key => $class)
                         <button wire:click="$set('color', '{{ $key }}')"
-                                class="w-7 h-7 rounded-full cursor-pointer {{ $class }}
-                                       {{ $color == $key ? 'ring-2 ring-offset-2 ring-slate-400' : ''}}"
+                                type="button"
+                                class="w-8 h-8 rounded-full transition duration-200 cursor-pointer hover:scale-105 {{ $class }}
+                                       {{ $color == $key ? 'ring-2 ring-offset-2 ring-slate-500 scale-110' : ''}}"
                         ></button>
                     @endforeach
+                </div>
+            </div>
 
-                    {{-- プレビュー --}}
-                    <div class="flex-1 flex flex-col items-center justify-center gap-3 bg-slate-50 px-4 py-1.5 mx-4 rounded-2xl border border-slate-100">
-                        <label class="text-sm font-bold text-slate-400 uppercase tracking-wider">Preview</label>
-                        <div class="flex items-center gap-1.5">
-                            <i class="fa-solid fa-tag text-slate-400"></i>
-                            <span class="px-3 py-0.5 rounded-full text-sm font-medium {{ $this->previewClass }}">
-                                {{ $name ?: 'sample'}}
-                            </span>
-                        </div>
+            <div>
+                <label for="preview" class="text-sm font-semibold text-slate-700">プレビュー</label>
+
+                <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5">
+
+                    <div class="flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-tag w-6 h-6 rounded-full p-1 {{ $this->previewClass }}"></i>
+                        <span class="px-3 py-1 rounded-full {{ $this->previewClass }}">
+                            {{ $name ?: 'Sample Tag'}}
+                        </span>
                     </div>
                 </div>
-
-                {{-- Save・Cancel ボタン --}}
-                <div class="flex items-center gap-3 text-sm">
-                    @if($editingId)
-                        <button wire:click="save"
-                                class="bg-pink-200 border rounded-xl p-2 cursor-pointer"
-                        >
-                            <i class="fa-solid fa-arrow-rotate-right"></i>
-                            更新
-                        </button>
-                    @else
-                        <button wire:click="save"
-                                class="bg-sky-200 border rounded-xl p-2 cursor-pointer"
-                        >
-                            <i class="fa-solid fa-plus"></i>
-                            作成
-                        </button>
-                    @endif
-                    <button wire:click="closeForm"
-                            class="bg-gray-200 border rounded-xl p-2 cursor-pointer"
-                    >
-                        <i class="fa-solid fa-circle-xmark"></i>
-                        キャンセル
-                    </button>
-                </div>
-
-                @error('name')
-                    <p class="text-sm text-red-500">
-                        {{ $message }}
-                    </p>
-                @enderror
             </div>
-        </div>
+
+            <div class="flex justify-end gap-3 pt-2">
+                <x-ui.button type="button" wire:click="save">
+
+                    <i class="fa-solid {{ $editingId
+                        ? 'fa-arrow-rotate-right'
+                        : 'fa-plus' }}"></i>
+
+                    {{ $editingId ? '更新' : '作成' }}
+
+                </x-ui.button>
+
+                <x-ui.button variant="secondary" wire:click="closeForm">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                    キャンセル
+                </x-ui.button>
+            </div>
+
+        </x-ui.card>
     @endif
 
     {{-- タグ一覧 --}}
