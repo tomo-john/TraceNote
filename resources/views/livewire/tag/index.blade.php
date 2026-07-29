@@ -5,8 +5,8 @@
 
         <div class="space-y-4">
             <h1 class="text-3xl font-bold text-slate-700">
-                <i class="fa-solid fa-tags"></i>
-                Tag一覧
+                <i class="fa-solid fa-tag"></i>
+                Tag
             </h1>
 
             <p class="text-md text-slate-500">
@@ -113,43 +113,30 @@
     @endif
 
     {{-- タグ一覧 --}}
-    <div class="flex flex-wrap gap-3 w-full">
-        @forelse($tags as $tag)
+    <div class="space-y-3">
+        <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+            <i class="fa-solid fa-tags"></i>
+            登録されたタグ一覧
+            ({{ $tags->count() }} tags)
+        </div>
 
-            <div class="group flex items-center justify-between gap-2 p-4 rounded-lg shadow-sm hover:shadow-md transition
-                        {{ $editingId === $tag->id ? 'bg-pink-50 border-pink-200' : 'bg-white border-gray-200' }}">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            @forelse($tags as $tag)
 
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-tag text-slate-400"></i>
-                    <span class="px-3 py-1 rounded-full text-sm font-medium {{ $tag->colorClass() }}">
-                        {{ $tag->name }}
-                    </span>
+                <x-tag.card :tag="$tag" />
+
+            @empty
+
+                <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
+                    <p class="text-slate-500">
+                        まだ登録されたタグがありません。<br>
+                        最初のタグを作ってみましょう
+                        <i class="fa-solid fa-dog"></i>
+                    </p>
                 </div>
 
-                <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <button wire:click="edit({{ $tag->id }})"
-                            class="cursor-pointer text-blue-400 hover:text-blue-500 cursor-pointer"
-                    >
-                        <i class="fa-solid fa-pen"></i>
-                    </button>
-                    <button wire:click="delete({{ $tag->id }})"
-                            wire:confirm="タグを削除しますか？"
-                            class="cursor-pointer text-red-400 hover:text-red-500 cursor-pointer"
-                    >
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                </div>
-
-            </div>
-        @empty
-            <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
-                <p class="text-slate-500">
-                    まだ登録されたタグがありません。<br>
-                    最初のタグを作ってみましょう
-                    <i class="fa-solid fa-dog"></i>
-                </p>
-            </div>
-        @endforelse
+            @endforelse
+        </div>
     </div>
 
 </div>

@@ -25,7 +25,7 @@ class Index extends Component
 
     protected function refreshTags(): void
     {
-        $this->tags = auth()->user()->tags()->get();
+        $this->tags = auth()->user()->tags()->withCount('traces')->get();
     }
 
     // Form
