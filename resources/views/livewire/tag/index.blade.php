@@ -114,6 +114,7 @@
 
     {{-- タグ一覧 --}}
     <div class="space-y-3">
+
         <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
             <i class="fa-solid fa-tags"></i>
             登録されたタグ一覧
@@ -127,16 +128,23 @@
 
             @empty
 
-                <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
-                    <p class="text-slate-500">
-                        まだ登録されたタグがありません。<br>
-                        最初のタグを作ってみましょう
-                        <i class="fa-solid fa-dog"></i>
-                    </p>
+                <div class="col-span-full">
+                    <div class="max-w-md mx-auto">
+                        <x-ui.empty-state
+                            icon="fa-solid fa-tag"
+                            title="まだ登録されたタグがありません"
+                            description="最初のタグを作ってみましょう"
+                        >
+                            <x-ui.button type="button" variant="secondary" wire:click="openForm()">
+                                作ってみる
+                            </x-ui.button>
+                        </x-ui.empty-state>
+                    </div>
                 </div>
 
             @endforelse
         </div>
+
     </div>
 
 </div>
