@@ -37,79 +37,88 @@
 
     {{-- 作成・編集フォーム --}}
     @if($showForm)
-        <x-ui.card class="max-w-xl mx-auto space-y-4">
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60"
+             @keydown.escape.window="$wire.closeForm()"
+             @click.self="$wire.closeForm()"
+        >
 
-            <div class="border-b border-slate-200 pb-4">
-                <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
-                    <i class="fa-solid fa-tag"></i>
-                    {{ $editingId ? 'タグを編集' : 'タグを作成' }}
-                </h2>
+            <x-ui.card class="w-full max-w-xl">
 
-                <p class="text-sm text-slate-500 mt-1">
-                    Traceを整理するためのタグです。
-                </p>
-            </div>
+                <form wire:submit="save" class="space-y-6">
 
+                    <div class="border-b border-slate-200 pb-4">
+                        <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
+                            <i class="fa-solid fa-tag"></i>
+                            {{ $editingId ? 'タグを編集' : 'タグを作成' }}
+                        </h2>
 
-            <div>
-                <label for="name"class="text-sm font-semibold text-slate-700">タグ名</label>
-
-                <x-ui.input
-                    wire:model.live="name"
-                    id="name"
-                    name="name"
-                    placeholder="Laravel"
-                />
-
-                <x-ui.error name="name" />
-            </div>
-
-            <div>
-                <label for="color" class="text-sm font-semibold text-slate-700">カラー</label>
-
-                <div class="flex flex-wrap gap-4">
-                    @foreach($this->colorClasses as $key => $class)
-                        <button wire:click="$set('color', '{{ $key }}')"
-                                type="button"
-                                class="w-8 h-8 rounded-full transition duration-200 cursor-pointer hover:scale-105 {{ $class }}
-                                       {{ $color == $key ? 'ring-2 ring-offset-2 ring-slate-500 scale-110' : ''}}"
-                        ></button>
-                    @endforeach
-                </div>
-            </div>
-
-            <div>
-                <label for="preview" class="text-sm font-semibold text-slate-700">プレビュー</label>
-
-                <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5">
-
-                    <div class="flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-tag w-6 h-6 rounded-full p-1 {{ $this->previewClass }}"></i>
-                        <span class="px-3 py-1 rounded-full {{ $this->previewClass }}">
-                            {{ $name ?: 'Sample Tag'}}
-                        </span>
+                        <p class="text-sm text-slate-500 mt-1">
+                            Traceを整理するためのタグです。
+                        </p>
                     </div>
-                </div>
-            </div>
 
-            <div class="flex justify-end gap-3 pt-2">
-                <x-ui.button type="button" wire:click="save">
+                    <div class="flex flex-col gap-2">
+                        <label for="name"class="text-sm font-semibold text-slate-700">タグ名</label>
 
-                    <i class="fa-solid {{ $editingId
-                        ? 'fa-arrow-rotate-right'
-                        : 'fa-plus' }}"></i>
+                        <x-ui.input
+                            wire:model.live="name"
+                            id="name"
+                            name="name"
+                            placeholder="Laravel"
+                            autofocus
+                        />
 
-                    {{ $editingId ? '更新' : '作成' }}
+                        <x-ui.error name="name" />
+                    </div>
 
-                </x-ui.button>
+                    <div class="flex flex-col gap-2">
+                        <p class="text-sm font-semibold text-slate-700">カラー</p>
 
-                <x-ui.button variant="secondary" wire:click="closeForm">
-                    <i class="fa-solid fa-circle-xmark"></i>
-                    キャンセル
-                </x-ui.button>
-            </div>
+                        <div class="flex flex-wrap gap-4">
+                            @foreach($this->colorClasses as $key => $class)
+                                <button wire:click="$set('color', '{{ $key }}')"
+                                        type="button"
+                                        class="w-8 h-8 rounded-full transition duration-200 cursor-pointer hover:scale-105 {{ $class }}
+                                               {{ $color == $key ? 'ring-2 ring-offset-2 ring-slate-500 scale-110' : ''}}"
+                                ></button>
+                            @endforeach
+                        </div>
+                    </div>
 
-        </x-ui.card>
+                    <div class="flex flex-col gap-2">
+                        <p class="text-sm font-semibold text-slate-700">プレビュー</p>
+
+                        <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5">
+
+                            <div class="flex items-center justify-center gap-2">
+                                <span class="px-3 py-1 rounded-full {{ $this->previewClass }}">
+                                    {{ $name ?: 'Sample Tag'}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end gap-3 pt-2">
+                        <x-ui.button type="submit">
+
+                            <i class="fa-solid {{ $editingId
+                                ? 'fa-arrow-rotate-right'
+                                : 'fa-plus' }}"></i>
+
+                            {{ $editingId ? '更新' : '作成' }}
+
+                        </x-ui.button>
+
+                        <x-ui.button type="button" variant="secondary" wire:click="closeForm">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                            キャンセル
+                        </x-ui.button>
+                    </div>
+
+                </form>
+
+            </x-ui.card>
+        </div>
     @endif
 
     {{-- タグ一覧 --}}
