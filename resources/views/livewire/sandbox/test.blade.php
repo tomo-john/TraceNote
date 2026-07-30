@@ -12,12 +12,8 @@
 
         <div class="flex items-center justify-center gap-6">
 
-            <x-ui.button tyep='button' wire:click="openModal">
+            <x-ui.button type='button' wire:click="openModal">
                 Opne Modal
-            </x-ui.button>
-
-            <x-ui.button tyep='button' variant="secondary" wire:click="closeModal">
-                Close Modal
             </x-ui.button>
 
         </div>
@@ -25,18 +21,12 @@
     </x-ui.card>
 
     @if($showModal)
-        <x-ui.modal maxWidth="sm" close="closeModal">
+        <x-ui.modal size="md" close="closeModal" :blur="false" persistent>
 
             <div class="flex items-center justify-center gap-2 text-slate-600">
                 <i class="fa-solid fa-dog"></i>
                 Hello Dog
                 <i class="fa-solid fa-dog"></i>
-            </div>
-
-            <div class="flex justify-end">
-                <x-ui.button tyep='button' variant="secondary" wire:click="closeModal">
-                    <i class="fa-solid fa-xmark"></i>
-                </x-ui.button>
             </div>
 
         </x-ui.modal>
