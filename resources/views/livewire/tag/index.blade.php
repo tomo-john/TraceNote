@@ -6,7 +6,7 @@
         <div class="space-y-4">
             <h1 class="text-3xl font-bold text-slate-700">
                 <i class="fa-solid fa-tag"></i>
-                Tag
+                Tag一覧
             </h1>
 
             <p class="text-md text-slate-500">
@@ -28,7 +28,7 @@
     {{-- 新規作成ボタン --}}
     <div class="flex items-center gap-5">
         @if(! $editingId && ! $showForm)
-            <x-ui.button variant="primary" button wire:click="openForm">
+            <x-ui.button variant="primary" type="button" wire:click="openForm">
                 <i class="fa-solid fa-plus"></i>
                 新規作成
             </x-ui.button>
@@ -122,11 +122,11 @@
         <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
             <i class="fa-solid fa-tags"></i>
             登録されたタグ一覧
-            ({{ $tags->count() }} tags)
+            ({{ $this->tags->count() }} tags)
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            @forelse($tags as $tag)
+            @forelse($this->tags as $tag)
 
                 <x-tag.card :tag="$tag" />
 

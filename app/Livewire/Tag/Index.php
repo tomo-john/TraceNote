@@ -2,30 +2,30 @@
 
 namespace App\Livewire\Tag;
 
+use App\Models\Tag;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
-use App\Models\Tag;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Database\Eloquent\Collection;
 
 class Index extends Component
 {
     use AuthorizesRequests;
 
-    public $tags;
     public string $name = '';
     public string $color = 'gray';
     public bool $showForm = false;
     public ?int $editingId = null;
 
-    public function mount()
+    // Tags
+    #[Computed]
+    public function tags(): Collection
     {
-        $this->refreshTags();
-    }
-
-    protected function refreshTags(): void
-    {
-        $this->tags = auth()->user()->tags()->withCount('traces')->get();
+        return auth()->user()
+            ->tags()
+            ->withCount('traces')
+            ->get();
     }
 
     // Form
@@ -92,8 +92,6 @@ class Index extends Component
 
         $tag->delete();
 
-        $this->refreshTags();
-
         $this->closeForm();
 
         $this->dispatch(
@@ -138,8 +136,6 @@ class Index extends Component
             $tag->fill($this->payload());
 
             $tag->save();
-
-            $this->refreshTags();
 
             $this->closeForm();
 
