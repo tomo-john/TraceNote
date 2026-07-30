@@ -38,13 +38,15 @@
 
 ![ER Diagram](docs/er_diagram.png)
 
-## :memo: Memo
+## docs
 
-```
+```bash
 docs
-├── er_diagram.png
-├── screen_transition.png
-├── dashboard_mock.png
-└── wireframe.png
+├── deploy.md              # デプロイ関連
+├── design_rule.md         # デザインルール
+├── er_diagram.png         # ER図
+├── trace_relation.md      # Traceモデルのリレーション
+├── ui_components.md       # UI コンポーネント
+└── user_profile.md        # User Profileページ
 ```
 
