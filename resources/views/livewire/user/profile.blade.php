@@ -167,54 +167,50 @@
 
     {{-- アカウント削除モーダル --}}
     @if($showDeleteModal)
-        <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm"
-             @keydown.escape.window="$wire.closeDeleteModal()"
-             @click.self="$wire.closeDeleteModal()"
-        >
-            <x-ui.card class="max-w-md w-full">
 
-                <form wire:submit="deleteAccount" class="space-y-6">
+        <x-ui.modal close="closeDeleteModal">
 
-                    <h2 class="flex items-center gap-2 text-xl font-bold text-red-600">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                        アカウントを削除しますか？
-                    </h2>
+            <form wire:submit="deleteAccount" class="space-y-6">
 
-                    <p class="text-sm text-slate-500">
-                        この操作は取り消せません!<br>
-                        <br>
-                        Trace・Tag・プロフィールなど、<br>
-                        すべてのデータが完全に削除されます。
-                    </p>
+                <h2 class="flex items-center gap-2 text-xl font-bold text-red-600">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    アカウントを削除しますか？
+                </h2>
 
-                    <div class="space-y-2">
-                        <label for="delete_password" class="text-sm font-semibold text-slate-700">現在のパスワード</label>
+                <p class="text-sm text-slate-500">
+                    この操作は取り消せません!<br>
+                    <br>
+                    Trace・Tag・プロフィールなど、<br>
+                    すべてのデータが完全に削除されます。
+                </p>
 
-                        <x-ui.input
-                            wire:model="delete_password"
-                            id="delete_password"
-                            name="delete_password"
-                            type="password"
-                            required
-                        />
+                <div class="space-y-2">
+                    <label for="delete_password" class="text-sm font-semibold text-slate-700">現在のパスワード</label>
 
-                        <x-ui.error name="delete_password" />
-                    </div>
+                    <x-ui.input
+                        wire:model="delete_password"
+                        id="delete_password"
+                        name="delete_password"
+                        type="password"
+                        required
+                    />
 
-                    <div class="flex justify-end gap-4 pt-2">
-                        <x-ui.button variant="secondary" type="button" wire:click="closeDeleteModal">
-                            キャンセル
-                        </x-ui.button>
+                    <x-ui.error name="delete_password" />
+                </div>
 
-                        <x-ui.button variant="danger" type="submit">
-                            削除する
-                        </x-ui.button>
-                    </div>
+                <div class="flex justify-end gap-4 pt-2">
+                    <x-ui.button variant="secondary" type="button" wire:click="closeDeleteModal">
+                        キャンセル
+                    </x-ui.button>
 
-                </form>
+                    <x-ui.button variant="danger" type="submit">
+                        削除する
+                    </x-ui.button>
+                </div>
 
-            </x-ui.card>
-        </div>
+            </form>
+
+        </x-ui.modal>
     @endif
 
 </div>
