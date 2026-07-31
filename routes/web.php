@@ -13,7 +13,7 @@ use App\Livewire\Sandbox\Test;
 
 Route::view('/', 'top')->name('home');
 
-Route::view('/test', 'dummy')->name('test');
+Route::view('/demo', 'dummy')->name('demo');
 Route::view('/about', 'dummy')->name('about');
 Route::view('/privacy', 'dummy')->name('privacy');
 Route::view('/contact', 'dummy')->name('contact');

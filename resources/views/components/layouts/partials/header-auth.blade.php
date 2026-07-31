@@ -26,9 +26,9 @@
                     Profile
                 </x-ui.dropdown-item>
 
-                <x-ui.dropdown-item :href="route('sandbox.test')">
+                <x-ui.dropdown-item href="#">
                     <i class="fa-solid fa-flask w-4"></i>
-                    Sidebar
+                    Test
                 </x-ui.dropdown-item>
 
                 <hr class="border-gray-200 my-2">

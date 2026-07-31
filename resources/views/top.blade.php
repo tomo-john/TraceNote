@@ -1,6 +1,6 @@
 <x-layouts.base>
     <div x-data="start()"
-         class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-slate-50 to-zinc-100 px-4"
+         class="min-h-screen flex flex-col items-center justify-center gap-6 bg-gradient-to-b from-slate-50 to-zinc-100 px-4"
     >
 
         <x-ui.card class="max-w-md w-full text-center space-y-8">
@@ -38,6 +38,14 @@
 
             </div>
 
+        </x-ui.card>
+
+        {{-- Sandbox --}}
+        <x-ui.card class="max-w-md w-full">
+            <div class="flex items-center justify-center gap-2">
+                <x-ui.button :href="route('sandbox')" variant="secondary">Sandbox(Static)</x-ui.button>
+                <x-ui.button :href="route('sandbox.test')" variant="secondary">Snadbox(Livewire)</x-ui.button>
+            </div>
         </x-ui.card>
 
     </div>

@@ -1,7 +1,7 @@
 <div class="py-6 space-y-6">
 
     <x-ui.card class="max-w-xl mx-auto">
-        <div class="flex items-center justify-center gap-2">
+        <div class="flex items-center justify-center gap-2 text-slate-500">
             <i class="fa-solid fa-dog"></i>
             <p>UI Test Livewire</p>
             <i class="fa-solid fa-dog"></i>
@@ -21,7 +21,7 @@
     </x-ui.card>
 
     @if($showModal)
-        <x-ui.modal size="md" close="closeModal" :blur="false" persistent>
+        <x-ui.modal size="md" close="closeModal" :blur="false">
 
             <div class="flex items-center justify-center gap-2 text-slate-600">
                 <livewire:sandbox.index />

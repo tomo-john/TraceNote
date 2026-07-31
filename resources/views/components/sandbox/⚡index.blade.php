@@ -17,7 +17,7 @@ new class extends Component
 
 <div class="space-y-4">
 
-    <div class="flex items-center gap-2 tex-slate-500">
+    <div class="flex items-center justify-center gap-2 text-slate-500">
         <i class="fa-solid fa-dog"></i>
         {{ $message }}
         <i class="fa-solid fa-dog"></i>
