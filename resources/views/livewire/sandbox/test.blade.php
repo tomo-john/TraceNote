@@ -24,9 +24,7 @@
         <x-ui.modal size="md" close="closeModal" :blur="false" persistent>
 
             <div class="flex items-center justify-center gap-2 text-slate-600">
-                <i class="fa-solid fa-dog"></i>
-                Hello Dog
-                <i class="fa-solid fa-dog"></i>
+                <livewire:sandbox.index />
             </div>
 
         </x-ui.modal>
