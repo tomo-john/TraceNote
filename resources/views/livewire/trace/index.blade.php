@@ -41,7 +41,7 @@
                 </h2>
 
                 {{-- 検索条件リセット --}}
-                <x-ui.button variant="ghost" type="button" wire:click="clearFilters">
+                <x-ui.button variant="secondary" type="button" wire:click="clearFilters">
                     <i class="fa-solid fa-arrow-rotate-left"></i>
                     検索条件をリセット
                 </x-ui.button>
@@ -49,8 +49,6 @@
 
             {{-- 検索 --}}
             <div>
-                <label for="search" class="text-sm font-semibold text-slate-700">検索</label>
-
                 <x-ui.input
                     wire:model.live.debounce.300ms="search"
                     id="search"
@@ -63,7 +61,6 @@
             <div class="flex items-center gap-4">
                 {{-- ステータス --}}
                 <div class="w-full md:w-48">
-                    <label for="status" class="text-sm font-semibold text-slate-700">ステータス</label>
                     <x-ui.select wire:model.live="status" id="status">
                         <option value="">すべてのステータス</option>
                         @foreach($this->statuses as $status)
@@ -74,7 +71,6 @@
 
                 {{-- 並び替え --}}
                 <div class="w-full md:w-48">
-                    <label for="sort" class="text-sm font-semibold text-slate-700">並び替え</label>
                     <x-ui.select wire:model.live="sort" id="sort">
                         <option value="latest">新しい順</option>
                         <option value="oldest">古い順</option>
@@ -83,37 +79,38 @@
                 </div>
 
             </div>
-        </x-ui.card>
 
-        {{-- タグ選択 --}}
-        <x-ui.card>
-            <div class="flex items-center justify-between">
-                <h2 class="text-sm font-bold text-slate-700 flex items-center gap-2">
-                    <i class="fa-solid fa-tags"></i>
-                    タグ選択
-                </h2>
-
-                {{-- タグ選択リセット --}}
-                <x-ui.button variant="ghost" type="button" wire:click="clearFilters">
-                    <i class="fa-solid fa-arrow-rotate-left"></i>
-                    タグ選択をリセット
-                </x-ui.button>
-            </div>
-
-            <div class="flex flex items-center gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-200 shadow-sm">
-                <button wire:click="$set('selectedTagId', '')"
-                        class="inline-block text-center bg-slate-500 text-white text-xs rounded-full py-1 px-2 hover:bg-slate-600 transition cursor-pointer"
+            {{-- タグ選択 --}}
+            <div class="flex flex-wrap gap-2">
+                <button wire:click="$set('selectedTagId', null)"
+                        class="rounded-full
+                               bg-slate-100
+                               px-2 py-1
+                               font-medium text-xs text-slate-700
+                               transition cursor-pointer
+                               hover:scale-105
+                               {{ is_null($selectedTagId)
+                                   ? 'ring-1 ring-slate-500 ring-offset-1'
+                                   : ''
+                               }}
+                        "
                 >
                     ALL
                 </button>
 
                 @foreach($this->tags as $tag)
                     <button wire:click="$set('selectedTagId', {{ $tag->id }})"
-                            class="inline-block text-center text-xs rounded-full py-1 px-2 hover:bg-slate-400 transition cursor-pointer
-                                   {{ $selectedTagId == $tag->id
-                                        ? 'bg-pink-300 text-white'
-                                        : 'bg-slate-300 text-slate-600'
-                                   }}"
+                            class="rounded-full
+                                   px-2 py-1
+                                   font-medium text-xs
+                                   transition cursor-pointer
+                                   hover:scale-105
+                                   {{ $tag->colorClass() }}
+                                   {{ $selectedTagId === $tag->id
+                                       ? 'ring-1 ring-slate-500 ring-offset-1'
+                                       : ''
+                                   }}
+                            "
                     >
                     {{ $tag->name }}
                     </button>
@@ -125,13 +122,14 @@
 
     {{-- 一覧表示 --}}
     <div class="space-y-3">
+
         <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
-            <i class="fa-solid fa-dog"></i>
-            Traces
+            <i class="fa-solid fa-book"></i>
+            登録されたTrace
+            ({{ $this->totalTraces }} traces)
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-
             @forelse($this->traces as $trace)
 
                 <x-trace.card :trace="$trace" />
@@ -146,7 +144,7 @@
                             title="条件に一致するTraceがありません"
                             description="検索条件を変更してみてください"
                         >
-                            <x-ui.button type="button" variant="secoondary" wire:click="clearFilters">
+                            <x-ui.button type="button" variant="secondary" wire:click="clearFilters">
                                 リセット
                             </x-ui.button>
                         </x-ui.empty-state>
@@ -160,7 +158,7 @@
                             title="まだTraceがありません"
                             description="最初の学びを記録してみましょう"
                         >
-                            <x-ui.button type="button" variant="secoondary" :href="route('trace.create')" wire:navigate>
+                            <x-ui.button type="button" variant="secondary" :href="route('trace.create')" wire:navigate>
                                 <i class="fa-solid fa-plus"></i>
                                 新規作成
                             </x-ui.button>
@@ -168,7 +166,6 @@
                     </div>
 
                 @endif
-
             @endforelse
         </div>
     </div>
