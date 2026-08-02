@@ -66,7 +66,7 @@
                     <label for="status" class="text-sm font-semibold text-slate-700">ステータス</label>
                     <x-ui.select wire:model.live="status" id="status">
                         <option value="">すべてのステータス</option>
-                        @foreach($statuses as $status)
+                        @foreach($this->statuses as $status)
                             <option value="{{ $status['value'] }}">{{ $status['label'] }}</option>
                         @endforeach
                     </x-ui.select>
@@ -106,7 +106,8 @@
                 >
                     ALL
                 </button>
-                @foreach($tags as $tag)
+
+                @foreach($this->tags as $tag)
                     <button wire:click="$set('selectedTagId', {{ $tag->id }})"
                             class="inline-block text-center text-xs rounded-full py-1 px-2 hover:bg-slate-400 transition cursor-pointer
                                    {{ $selectedTagId == $tag->id
@@ -130,8 +131,11 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
             @forelse($this->traces as $trace)
+
                 <x-trace.card :trace="$trace" />
+
             @empty
 
                 @if($this->totalTraces)

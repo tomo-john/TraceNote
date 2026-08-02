@@ -16,18 +16,14 @@ class Index extends Component
 
     public string $search = '';
     public string $status = '';
-    public array  $statuses = [];
-    public        $tags;
     public ?int   $selectedTagId = null;
     public string $sort = 'latest';
 
     public function mount()
     {
-        $this->tags = auth()->user()->tags()->get();
-
-        $this->statuses = TraceStatus::options();
     }
 
+    // ==== Traces ====
     #[Computed]
     public function traces()
     {
@@ -75,6 +71,22 @@ class Index extends Component
         return auth()->user()->traces()->count();
     }
 
+    #[Computed]
+    public function statuses(): array
+    {
+        return TraceStatus::options();
+    }
+
+    // ==== Tags ====
+    #[Computed]
+    public function tags()
+    {
+        return auth()->user()
+            ->tags()
+            ->get();
+    }
+
+    // ==== Options ====
     public function updatedSearch(): void
     {
         $this->resetPage();
