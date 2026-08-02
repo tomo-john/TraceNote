@@ -140,26 +140,31 @@
 
                 @if($this->totalTraces)
 
-                    <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
-                        <p class="text-slate-500">
-                            条件に一致するTraceがありません
-                            <i class="fa-solid fa-dog"></i>
-                        </p>
-                        <button wire:click="clearFilters"
-                                class="inline-block text-center bg-slate-400 text-white rounded-lg py-2 px-5 m-6 hover:bg-slate-500 transition"
+                    <div class="col-span-full">
+                        <x-ui.empty-state
+                            icon="fa-solid fa-search"
+                            title="条件に一致するTraceがありません"
+                            description="検索条件を変更してみてください"
                         >
-                            リセット
-                        </button>
+                            <x-ui.button type="button" variant="secoondary" wire:click="clearFilters">
+                                リセット
+                            </x-ui.button>
+                        </x-ui.empty-state>
                     </div>
 
                 @else
 
-                    <div class="col-span-full bg-white rounded-2xl border border-slate-200 p-8 text-center">
-                        <p class="text-slate-500">
-                            まだTraceがありません。<br>
-                            最初の学びを記録してみましょう
-                            <i class="fa-solid fa-dog"></i>
-                        </p>
+                    <div class="col-span-full">
+                        <x-ui.empty-state
+                            icon="fa-solid fa-book"
+                            title="まだTraceがありません"
+                            description="最初の学びを記録してみましょう"
+                        >
+                            <x-ui.button type="button" variant="secoondary" :href="route('trace.create')" wire:navigate>
+                                <i class="fa-solid fa-plus"></i>
+                                新規作成
+                            </x-ui.button>
+                        </x-ui.empty-state>
                     </div>
 
                 @endif

@@ -133,17 +133,15 @@
             @empty
 
                 <div class="col-span-full">
-                    <div class="max-w-md mx-auto">
-                        <x-ui.empty-state
-                            icon="fa-solid fa-tag"
-                            title="まだ登録されたタグがありません"
-                            description="最初のタグを作ってみましょう"
-                        >
-                            <x-ui.button type="button" variant="secondary" wire:click="openForm()">
-                                作ってみる
-                            </x-ui.button>
-                        </x-ui.empty-state>
-                    </div>
+                    <x-ui.empty-state
+                        icon="fa-solid fa-tag"
+                        title="まだ登録されたタグがありません"
+                        description="最初のタグを作ってみましょう"
+                    >
+                        <x-ui.button type="button" variant="secondary" wire:click="openForm()">
+                            作ってみる
+                        </x-ui.button>
+                    </x-ui.empty-state>
                 </div>
 
             @endforelse
