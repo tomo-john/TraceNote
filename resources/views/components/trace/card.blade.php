@@ -22,11 +22,9 @@
                 {{-- タグ --}}
                 <div class="flex flex-wrap gap-2">
                     @forelse($trace->tags as $tag)
-                        <span class="px-2 py-1 text-xs rounded-full {{ $tag->colorClass() }}">
-                            {{ $tag->name }}
-                        </span>
+                        <x-ui.tag-badge :tag="$tag" />
                     @empty
-                        <span class="px-2 py-1 text-xs rounded-full bg-slate-100 text-slate-700">
+                        <span class="rounded-full px-3 py-1 text-xs font-medium bg-slate-100 text-slate-700">
                             <i class="fa-solid fa-tag"></i>
                             No tags
                         </span>

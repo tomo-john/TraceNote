@@ -5,9 +5,7 @@
 <x-ui.card class="hover:-translate-y-1 space-y-6">
 
     <div>
-        <span class="rounded-full px-3 py-1 {{ $tag->colorClass() }}">
-            {{ $tag->name }}
-        </span>
+        <x-ui.tag-badge :tag="$tag" />
     </div>
 
     <div class="border-t border-slate-200 pt-3 flex items-center justify-between text-slate-400">

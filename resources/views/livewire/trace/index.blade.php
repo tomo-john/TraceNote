@@ -101,8 +101,8 @@
                 @foreach($this->tags as $tag)
                     <button wire:click="$set('selectedTagId', {{ $tag->id }})"
                             class="rounded-full
-                                   px-2 py-1
-                                   font-medium text-xs
+                                   px-3 py-1
+                                   text-xs font-medium
                                    transition cursor-pointer
                                    hover:scale-105
                                    {{ $tag->colorClass() }}

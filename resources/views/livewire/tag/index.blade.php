@@ -87,7 +87,7 @@
                     <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5">
 
                         <div class="flex items-center justify-center gap-2">
-                            <span class="px-3 py-1 rounded-full {{ $this->previewClass }}">
+                            <span class="rounded-full px-3 py-1 text-xs font-medium {{ $this->previewClass }}">
                                 {{ $name ?: 'Sample Tag'}}
                             </span>
                         </div>
