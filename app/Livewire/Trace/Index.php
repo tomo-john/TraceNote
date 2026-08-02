@@ -97,7 +97,12 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function updateSort(): void
+    public function updatedSort(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSelectedTagId(): void
     {
         $this->resetPage();
     }
@@ -107,6 +112,7 @@ class Index extends Component
         $this->search = '';
         $this->status = '';
         $this->selectedTagId = null;
+        $this->resetPage();
     }
 
     public function render()
