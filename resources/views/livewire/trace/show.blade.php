@@ -58,10 +58,7 @@
             {{-- status --}}
             <div class="flex items-center gap-2">
                 <label class="font-bold">ステータス: </label>
-                <span class="px-3 py-1 text-xs font-medium rounded-full whitespace-nowrap {{ $trace->status->colorClass() }}">
-                    <i class="{{ $trace->status->iconClass() }}"></i>
-                    {{ $trace->status->label() }}
-                </span>
+                <x-ui.status-badge :status="$trace->status" />
             </div>
 
             {{-- timestamp --}}

@@ -37,10 +37,7 @@
         <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
 
             {{-- ステータス --}}
-            <span class="px-3 py-1 text-xs font-medium rounded-full whitespace-nowrap {{ $trace->status->colorClass() }}">
-                <i class="{{ $trace->status->iconClass() }}"></i>
-                {{ $trace->status->label() }}
-            </span>
+            <x-ui.status-badge :status="$trace->status" />
 
             {{-- 日付 --}}
             <span class="text-xs text-slate-400">
