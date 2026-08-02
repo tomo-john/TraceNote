@@ -8,6 +8,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Validation\Rule;
 
 class Index extends Component
 {
@@ -105,9 +106,20 @@ class Index extends Component
     protected function rules(): array
     {
         return [
-            'name' => 'required|string|max:20',
-            'color' => 'required|string',
-            ];
+            'name' => [
+                'required',
+                'string',
+                'max:20',
+                Rule::unique('tags')
+                    ->where('user_id', auth()->id())
+                    ->ignore($this->editingId),
+            ],
+
+            'color' => [
+                'required',
+                Rule::in(array_keys(Tag::colors())),
+            ],
+        ];
     }
 
     protected function payload(): array
