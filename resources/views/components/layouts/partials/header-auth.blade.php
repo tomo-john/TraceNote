@@ -1,7 +1,5 @@
 <nav class="flex items-center gap-6 text-sm font-medium">
 
-    <x-ui.nav-link :href="route('dashboard')">Dashboard</x-ui.nav-link>
-
     <x-ui.nav-link :href="route('trace.index')">Trace</x-ui.nav-link>
 
     <x-ui.nav-link :href="route('tag.index')">Tag</x-ui.nav-link>
@@ -20,6 +18,11 @@
 
             {{-- Dropdown Menu --}}
             <div class="flex flex-col gap-2">
+
+                <x-ui.dropdown-item :href="route('dashboard')">
+                    <i class="fa-solid fa-clipboard w-4"></i>
+                    Dashboard
+                </x-ui.dropdown-item>
 
                 <x-ui.dropdown-item :href="route('user.profile')">
                     <i class="fa-solid fa-user w-4"></i>

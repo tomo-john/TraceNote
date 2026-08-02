@@ -40,14 +40,6 @@
 
         </x-ui.card>
 
-        {{-- Sandbox --}}
-        <x-ui.card class="max-w-md w-full">
-            <div class="flex items-center justify-center gap-2">
-                <x-ui.button :href="route('sandbox')" variant="secondary">Sandbox(Static)</x-ui.button>
-                <x-ui.button :href="route('sandbox.test')" variant="secondary">Snadbox(Livewire)</x-ui.button>
-            </div>
-        </x-ui.card>
-
     </div>
 
     <script>
