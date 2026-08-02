@@ -1,74 +1,90 @@
-<div class="max-w-4xl mx-auto p-6 space-y-6">
+<div class="max-w-5xl mx-auto p-6 space-y-6">
 
-    <div class="flex items-center justify-center">
-        <a href="{{ route('trace.index') }}"
-           wire:navigate
-           class="inline-block w-28 text-center bg-pink-400 text-white rounded-lg py-2 px-5 hover:bg-amber-500 transition"
-        >
-            Index
-        </a>
+    {{-- Header --}}
+    <div class="flex items-end justify-between">
+
+        <div class="space-y-4">
+            <h1 class="text-3xl font-bold text-slate-700">
+                <i class="fa-solid fa-book-open"></i>
+                Trace詳細
+            </h1>
+
+            <p class="text-md text-slate-500">
+                学習した内容を確認します。
+            </p>
+        </div>
+
+        <div class="flex justify-end gap-2">
+            <x-ui.button :href="route('trace.index')" variant="primary" wire:navigate>
+                <i class="fa-solid fa-arrow-left"></i>
+                Trace一覧へ戻る
+            </x-ui.button>
+            <x-ui.button :href="route('trace.edit', $trace)" variant="secondary" wire:navigate>
+                <i class="fa-solid fa-pen"></i>
+                編集
+            </x-ui.button>
+            <x-ui.button variant="danger" wire:click="delete" wire:confirm="本当に削除しますか？">
+                <i class="fa-solid fa-trash-can"></i>
+                削除
+            </x-ui.button>
+        </div>
+
     </div>
 
-    <h1 class="text-3xl font-bold">
-        Trace詳細
-        <i class="fa-solid fa-dog"></i>
-    </h1>
+    <hr class="border-dashed border-slate-200">
 
-    <div class="flex items-center justify-center gap-6">
-        <a href="{{ route('trace.edit', $trace) }}"
-           wire:navigate
-           class="inline-block w-28 text-center bg-green-500 text-white rounded-lg py-2 px-5 hover:bg-green-600 transition"
-        >
-            <i class="fa-solid fa-pen mx-1"></i>
-            編集
-        </a>
-        <button wire:click="delete"
-                wire:confirm="本当に削除しますか？"
-                class="inline-block w-28 text-center bg-red-500 text-white rounded-lg py-2 px-5 hover:bg-red-600 transition"
-        >
-            <i class="fa-solid fa-trash-can mx-1"></i>
-            削除
-        </button>
-    </div>
-
-    <div class="space-y-6">
+    <x-ui.card class="space-y-6">
 
         {{-- title --}}
-        <div class="space-y-2">
-            <label class="font-bold">タイトル</label>
-            <h1 class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white break-words">{{ $trace->title }}</h1>
-        </div>
+        <h1 class="text-2xl font-bold text-slate-800 leading-tight">{{ $trace->title }}</h1>
 
         {{-- summary --}}
-        <div class="space-y-2">
-            <label class="font-bold">概要</label>
-            <p class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white break-words whitespace-pre-wrap">{{ $trace->summary }}</p>
+        <div class="space-y-1">
+            <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">概要</p>
+            <p class="text-slate-600">{{ $trace->summary }}</p>
         </div>
 
-        {{-- status --}}
-        <div class="space-y-2">
-            <label class="font-bold">ステータス</label>
-            <div>
-                <span class="border rounded-lg px-2 py-1 {{ $trace->status->colorClass() }}">{{ $trace->status->label() }}</span>
-            </div>
-        </div>
-
-        {{-- tags --}}
-        <div class="space-y-2">
-            <label class="font-bold">タグ</label>
+        <div class="flex flex-wrap items-center gap-6">
+            {{-- tags --}}
             <div class="flex items-center gap-2">
-                @foreach($trace->tags as $tag)
-                    <span class="border bg-sky-200 rounded-lg px-2 py-1">{{ $tag->name }}</span>
-                @endforeach
+                <label class="font-bold">タグ: </label>
+                <div class="flex items-center gap-2">
+                    @foreach($trace->tags as $tag)
+                        <x-ui.tag-badge :tag="$tag" />
+                    @endforeach
+                </div>
+            </div>
+
+            {{-- status --}}
+            <div class="flex items-center gap-2">
+                <label class="font-bold">ステータス: </label>
+                <span class="px-3 py-1 text-xs font-medium rounded-full whitespace-nowrap {{ $trace->status->colorClass() }}">
+                    <i class="{{ $trace->status->iconClass() }}"></i>
+                    {{ $trace->status->label() }}
+                </span>
+            </div>
+
+            {{-- timestamp --}}
+            <div class="flex items-center gap-2">
+                <label class="font-bold">更新日: </label>
+                <span class="">
+                    {{ $trace->updated_at->format('Y/m/d H:i') }}
+                </span>
             </div>
         </div>
 
+    </x-ui.card>
+
+    <x-ui.card>
         {{-- content --}}
-        <div class="space-y-2">
-            <label class="font-bold">本文</label>
-            <p class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white break-words whitespace-pre-wrap">{{ $trace->content }}</p>
+        <div class="border-b border-slate-200 pb-3">
+            <h2 class="font-bold text-slate-700 flex items-center gap-2">
+                <i class="fa-solid fa-file-lines"></i>
+                本文
+            </h2>
         </div>
-    </div>
+        <p class="whitespace-pre-wrap leading-8 text-slate-700">{{ $trace->content }}</p>
+    </x-ui.card>
 
     {{-- Relation Traces --}}
     <div class="grid grid-cols-3 gap-3">
