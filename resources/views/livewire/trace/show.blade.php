@@ -36,10 +36,18 @@
     <x-ui.card class="space-y-6">
 
         {{-- title --}}
-        <h1 class="text-2xl font-bold text-slate-800 leading-tight">{{ $trace->title }}</h1>
+        <p class="text-2xl font-bold text-slate-800 leading-tight">{{ $trace->title }}</p>
+
+        {{-- status --}}
+        <div class="flex items-center gap-2">
+            <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">
+                ステータス
+            </p>
+            <x-ui.status-badge :status="$trace->status" />
+        </div>
 
         {{-- summary --}}
-        <div class="space-y-1">
+        <div class="space-y-1 rounded-xl bg-slate-50 p-4">
             <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">概要</p>
             <p class="text-slate-600">{{ $trace->summary }}</p>
         </div>
@@ -47,38 +55,40 @@
         <div class="flex flex-wrap items-center gap-6">
             {{-- tags --}}
             <div class="flex items-center gap-2">
-                <label class="font-bold">タグ: </label>
-                <div class="flex items-center gap-2">
-                    @foreach($trace->tags as $tag)
+                <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">
+                    タグ
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    @forelse($trace->tags as $tag)
                         <x-ui.tag-badge :tag="$tag" />
-                    @endforeach
+                    @empty
+                        <span class="rounded-full px-3 py-1 text-xs font-medium bg-slate-100 text-slate-700">
+                            <i class="fa-solid fa-tag"></i>
+                            No tags
+                        </span>
+                    @endforelse
                 </div>
-            </div>
-
-            {{-- status --}}
-            <div class="flex items-center gap-2">
-                <label class="font-bold">ステータス: </label>
-                <x-ui.status-badge :status="$trace->status" />
             </div>
 
             {{-- timestamp --}}
             <div class="flex items-center gap-2">
-                <label class="font-bold">更新日: </label>
-                <span class="">
+                <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">
+                    更新日
+                    <i class="fa-regular fa-clock"></i>
                     {{ $trace->updated_at->format('Y/m/d H:i') }}
-                </span>
+                </p>
             </div>
         </div>
 
     </x-ui.card>
 
-    <x-ui.card>
+    <x-ui.card class="space-y-5">
         {{-- content --}}
         <div class="border-b border-slate-200 pb-3">
-            <h2 class="font-bold text-slate-700 flex items-center gap-2">
+            <p class="font-bold text-slate-700 flex items-center gap-2">
                 <i class="fa-solid fa-file-lines"></i>
                 本文
-            </h2>
+            </p>
         </div>
         <p class="whitespace-pre-wrap leading-8 text-slate-700">{{ $trace->content }}</p>
     </x-ui.card>
