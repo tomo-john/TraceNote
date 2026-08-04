@@ -1,34 +1,27 @@
 <div class="max-w-5xl mx-auto p-6 space-y-6">
 
     {{-- Header --}}
-    <div class="flex items-end justify-between">
+    <x-trace.page-header
+        title="Trace一覧"
+        icon="fa-solid fa-book"
+    >
 
-        <div class="space-y-4">
-            <h1 class="text-3xl font-bold text-slate-700">
-                <i class="fa-solid fa-book"></i>
-                Trace一覧
-            </h1>
+        <x-slot:description>
+            学習した内容を管理します。<br>
+            記録・検索・整理ができます。
+        </x-slot:description>
 
-            <p class="text-md text-slate-500">
-                学習した内容を管理します。<br>
-                記録・検索・整理ができます。
-            </p>
-        </div>
+        <x-ui.button :href="route('trace.create')" variant="primary" wire:navigate>
+            <i class="fa-solid fa-plus"></i>
+            新規作成
+        </x-ui.button>
 
-        <div class="flex justify-end gap-2">
-            <x-ui.button :href="route('trace.create')" variant="primary" wire:navigate>
-                <i class="fa-solid fa-plus"></i>
-                新規作成
-            </x-ui.button>
-            <x-ui.button :href="route('tag.index')" variant="secondary" wire:navigate>
-                <i class="fa-solid fa-tag"></i>
-                タグ
-            </x-ui.button>
-        </div>
+        <x-ui.button :href="route('tag.index')" variant="secondary" wire:navigate>
+            <i class="fa-solid fa-tag"></i>
+            タグ
+        </x-ui.button>
 
-    </div>
-
-    <hr class="border-dashed border-slate-200">
+    </x-trace.page-header>
 
     @if($this->totalTraces)
 

@@ -1,37 +1,26 @@
 <div class="max-w-5xl mx-auto p-6 space-y-6">
 
     {{-- Header --}}
-    <div class="flex items-end justify-between">
+    <x-trace.page-header
+        title="Trace詳細"
+        description="学習した内容を確認します。"
+        icon="fa-solid fa-book-open"
+    >
 
-        <div class="space-y-4">
-            <h1 class="text-3xl font-bold text-slate-700">
-                <i class="fa-solid fa-book-open"></i>
-                Trace詳細
-            </h1>
+        <x-ui.button :href="route('trace.index')" variant="primary" wire:navigate>
+            <i class="fa-solid fa-arrow-left"></i>
+            Trace一覧へ戻る
+        </x-ui.button>
+        <x-ui.button :href="route('trace.edit', $trace)" variant="secondary" wire:navigate>
+            <i class="fa-solid fa-pen"></i>
+            編集
+        </x-ui.button>
+        <x-ui.button variant="danger" wire:click="delete" wire:confirm="本当に削除しますか？">
+            <i class="fa-solid fa-trash-can"></i>
+            削除
+        </x-ui.button>
 
-            <p class="text-md text-slate-500">
-                学習した内容を確認します。
-            </p>
-        </div>
-
-        <div class="flex justify-end gap-2">
-            <x-ui.button :href="route('trace.index')" variant="primary" wire:navigate>
-                <i class="fa-solid fa-arrow-left"></i>
-                Trace一覧へ戻る
-            </x-ui.button>
-            <x-ui.button :href="route('trace.edit', $trace)" variant="secondary" wire:navigate>
-                <i class="fa-solid fa-pen"></i>
-                編集
-            </x-ui.button>
-            <x-ui.button variant="danger" wire:click="delete" wire:confirm="本当に削除しますか？">
-                <i class="fa-solid fa-trash-can"></i>
-                削除
-            </x-ui.button>
-        </div>
-
-    </div>
-
-    <hr class="border-dashed border-slate-200">
+    </x-trace.page-header>
 
     <x-ui.card class="space-y-6">
 
