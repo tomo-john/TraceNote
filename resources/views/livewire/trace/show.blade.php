@@ -112,10 +112,7 @@
 
     </div>
 
-    {{-- Old --}}
-    @include('livewire.trace.partials.available-relation-card')
-
-    {{-- Modal --}}
+    {{-- Add Relation Modal --}}
     @if($showAddRelationModal)
         <x-ui.modal size="lg" close="closeAddRelationModal()" :blur="false">
 

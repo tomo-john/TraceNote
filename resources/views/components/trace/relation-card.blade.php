@@ -6,7 +6,7 @@
 <x-ui.card>
 
     <h2 class="text-md font-bold text-slate-800 flex items-center gap-2">
-        <i class="fa-solid fa-book"></i>
+        <i class="fa-solid fa-link"></i>
         {{ $relationType->label() }}
     </h2>
 
@@ -49,7 +49,7 @@
         class="mt-4 w-full rounded-lg border border-dashed border-slate-300 py-2 text-sm text-slate-500 transition hover:border-slate-400 hover:text-slate-700"
     >
         <i class="fa-solid fa-plus"></i>
-        Traceを追加
+        関連Traceを追加
     </button>
 
 </x-ui.card>
