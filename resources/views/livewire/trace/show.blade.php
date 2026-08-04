@@ -94,25 +94,80 @@
     </x-ui.card>
 
     {{-- Relation Traces --}}
-    <div class="grid grid-cols-3 gap-3">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <x-trace.relation-card
+            :traces="$this->prerequisiteTraces"
+            :relation-type="App\Enums\TraceRelationType::PREREQUISITE"
+        />
 
-        @include('livewire.trace.partials.relation-card', [
-            'traces' => $this->prerequisiteTraces,
-            'relationType' => App\Enums\TraceRelationType::PREREQUISITE,
-        ])
+        <x-trace.relation-card
+            :traces="$this->childTraces"
+            :relation-type="App\Enums\TraceRelationType::CHILD"
+        />
 
-        @include('livewire.trace.partials.relation-card', [
-            'traces' => $this->childTraces,
-            'relationType' => App\Enums\TraceRelationType::CHILD,
-        ])
-
-        @include('livewire.trace.partials.relation-card', [
-            'traces' => $this->relatedTraces,
-            'relationType' => App\Enums\TraceRelationType::RELATED,
-        ])
+        <x-trace.relation-card
+            :traces="$this->relatedTraces"
+            :relation-type="App\Enums\TraceRelationType::RELATED"
+        />
 
     </div>
 
+    {{-- Old --}}
     @include('livewire.trace.partials.available-relation-card')
+
+    {{-- Modal --}}
+    @if($showAddRelationModal)
+        <x-ui.modal size="lg" close="closeAddRelationModal()" :blur="false">
+
+            {{-- Header --}}
+            <div class="space-y-2 border-b border-slate-200 pb-4">
+                <h2 class="text-lg font-bold text-slate-800">
+                    <i class="fa-solid fa-link"></i>
+                    Traceを関連付け
+                </h2>
+
+                <p class="text-sm text-slate-500">
+                    {{ $relationType->label() }}として追加するTraceを選択してください
+                </p>
+            </div>
+
+            {{-- Body --}}
+            <div class="mt-4 space-y-2 max-h-80 overflow-y-auto">
+
+                @forelse($this->availableRelationTraces as $availableRelationTrace)
+
+                    <button
+                        wire:click="addRelation({{ $availableRelationTrace->id }})"
+                        class="w-full rounded-xl border border-slate-200 px-4 py-3 text-left transition hover:bg-slate-50"
+                    >
+                        <div class="flex items-center justify-between">
+                            <p class="font-medium text-slate-700 truncate">
+                                {{ $availableRelationTrace->title }}
+                            </p>
+                            <i class="fa-solid fa-plus text-slate-400"></i>
+                        </div>
+                    </button>
+
+                @empty
+
+                    <div class="py-8 text-center text-slate-500">
+                        <i class="fa-solid fa-circle-info text-2xl text-slate-300"></i>
+                        <p class="mt-3">
+                            関連付けできるTraceがありません
+                        </p>
+                    </div>
+
+                @endforelse
+
+                {{-- Footer --}}
+                <div class="mt-6 flex justify-end">
+                    <x-ui.button variant="secondary" wire:click="closeAddRelationModal">
+                        閉じる
+                    </x-ui.button>
+                </div>
+            </div>
+
+        </x-ui.modal>
+    @endif
 
 </div>
