@@ -3,7 +3,7 @@
     {{-- Header --}}
     <x-trace.page-header
         title="Trace作成"
-        description="新しく学びをを記録します。"
+        description="新しい学びをを記録します。"
         icon="fa-solid fa-file-circle-plus"
     >
 
@@ -15,48 +15,31 @@
     </x-trace.page-header>
 
     {{-- Old --}}
-    <div class="flex items-center justify-center">
-        <a href="{{ route('trace.index') }}"
-           wire:navigate
-           class="inline-block w-28 text-center bg-pink-400 text-white rounded-lg py-2 px-5 hover:bg-amber-500 transition"
-        >
-            Index
-        </a>
-    </div>
-
-    <h1 class="text-3xl font-bold">
-        Trace作成
-        <i class="fa-solid fa-dog"></i>
-    </h1>
-
-    <div class="space-y-6">
+    <x-ui.card class="space-y-6">
 
         {{-- title --}}
         <div class="space-y-2">
-            <label class="font-bold">タイトル</label>
-            <input type="text"
-                   wire:model="title"
-                   class="w-full rounded-xl border border-slate-300 px-4 py-3">
+            <label for="title" class="text-sm font-semibold text-slate-700">タイトル</label>
+            <x-ui.input
+                id="title"
+                name="title"
+                wire:model="title"
+            />
 
-            @error('title')
-                <p class="text-sm text-red-500">
-                    {{ $message }}
-                </p>
-            @enderror
+            <x-ui.error name="title" />
         </div>
 
         {{-- summary --}}
         <div class="space-y-2">
-            <label class="font-bold">概要</label>
-            <textarea wire:model="summary"
-                      rows="3"
-                      class="w-full rounded-xl border border-slate-300 px-4 py-3"></textarea>
+            <label for="summary" class="text-sm font-semibold text-slate-700">概要</label>
+            <x-ui.textarea
+                id="summary"
+                name="summary"
+                wire:model="summary"
+                rows="2"
+            />
 
-            @error('summary')
-                <p class="text-sm text-red-500">
-                    {{ $message }}
-                </p>
-            @enderror
+            <x-ui.error name="summary" />
         </div>
 
         {{-- status --}}
@@ -126,6 +109,6 @@
             </button>
         </div>
 
-    </div>
+    </x-ui.card>
 
 </div>
