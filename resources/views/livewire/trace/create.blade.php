@@ -14,7 +14,6 @@
 
     </x-trace.page-header>
 
-    {{-- Old --}}
     <x-ui.card class="space-y-6">
 
         {{-- title --}}
@@ -44,9 +43,11 @@
 
         {{-- status --}}
         <div class="space-y-2">
-            <label class="font-bold">ステータス</label>
-            <select wire:model="status"
-                    class="w-full rounded-xl border border-slate-300 px-4 py-3">
+            <label for="status" class="text-sm font-semibold text-slate-700">ステータス</label>
+            <x-ui.select
+                id="status"
+                wire:model="status"
+            >
 
                 @foreach($statuses as $status)
                     <option value="{{ $status['value'] }}">
@@ -54,33 +55,31 @@
                     </option>
                 @endforeach
 
-            </select>
-
-            @error('status')
-                <p class="text-sm text-red-500">
-                    {{ $message }}
-                </p>
-            @enderror
+            </x-ui.select>
+            <x-ui.error name="status" />
         </div>
 
         {{-- Tags --}}
         <div class="space-y-2">
-            <label class="font-bold">
-                タグ
-            </label>
+            <label for="" class="text-sm font-semibold text-slate-700">タグ</label>
 
             <div class="flex flex-wrap gap-2">
 
                 @foreach($tags as $tag)
-                    <label
-                        class="flex items-center gap-1 px-3 py-2 rounded-xl border border-slate-300 cursor-pointer"
-                    >
-                        <input type="checkbox"
-                               value="{{ $tag->id }}"
-                               wire:model="selectedTags"
+
+                    <label class="flex items-center gap-1 cursor-pointer">
+
+                        <input
+                            type="checkbox"
+                            value="{{ $tag->id }}"
+                            wire:model="selectedTags"
                         >
-                        {{ $tag->name }}
+                        <span class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition hover:scale-105 {{ $tag->colorClass() }}">
+                            {{ $tag->name }}
+                        </span>
+
                     </label>
+
                 @endforeach
 
             </div>
@@ -88,25 +87,22 @@
 
         {{-- content --}}
         <div class="space-y-2">
-            <label class="font-bold">本文</label>
-            <textarea wire:model="content"
-                      rows="15"
-                      class="w-full rounded-xl border border-slate-300 px-4 py-3"></textarea>
+            <label for="content" class="text-sm font-semibold text-slate-700">本文</label>
+            <x-ui.textarea
+                id="content"
+                name="content"
+                wire:model="content"
+                rows="15"
+            />
 
-            @error('content')
-                <p class="text-sm text-red-500">
-                    {{ $message }}
-                </p>
-            @enderror
+            <x-ui.error name="content" />
         </div>
 
         <div class="flex justify-end">
-            <button wire:click="save"
-                    class="rounded-xl bg-slate-800 px-6 py-3 text-white font-bold hover:bg-slate-700 transition"
-            >
-                保存する
+            <x-ui.button wire:click="save" varitant="secondary">
                 <i class="fa-solid fa-dog"></i>
-            </button>
+                保存する
+            </x-ui.button>
         </div>
 
     </x-ui.card>
