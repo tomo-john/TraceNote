@@ -12,25 +12,26 @@ resources/views/components
 
 ## Component一覧
 
-| Component          | Purpose               |
-| ------------------ | --------------------- |
-| x-ui.button        | ボタン                |
-| x-ui.card          | カード                |
-| x-ui.dropdown-item | ドロップダウン内      |
-| x-ui.error         | エラー                |
-| x-ui.input         | 入力欄                |
-| x-ui.link          | リンク                |
-| x-ui.logo          | アプリロゴ            |
-| x-ui.select        | セレクトボックス      |
-| x-ui.error         | バリデーション表示    |
-| x-ui.empty-state   | データなし表示        |
-| x-ui.modal         | モーダル              |
-| x-ui.nav-link      | ナビリンク            |
-| x-ui.select        | セレクトボックス      |
-| x-ui.status-badge  | Traceステータスバッジ |
-| x-ui.tag-badge     | タグバッジ            |
-| x-trace.card       | Trace表示             |
-| x-tag.card         | Tag表示               |
+| Component              | Purpose               |
+| ---------------------- | --------------------- |
+| x-ui.button            | ボタン                |
+| x-ui.card              | カード                |
+| x-ui.dropdown-item     | ドロップダウン内      |
+| x-ui.empty-state       | データなし表示        |
+| x-ui.error             | エラー                |
+| x-ui.input             | 入力欄                |
+| x-ui.link              | リンク                |
+| x-ui.logo              | アプリロゴ            |
+| x-ui.modal             | モーダル              |
+| x-ui.nav-link          | ナビリンク            |
+| x-ui.select            | セレクトボックス      |
+| x-ui.status-badge      | Traceステータスバッジ |
+| x-ui.tag-badge         | タグバッジ            |
+| x-ui.textarea          | テキストエリア        |
+| x-trace.card           | Traceカード           |
+| x-trace.page-header    | ページヘッダ          |
+| x-trace.relation-card  | 関連Traceカード       |
+| x-tag.card             | Tag表示               |
 
 ## 命名ルール
 
