@@ -72,11 +72,16 @@
                         <input
                             type="checkbox"
                             value="{{ $tag->id }}"
-                            wire:model="selectedTags"
+                            wire:model.live="selectedTags"
+                            class="hidden"
                         >
-                        <span class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition hover:scale-105 {{ $tag->colorClass() }}">
-                            {{ $tag->name }}
-                        </span>
+
+                        <x-ui.tag-badge :tag="$tag" class="inline-flex transition hover:scale-105
+                                                           {{ in_array($tag->id, $selectedTags)
+                                                               ? 'ring-2 ring-slate-500 ring-offset-1'
+                                                               : ''
+                                                           }}"
+                        />
 
                     </label>
 
