@@ -61,7 +61,7 @@
 
         {{-- Tags --}}
         <div class="space-y-2">
-            <label for="" class="text-sm font-semibold text-slate-700">タグ</label>
+            <p class="text-sm font-semibold text-slate-700">タグ</p>
 
             <div class="flex flex-wrap gap-2">
 
@@ -73,14 +73,14 @@
                             type="checkbox"
                             value="{{ $tag->id }}"
                             wire:model.live="selectedTags"
-                            class="hidden"
+                            class="sr-only"
                         >
 
-                        <x-ui.tag-badge :tag="$tag" class="inline-flex transition hover:scale-105
-                                                           {{ in_array($tag->id, $selectedTags)
-                                                               ? 'ring-2 ring-slate-500 ring-offset-1'
-                                                               : ''
-                                                           }}"
+                        <x-ui.tag-badge :tag="$tag"
+                                        @class([
+                                            'inline-flex transition hover:scale-105',
+                                            'ring-2 ring-slate-500 ring-offset-1 shadow-sm' => in_array($tag->id, $selectedTags),
+                                        ])
                         />
 
                     </label>
@@ -104,7 +104,7 @@
         </div>
 
         <div class="flex justify-end">
-            <x-ui.button wire:click="save" varitant="secondary">
+            <x-ui.button wire:click="save">
                 <i class="fa-solid fa-dog"></i>
                 保存する
             </x-ui.button>
