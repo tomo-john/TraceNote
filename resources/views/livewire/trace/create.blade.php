@@ -56,6 +56,7 @@
                 @endforeach
 
             </x-ui.select>
+
             <x-ui.error name="status" />
         </div>
 
@@ -103,6 +104,7 @@
             <x-ui.error name="content" />
         </div>
 
+        {{-- button --}}
         <div class="flex justify-end">
             <x-ui.button wire:click="save">
                 <i class="fa-solid fa-dog"></i>

@@ -1,54 +1,53 @@
-<div class="max-w-4xl mx-auto p-6 space-y-6">
+<div class="max-w-5xl mx-auto p-6 space-y-6">
 
-    <div class="flex items-center justify-center">
-        <a href="{{ route('trace.index') }}"
-           wire:navigate
-           class="inline-block w-28 text-center bg-pink-400 text-white rounded-lg py-2 px-5 hover:bg-amber-500 transition"
-        >
-            Index
-        </a>
-    </div>
+    {{-- Header --}}
+    <x-trace.page-header
+        title="Trace編集"
+        description=""
+        icon="fa-solid fa-pen-to-square"
+    >
 
-    <h1 class="text-3xl font-bold">
-        Trace編集
-        <i class="fa-solid fa-dog"></i>
-    </h1>
+        <x-ui.button :href="route('trace.index')" variant="primary" wire:navigate>
+            <i class="fa-solid fa-arrow-left"></i>
+            Trace一覧へ戻る
+        </x-ui.button>
 
-    <div class="space-y-6">
+    </x-trace.page-header>
+
+    <x-ui.card class="space-y-6">
 
         {{-- title --}}
         <div class="space-y-2">
-            <label class="font-bold">タイトル</label>
-            <input type="text"
-                   wire:model="title"
-                   class="w-full rounded-xl border border-slate-300 px-4 py-3">
+            <label for="title" class="text-sm font-semibold text-slate-700">タイトル</label>
+            <x-ui.input
+                id="title"
+                name="title"
+                wire:model="title"
+            />
 
-            @error('title')
-                <p class="text-sm text-red-500">
-                    {{ $message }}
-                </p>
-            @enderror
+            <x-ui.error name="title" />
         </div>
 
         {{-- summary --}}
         <div class="space-y-2">
-            <label class="font-bold">概要</label>
-            <textarea wire:model="summary"
-                      rows="3"
-                      class="w-full rounded-xl border border-slate-300 px-4 py-3"></textarea>
+            <label for="summary" class="text-sm font-semibold text-slate-700">概要</label>
+            <x-ui.textarea
+                id="summary"
+                name="summary"
+                wire:model="summary"
+                rows="2"
+            />
 
-            @error('summary')
-                <p class="text-sm text-red-500">
-                    {{ $message }}
-                </p>
-            @enderror
+            <x-ui.error name="summary" />
         </div>
 
         {{-- status --}}
         <div class="space-y-2">
-            <label class="font-bold">ステータス</label>
-            <select wire:model="status"
-                    class="w-full rounded-xl border border-slate-300 px-4 py-3">
+            <label for="status" class="text-sm font-semibold text-slate-700">ステータス</label>
+            <x-ui.select
+                id="status"
+                wire:model="status"
+            >
 
                 @foreach($statuses as $status)
                     <option value="{{ $status['value'] }}">
@@ -56,33 +55,37 @@
                     </option>
                 @endforeach
 
-            </select>
+            </x-ui.select>
 
-            @error('status')
-                <p class="text-sm text-red-500">
-                    {{ $message }}
-                </p>
-            @enderror
+            <x-ui.error name="status" />
         </div>
 
         {{-- Tags --}}
         <div class="space-y-2">
-            <label class="font-bold">
-                タグ
-            </label>
+            <p class="text-sm font-semibold text-slate-700">タグ</p>
 
             <div class="flex flex-wrap gap-2">
 
                 @foreach($tags as $tag)
-                    <label
-                        class="flex items-center gap-1 px-3 py-2 rounded-xl border border-slate-300 cursor-pointer"
-                    >
-                        <input type="checkbox"
-                               value="{{ $tag->id }}"
-                               wire:model="selectedTags"
+
+                    <label class="flex items-center gap-1 cursor-pointer">
+
+                        <input
+                            type="checkbox"
+                            value="{{ $tag->id }}"
+                            wire:model.live="selectedTags"
+                            class="sr-only"
                         >
-                        {{ $tag->name }}
+
+                        <x-ui.tag-badge :tag="$tag"
+                                        @class([
+                                            'inline-flex transition hover:scale-105',
+                                            'ring-2 ring-slate-500 ring-offset-1 shadow-sm' => in_array($tag->id, $selectedTags),
+                                        ])
+                        />
+
                     </label>
+
                 @endforeach
 
             </div>
@@ -90,26 +93,25 @@
 
         {{-- content --}}
         <div class="space-y-2">
-            <label class="font-bold">本文</label>
-            <textarea wire:model="content"
-                      rows="15"
-                      class="w-full rounded-xl border border-slate-300 px-4 py-3"></textarea>
+            <label for="content" class="text-sm font-semibold text-slate-700">本文</label>
+            <x-ui.textarea
+                id="content"
+                name="content"
+                wire:model="content"
+                rows="15"
+            />
 
-            @error('content')
-                <p class="text-sm text-red-500">
-                    {{ $message }}
-                </p>
-            @enderror
+            <x-ui.error name="content" />
         </div>
 
+        {{-- button --}}
         <div class="flex justify-end">
-            <button wire:click="save"
-                    class="rounded-xl bg-slate-800 px-6 py-3 text-white font-bold hover:bg-slate-700 transition"
-            >
-                保存する
+            <x-ui.button wire:click="save">
                 <i class="fa-solid fa-dog"></i>
-            </button>
+                保存する
+            </x-ui.button>
         </div>
 
-    </div>
+    </x-ui.card>
+
 </div>
