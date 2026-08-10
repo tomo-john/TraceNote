@@ -3,7 +3,7 @@
     {{-- Header --}}
     <x-trace.page-header
         title="Trace編集"
-        description=""
+        description="記録した学びの内容を編集します。"
         icon="fa-solid fa-pen-to-square"
     >
 
