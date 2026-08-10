@@ -28,6 +28,9 @@
             >
                 右
             </button>
+
+            <x-button class="text-lg">A</x-button>
+            <x-button class="text-sm">A</x-button>
         </div>
 
     </div>
