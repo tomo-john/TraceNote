@@ -108,7 +108,7 @@ class DashboardService
                 'sizeClass' => 'text-xl',
             ],
 
-            $traceCount < 1 => [
+            $traceCount < 10 => [
                 'colorClass' => 'text-green-200',
                 'sizeClass' => 'text-xl',
             ],
@@ -124,7 +124,7 @@ class DashboardService
             ],
 
             default => [
-                'colorClass' => 'text-geeen-700',
+                'colorClass' => 'text-green-700',
                 'sizeClass' => 'text-7xl',
             ],
         };
