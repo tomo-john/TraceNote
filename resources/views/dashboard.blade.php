@@ -6,19 +6,18 @@
             {{-- Hero --}}
             <x-ui.card class="w-full">
                 <h2 class="text-lg font-bold text-slate-700">今日も一歩ずつ、知識の木を育てよう。</h2>
-                <div class="flex items-center gap-4 mt-2">
-                    <i class="fa-solid fa-dog text-2xl text-green-100"></i>
-                    <i class="fa-solid fa-dog text-2xl text-green-200"></i>
-                    <i class="fa-solid fa-dog text-2xl text-green-300"></i>
-                    <i class="fa-solid fa-dog text-2xl text-green-500"></i>
-                    <i class="fa-solid fa-dog text-2xl text-green-700"></i>
+
+                <div class="flex flex-col items-center justify-center gap-2">
+                    <i class="fa-solid fa-dog {{ $dog['colorClass'] }} {{ $dog['sizeClass'] }}"></i>
+                    Lv. {{ $level }}
                 </div>
             </x-ui.card>
 
             {{-- Count --}}
             <div class="grid grid-cols-3 gap-4 w-full">
+
                 <x-ui.card class="flex flex-col gap-2">
-                    <h2 class="text-lg font-bold text-slate-700">
+                    <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
                         <i class="fa-solid fa-book text-pink-400"></i>
                         学習記録
                     </h2>
@@ -26,30 +25,31 @@
                 </x-ui.card>
 
                 <x-ui.card class="flex flex-col gap-2">
-                    <span>
+                    <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
                         <i class="fa-solid fa-tag text-sky-400"></i>
                         集めた知識
-                    </span>
-                    <span>{{ $tagCount }} Tags</span>
+                    </h2>
+                    <span class="text-md text-slate-500">{{ $tagCount }} Tags</span>
                 </x-ui.card>
 
                 <x-ui.card class="flex flex-col gap-2">
-                    <span>
+                    <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
                         <i class="fa-brands fa-pagelines text-green-400"></i>
                         成長レベル
-                    </span>
-                    <span>Lv. {{ $level }}</span>
+                    </h2>
+                    <span class="text-md text-slate-500">Lv. {{ $level }}</span>
                 </x-ui.card>
             </div>
 
             {{-- Activity History --}}
             <x-ui.card>
-                <span>
-                    <i class="fa-solid fa-chart-line text-gray-400"></i>
+                <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-line text-amber-400"></i>
                     活動履歴
-                </span>
+                </h2>
 
-                <div class="flex gap-2 mt-2">
+                <div class="flex gap-4 mt-2">
+
                     {{-- 曜日 --}}
                     <div class="grid grid-rows-7 gap-0.5 text-xs text-slate-500">
                         <div>Sun</div>
@@ -70,10 +70,6 @@
                         @endforeach
                     </div>
 
-                    {{-- 犬 --}}
-                    <div class="flex-1 flex items-center justify-center border border-slate-400 rounded-xl">
-                        <i class="fa-solid fa-dog {{ $dog['colorClass'] }} {{ $dog['sizeClass'] }}"></i>
-                    </div>
                 </div>
 
             </x-ui.card>
@@ -82,10 +78,10 @@
 
                 {{-- Status Badge --}}
                 <x-ui.card>
-                    <span>
-                        <i class="fa-solid fa-chart-column text-gray-400"></i>
+                    <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-column text-amber-400"></i>
                         ステータス
-                    </span>
+                    </h2>
 
                     <div class="flex flex-col gap-8 mt-8">
                         @foreach($statusCounts as $status)
@@ -100,10 +96,10 @@
 
                 {{-- Recently Trace --}}
                 <x-ui.card class="w-full">
-                    <span>
-                        <i class="fa-solid fa-book-open text-yellow-400"></i>
+                    <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open text-amber-400"></i>
                         最近の学び
-                    </span>
+                    </h2>
 
                     <div class="space-y-3 mt-2">
 
