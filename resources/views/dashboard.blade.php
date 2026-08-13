@@ -20,7 +20,7 @@
                     <div class="flex-1 flex flex-col items-center justify-center gap-2">
                         <i class="fa-solid fa-dog {{ $dog['colorClass'] }} {{ $dog['sizeClass'] }}"></i>
                         <span class="text-sm font-semibold text-slate-500">
-                            Lv. {{ $level }}
+                            Lv. {{ $levelInfo['level'] }}
                         </span>
                     </div>
 
@@ -52,7 +52,7 @@
                         <i class="fa-brands fa-pagelines text-green-400"></i>
                         成長レベル
                     </h2>
-                    <span class="text-md text-slate-500">Lv. {{ $level }}</span>
+                    <span class="text-md text-slate-500">Lv. {{ $levelInfo['level'] }}</span>
                 </x-ui.card>
             </div>
 

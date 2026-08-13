@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Trace;
 use App\Models\Tag;
 use App\Enums\TraceStatus;
-use App\Services\Growth;
+use App\Services\GrowthService;
 
 class DashboardService
 {
@@ -97,39 +97,6 @@ class DashboardService
         };
     }
 
-    // 表示用の犬
-    private function getDogInfo(User $user): array
-    {
-        $traceCount = $this->getTraceCount($user);
-
-        return match (true) {
-            $traceCount < 1 => [
-                'colorClass' => 'text-green-100',
-                'sizeClass' => 'text-xl',
-            ],
-
-            $traceCount < 10 => [
-                'colorClass' => 'text-green-200',
-                'sizeClass' => 'text-3xl',
-            ],
-
-            $traceCount < 30 => [
-                'colorClass' => 'text-green-300',
-                'sizeClass' => 'text-5xl',
-            ],
-
-            $traceCount < 50 => [
-                'colorClass' => 'text-green-500',
-                'sizeClass' => 'text-7xl',
-            ],
-
-            default => [
-                'colorClass' => 'text-green-700',
-                'sizeClass' => 'text-9xl',
-            ],
-        };
-    }
-
     // コントローラーから呼び出すのはこれだけ
     public function getStats(User $user): array
     {
@@ -139,8 +106,8 @@ class DashboardService
             'statusCounts' => $this->getStatusCounts($user),
             'recentTraces' => $this->getRecentTraces($user),
             'activityCounts' => $this->getActivityCounts($user),
-            'dog' => $this->getDogInfo($user),
-            'level' => $this->growthService->level($user),
+            'dog' => $this->growthService->getDogInfo($user),
+            'levelInfo' => $this->growthService->getlevelInfo($user),
         ];
     }
 }
