@@ -5,12 +5,27 @@
 
             {{-- Hero --}}
             <x-ui.card class="w-full">
-                <h2 class="text-lg font-bold text-slate-700">今日も一歩ずつ、知識の木を育てよう。</h2>
 
-                <div class="flex flex-col items-center justify-center gap-2">
-                    <i class="fa-solid fa-dog {{ $dog['colorClass'] }} {{ $dog['sizeClass'] }}"></i>
-                    Lv. {{ $level }}
+                <div class="flex items-center">
+
+                    <div class="space-y-2">
+                        <h2 class="text-lg font-bold text-slate-700">
+                            今日も一歩ずつ、知識の木を育てよう。
+                        </h2>
+                        <p class="text-sm text-slate-500">
+                            学んだことを記録して、少しずつ成長していきましょう。
+                        </p>
+                    </div>
+
+                    <div class="flex-1 flex flex-col items-center justify-center gap-2">
+                        <i class="fa-solid fa-dog {{ $dog['colorClass'] }} {{ $dog['sizeClass'] }}"></i>
+                        <span class="text-sm font-semibold text-slate-500">
+                            Lv. {{ $level }}
+                        </span>
+                    </div>
+
                 </div>
+
             </x-ui.card>
 
             {{-- Count --}}
@@ -83,12 +98,21 @@
                         ステータス
                     </h2>
 
-                    <div class="flex flex-col gap-8 mt-8">
+                    <div class="mt-6 space-y-3">
                         @foreach($statusCounts as $status)
-                            <div class="w-full text-center text-sm p-1 rounded-full {{ $status['colorClass'] }}">
-                                <i class="{{ $status['iconClass'] }}"></i>
-                                <span class="">{{ $status['label'] }}</span>
-                                <span class="">{{ $status['count'] }}</span>
+                            <div class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3">
+
+                                <div class="flex items-center gap-2">
+                                    <span class="{{ $status['colorClass'] }} rounded-full px-3 py-1 text-xs font-medium">
+                                        <i class="{{ $status['iconClass'] }}"></i>
+                                        {{ $status['label'] }}
+                                    </span>
+                                </div>
+
+                                <span class="font-bold text-slate-700">
+                                    {{ $status['count'] }}
+                                </span>
+
                             </div>
                         @endforeach
                     </div>
@@ -101,39 +125,42 @@
                         最近の学び
                     </h2>
 
-                    <div class="space-y-3 mt-2">
+                    <div class="mt-4 divide-y divide-slate-100">
 
                         @forelse ($recentTraces as $trace)
 
-                            <a href="{{ route('trace.show', $trace) }}"
-                               class="block rounded-lg border border-pink-200 p-4 hover:bg-pink-300 transition"
+                            <a
+                                href="{{ route('trace.show', $trace) }}"
+                                wire:navigate
+                                class="block py-4 first:pt-0 last:pb-0 hover:bg-slate-50 transition"
                             >
+                                <div class="flex items-start gap-3">
 
-                                <div class="flex items-center gap-2">
+                                    <x-ui.status-badge :status="$trace->status" />
 
-                                    <span class="text-sm p-1 rounded-full {{ $trace->status->colorClass() }}">
-                                        <i class="{{ $trace->status->iconClass() }}"></i>
-                                        {{ $trace->status->label() }}
-                                    </span>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="font-semibold text-slate-700 truncate">
+                                            {{ $trace->title }}
+                                        </p>
 
-                                    <span class="font-semibold">
-                                        {{ $trace->title }}
-                                    </span>
+                                        <p class="mt-1 text-sm text-slate-500 line-clamp-1">
+                                            {{ $trace->summary }}
+                                        </p>
+                                    </div>
 
-                                    <span class="text-sm text-slate-500">
-                                        {{ $trace->summary }}
-                                    </span>
+                                    <i class="fa-solid fa-chevron-right text-xs text-slate-300 mt-1"></i>
 
                                 </div>
-
                             </a>
 
                         @empty
 
-                            <p>
-                                No Trace
-                                <i class="fa-solid fa-dog"></i>
-                            </p>
+                            <div class="py-8 text-center text-slate-400">
+                                <i class="fa-solid fa-dog text-2xl"></i>
+                                <p class="mt-2 text-sm">
+                                    まだTraceがありません
+                                </p>
+                            </div>
 
                         @endforelse
 
