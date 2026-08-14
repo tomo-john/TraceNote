@@ -34,11 +34,10 @@ class GrowthService
         }
 
         $remainingToNextLevel = $requiredTraces - $remainingTraces;
-        $progress = ($remainingTraces / $requiredTraces) * 100;
+        $progress = round(($remainingTraces / $requiredTraces) * 100);
 
         return [
             'level' => $level,
-            'traceCount' => $traceCount,
             'remainingTraces' => $remainingToNextLevel,
             'progress' => $progress,
         ];

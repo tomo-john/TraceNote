@@ -52,12 +52,19 @@
                         <i class="fa-brands fa-pagelines text-green-400"></i>
                         成長レベル
                     </h2>
-                    <div class="flex gap-2">
-                        <span class="text-md text-slate-500">Lv. {{ $levelInfo['level'] }}</span>
-                        <span class="text-md text-slate-500">/ {{ $levelInfo['traceCount'] }}</span>
-                        <span class="text-md text-slate-500">/ {{ $levelInfo['remainingTraces'] }}</span>
-                        <span class="text-md text-slate-500">/ {{ $levelInfo['progress'] }}</span>
+                    <span class="text-md text-slate-500">
+                        Lv. {{ $levelInfo['level'] }}
+                    </span>
+                    <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
+                        <div
+                            class="h-full bg-green-400 rounded-full"
+                            style="width: {{ $levelInfo['progress'] }}%"
+                        >
+                        </div>
                     </div>
+                    <span class="text-sm text-slate-400">
+                        あと {{ $levelInfo['remainingTraces'] }} Traces で次のレベル！
+                    </span>
                 </x-ui.card>
             </div>
 
