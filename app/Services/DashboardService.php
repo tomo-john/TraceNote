@@ -106,8 +106,7 @@ class DashboardService
             'statusCounts' => $this->getStatusCounts($user),
             'recentTraces' => $this->getRecentTraces($user),
             'activityCounts' => $this->getActivityCounts($user),
-            'dog' => $this->growthService->getDogInfo($user),
-            'levelInfo' => $this->growthService->getlevelInfo($user),
+            'growthInfo' => $this->growthService->getGrowthInfo($user),
         ];
     }
 }

@@ -18,9 +18,9 @@
                     </div>
 
                     <div class="flex-1 flex flex-col items-center justify-center gap-2">
-                        <i class="fa-solid fa-dog {{ $dog['colorClass'] }} {{ $dog['sizeClass'] }}"></i>
+                        <i class="fa-solid fa-dog {{ $growthInfo['dog']['colorClass'] }} {{ $growthInfo['dog']['sizeClass'] }}"></i>
                         <span class="text-sm font-semibold text-slate-500">
-                            Lv. {{ $levelInfo['level'] }}
+                            Lv. {{ $growthInfo['level'] }}
                         </span>
                     </div>
 
@@ -53,17 +53,17 @@
                         成長レベル
                     </h2>
                     <span class="text-md text-slate-500">
-                        Lv. {{ $levelInfo['level'] }}
+                        Lv. {{ $growthInfo['level'] }}
                     </span>
                     <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
                         <div
                             class="h-full bg-green-400 rounded-full"
-                            style="width: {{ $levelInfo['progress'] }}%"
+                            style="width: {{ $growthInfo['progress'] }}%"
                         >
                         </div>
                     </div>
                     <span class="text-sm text-slate-400">
-                        あと {{ $levelInfo['remainingTraces'] }} Traces で次のレベル！
+                        あと {{ $growthInfo['remainingTraces'] }} Traces で次のレベル！
                     </span>
                 </x-ui.card>
             </div>

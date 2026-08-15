@@ -12,7 +12,7 @@ class GrowthService
         return $user->traces()->count();
     }
 
-    public function getLevelInfo(User $user): array
+    public function getGrowthInfo(User $user): array
     {
         $traceCount = $this->getTraceCount($user);
 
@@ -40,35 +40,39 @@ class GrowthService
             'level' => $level,
             'remainingTraces' => $remainingToNextLevel,
             'progress' => $progress,
+            'dog' => $this->getDogInfo($level),
         ];
     }
 
-    public function getDogInfo(User $user): array
+    private function getDogInfo(int $level): array
     {
-        $traceCount = $this->getTraceCount($user);
-
         return match (true) {
-            $traceCount < 1 => [
+            $level <= 2 => [
+                'stage' => 'Baby',
                 'colorClass' => 'text-green-100',
                 'sizeClass' => 'text-xl',
             ],
 
-            $traceCount < 10 => [
+            $level <= 5 => [
+                'stage' => 'Puppy',
                 'colorClass' => 'text-green-200',
                 'sizeClass' => 'text-3xl',
             ],
 
-            $traceCount < 30 => [
+            $level <= 9 => [
+                'stage' => 'Young',
                 'colorClass' => 'text-green-300',
                 'sizeClass' => 'text-5xl',
             ],
 
-            $traceCount < 50 => [
+            $level <= 14 => [
+                'stage' => 'Adult',
                 'colorClass' => 'text-green-500',
                 'sizeClass' => 'text-7xl',
             ],
 
             default => [
+                'stage' => 'Master',
                 'colorClass' => 'text-green-700',
                 'sizeClass' => 'text-9xl',
             ],
