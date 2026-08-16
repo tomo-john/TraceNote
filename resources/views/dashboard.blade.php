@@ -97,8 +97,27 @@
                         @endforeach
                     </div>
 
+                    <div class="flex-1 flex flex-col items-center justify-center gap-2">
+                        <i class="fa-solid fa-dog {{ $growthInfo['dog']['colorClass'] }} {{ $growthInfo['dog']['sizeClass'] }}"></i>
+                        <span class="text-sm font-semibold text-slate-500">
+                            Lv. {{ $growthInfo['level'] }}
+                        </span>
+                    </div>
+
                 </div>
 
+                <div class="flex items-center gap-2 mt-4 text-xs text-slate-400">
+                    <span>少ない</span>
+
+                    <span class="size-3 rounded-sm bg-slate-400"></span>
+                    <span class="size-3 rounded-sm bg-green-200"></span>
+                    <span class="size-3 rounded-sm bg-green-300"></span>
+                    <span class="size-3 rounded-sm bg-green-400"></span>
+                    <span class="size-3 rounded-sm bg-green-500"></span>
+                    <span class="size-3 rounded-sm bg-green-700"></span>
+
+                    <span>多い</span>
+                </div>
             </x-ui.card>
 
             <div class="grid grid-cols-2 gap-4 w-full">
