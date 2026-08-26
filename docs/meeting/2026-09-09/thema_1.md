@@ -2,25 +2,28 @@
 
 ## なぜ作ったか
 
-Trace(知識)は1つで簡潔するものでなく、関連する知識が存在すると考えた。
+Trace(知識)は1つで完結するものでなく、関連する知識が存在すると考えた。
 
 Trace自体を単なるメモやノートでなく、Trace同士がお互いに関連し合う機能を実装したかったため。
 
 ## 最初に考えたこと
 
-関連(リレーション)はどうゆうタイプなのか？(1対1？1対多？)
+関連(リレーション)はどういうタイプなのか？(1対1？1対多？)
 
-- 1対1: 1つのTraceに対して1つだけのTraceとは限らないので違う
+- 1対1:
+    1つのTraceに対して1つだけのTraceとは限らないので違う
 
-    => 1つのTraceが複数のTraceに関連する場合がある
+    1つのTraceが複数のTraceに関連する場合がある
 
-- 1対多: 1つのTraceは複数のTraceに関連する(これはOK)
+- 1対多:
+    1つのTraceは複数のTraceに関連することはできる
 
-    => しかし、今回のリレーションはどちらもTraceモデル
+    しかし今回の関係では、関連先のTrace側も、別の複数のTraceと関連する可能性がある
 
-- 多対多: 複数のTraceは複数のTraceに関連できる(これがよさそう)
+- 多対多:
+    複数のTraceは複数のTraceに関連できる(これがよさそう)
 
-    => 今回のTraceのリレーションはこのタイプでいくのがよさそう
+    => 今回の関係に最も適していると考えた
 
 リレーションに種類を持たせることはできないか？
 
@@ -40,41 +43,53 @@ Trace A
 
 ## 最終的なDB構造
 
-traces: id, title, .... => Trace自体の情報
-trace_relations: id, from_trace_id, to_trace_id, relation_type => Trace間同士の関係の情報
+- `traces`: `id`, `title`, .... => Trace自体の情報
+- `trace_relations`: `id`, `from_trace_id`, `to_trace_id`, `relation_type` => Trace同士の関係の情報
 
 ## Laravelではどう実装したか
 
-Traceモデル -> TraceRelationモデルに`hasMany()`のリレーションを設定。
+### Traceモデル
 
-このとき、`from_trace_id`, `to_trace_id`のそれぞれを基準とするため2つメソッドを定義。
+- `outgoingRelations()`: 自分を`from_trace_id`とする関連を取得
+- `incomingRelations()`: 自分を`to_trace_id`とする関連を取得
 
-=> `outgoingRelations()`と`incomingRelations()`の2つ。
+### TraceRelationモデル
 
-TraceRelationモデルにはTraceモデルに対する`belongsTo()`のリレーションを設定。
+- `fromTrace()`: `from_trace_id`側のTraceを取得する
+- `toTrace()`: `to_trace_id`側のTraceを取得する
 
-こちらも、`from_trace_id`, `to_trace_id`どちら基準かを定義する為2つのメソッドを定義。
+これにより、あるTraceから見たときに、自分から出ていく関係と、自分に入ってくる関係を区別して取得できる。
 
-=> `fromTrace()`と`toTrace`
+また、取得した関係は単なる中間テーブルの値ではなく`TraceRelation`モデルとして扱えるため、
 
-これにより、あるTraceから見た時まず自分に関連するTrace(関連情報)を矢印の向きを指定して取得
+関係そのものに対してリレーションやメソッドを持たせることができる。
 
-=> 自分から出ていく矢印(`from`)なのか、自分に入ってくる矢印(`to`)なのか
-
-そしてこの取得した関連情報が`TraceRelationモデルのインスタンス`として扱うことができ、さらに関連先のTraceを取得することができる。
-
-さらに、TraceRelation(trace_relationsテーブル)にはどの関連タイプかを指定する`relation_type`のメソッドを持たせた。
-
-そして、この`relation_type`はEnumsとして管理した。
+`relation_type`カラムには関連タイプを保存し、LaravelではEnumとして管理した。
 
 ## なぜTraceRelationモデルが必要だったか
 
-単純な中間テーブル = trace間の紐づけ情報 に対して、矢印の向き(from, to)と関連の種類(relation_type)という情報を持たせたかった。
+`traces`テーブルはTraceそのものの情報を管理する。
 
-=> ここの説明が特に弱い
+一方で`trace_relations`テーブルは、「どのTraceとどのTraceが、どのような関係にあるか」という関係そのものの情報を管理する。
+
+なので、Traceそのものではなく、TraceとTraceの関係自体を独立したモデルとして扱いたかった。
+
+=> trace_relationsの1レコードを、「TraceとTraceの関係を表す1つのデータ」として扱いたかった。
 
 ## ここで学んだこと
 
-- 中間テーブルを独立したモデルとして扱う設定
-- relation_typeをEnumとして扱う
+- 自己参照の多対多リレーションの考え方
+- 中間テーブルをモデルとして扱う方法
+- hasMany()とbelongsTo()を組み合わせて関係を表現する方法
+- `relation_type`をEnumとして扱う方法
+
+## memo
+
+```
+Trace
+＝ 知識そのもの
+
+TraceRelation
+＝ 知識と知識の関係そのもの
+```
 
