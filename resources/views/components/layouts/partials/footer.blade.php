@@ -6,11 +6,6 @@
         <x-ui.nav-link :href="route('about')">About</x-ui.nav-link>
         <x-ui.nav-link :href="route('privacy')">Privacy</x-ui.nav-link>
         <x-ui.nav-link :href="route('contact')">Contact</x-ui.nav-link>
-
-        {{-- Sandbox --}}
-        <x-ui.nav-link :href="route('sandbox')" variant="special">Sandbox(UI)</x-ui.nav-link>
-        <x-ui.nav-link :href="route('sandbox.test')" variant="special">Sandbox(LW)</x-ui.nav-link>
-
     </div>
 
     <div class="text-[10px] text-slate-300 mt-10 uppercase tracking-widest">
