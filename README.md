@@ -2,7 +2,7 @@
 
 ## :bulb: Overview
 
-新しい領域の学習において、理解の蓄積として管理することを目的とした学習支援アプリ。
+新しい領域を学習する際に、学んだ知識を記録・整理し、蓄積していくための学習支援アプリです。
 
 単なるメモやノートではなく、
 
@@ -20,6 +20,8 @@
 - TraceのCRUD
 - 学習状態管理
 - Tagによる分類
+- TraceとTagの関連付け
+- Trace同士の関連付け
 - 検索機能
 - Dashboard
 
@@ -27,10 +29,18 @@
 
 ## :gear: Tech Stack
 
-- **T**ailwind CSS
-- **A**lpine.js
-- **L**ivewire
-- **L**aravel 13
+### Application
+
+- Laravel
+- Livewire
+- Tailwind CSS
+- Alpine.js
+
+### Infrastructure
+
+- Nginx
+- SQLite
+- Ubuntu(VPS)
 
 ---
 
@@ -38,7 +48,7 @@
 
 ![ER Diagram](docs/er_diagram.png)
 
-## docs
+## Documents
 
 ```bash
 docs
@@ -47,6 +57,5 @@ docs
 ├── er_diagram.png         # ER図
 ├── trace_relation.md      # Traceモデルのリレーション
 ├── ui_components.md       # UI コンポーネント
-└── user_profile.md        # User Profileページ
 ```
 
