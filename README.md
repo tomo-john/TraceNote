@@ -2,9 +2,7 @@
 
 ## :rocket: Demo URL
 
-Demo URL: [https://tracenote.work]
-
-[Live Demo](https://tracenote.work)
+Live Demo: [https://tracenote.work]
 
 ## :bulb: Overview
 
