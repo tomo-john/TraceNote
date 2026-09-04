@@ -29,7 +29,7 @@
                             required
                             autofocus
                             autocomplete="name"
-                            placeholder="じょん"
+                            placeholder=""
                         />
 
                         <x-ui.error name="name" />
@@ -75,7 +75,7 @@
                             type="password"
                             required
                             autocomplete="new-password"
-                            placeholder="パスワード"
+                            placeholder="パスワード(確認)"
                         />
 
                         <x-ui.error name="password_confirmation" />
