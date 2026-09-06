@@ -29,11 +29,6 @@
                     Profile
                 </x-ui.dropdown-item>
 
-                <x-ui.dropdown-item href="#">
-                    <i class="fa-solid fa-flask w-4"></i>
-                    Test
-                </x-ui.dropdown-item>
-
                 <hr class="border-gray-200 my-2">
 
                 <form method="POST" action="{{ route('logout') }}">
