@@ -33,21 +33,25 @@
             {{-- Section2 --}}
             <div class="grid grid-cols-3 gap-4 w-full">
 
-                <x-ui.card class="flex flex-col gap-2">
-                    <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
-                        <i class="fa-solid fa-book text-pink-400"></i>
-                        学習記録
-                    </h2>
-                    <span class="text-md text-slate-500">{{ $traceCount }} Traces</span>
-                </x-ui.card>
+                <a href="{{ route('trace.index') }}" wire:navigate class="block h-full">
+                    <x-ui.card class="flex flex-col gap-2 h-full">
+                        <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
+                            <i class="fa-solid fa-book text-pink-400"></i>
+                            学習記録
+                        </h2>
+                        <span class="text-md text-slate-500">{{ $traceCount }} Traces</span>
+                    </x-ui.card>
+                </a>
 
-                <x-ui.card class="flex flex-col gap-2">
-                    <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
-                        <i class="fa-solid fa-tag text-sky-400"></i>
-                        集めた知識
-                    </h2>
-                    <span class="text-md text-slate-500">{{ $tagCount }} Tags</span>
-                </x-ui.card>
+                <a href="{{ route('tag.index') }}" wire:navigate class="block h-full">
+                    <x-ui.card class="flex flex-col gap-2 h-full">
+                        <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
+                            <i class="fa-solid fa-tag text-sky-400"></i>
+                            集めた知識
+                        </h2>
+                        <span class="text-md text-slate-500">{{ $tagCount }} Tags</span>
+                    </x-ui.card>
+                </a>
 
                 <x-ui.card class="flex flex-col gap-2">
                     <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
@@ -80,7 +84,7 @@
                         ステータス
                     </h2>
 
-                    <div class="mt-6 space-y-3">
+                    <div class="grid grid-cols-2 gap-3 mt-6">
                         @foreach($statusCounts as $status)
                             <div class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3">
 
@@ -107,7 +111,7 @@
                         活動履歴
                     </h2>
 
-                    <div class="flex gap-4 mt-2">
+                    <div class="flex gap-6 mt-2">
 
                         <div class="grid grid-rows-7 gap-0.5 text-xs text-slate-500">
                             <div>Sun</div>
@@ -119,7 +123,7 @@
                             <div>Sat</div>
                         </div>
 
-                        <div class="inline-grid grid-flow-col grid-rows-7 gap-0.5">
+                        <div class="inline-grid grid-flow-col grid-rows-7 gap-1">
                             @foreach($activityCounts as $activity)
                                 <div class="size-3 rounded-sm {{ $activity['colorClass'] }}"
                                      title="{{ $activity['date'] }} : {{ $activity['count'] }}"
