@@ -25,7 +25,7 @@
                             id="email"
                             name="email"
                             type="email"
-                            :value="old('email')"
+                            :value="old('email', request('email'))"
                             required
                             autocomplete="email"
                             placeholder="email@example.com"
