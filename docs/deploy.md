@@ -50,9 +50,19 @@ git clone git@github.com:tomo-john/TraceNote.git
 
 `/var/www/apps/tracenote`で実施。
 
-=> 初回はエラーが出たので、PHP 8,3(VPS)対応を別途実施
+=> 初回はエラーが出たので、PHP 8.3(VPS)対応を別途実施
 
-=> [対応メモ](./composer_install_error.md)
+=> [対応メモ](./memo/composer_install_error.md)
+
+> **2026-11-08 追記**
+>
+> 本番では開発用パッケージ(Pest、Pail、Sailなど)を入れないよう、今後は`--no-dev`をつける。
+>
+> ```bash
+> composer install --no-dev
+> ```
+>
+> => 詳しくは[Composer依存パッケージの更新メモ](./memo/composer_update.md)
 
 ## 環境設定(.env)
 
